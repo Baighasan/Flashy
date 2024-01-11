@@ -13,7 +13,7 @@ import javax.sound.sampled.*;
 
 
 public class TimerGUI extends javax.swing.JFrame {
-    private Flashy activeFlashy;
+    private TimerFunctionality activeTimer;
     /**
      * Creates new form TimerGUI
      */
@@ -37,7 +37,7 @@ public class TimerGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("start timer");
+        jButton1.setText("Start Timer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -68,7 +68,7 @@ public class TimerGUI extends javax.swing.JFrame {
                 .addComponent(alarm)
                 .addGap(22, 22, 22))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(cboxTimeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -93,25 +93,35 @@ public class TimerGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jButton1.setText("Pause Timer");
+        
+        String lblText = jButton1.getText();
+    
+    if (lblText.equals("Start Timer")) {
+        jButton1.setText("Pause");
         String selectedTime = (String) cboxTimeSelection.getSelectedItem();
 
-        if (activeFlashy != null) {
-            // Stop the active Flashy instance if it exists
-            //activeFlashy.stopPomodoro();
+        // Stop and nullify the active TimerFunctionality instance if it exists
+        if (activeTimer != null) {
+            activeTimer.stopTimer();
+            activeTimer = null;
         }
 
-        int sessionTime;
-        if (selectedTime.equals("25 Min")) {
-            sessionTime = 25;
-        } else {
-            sessionTime = 50;
-        }
+        int sessionTime = selectedTime.equals("25 Min") ? 25 : 50;
 
-        // Create a new Flashy instance based on the selected time and start it
-        activeFlashy = new Flashy(this, timerText, sessionTime);
-        activeFlashy.startPomodoro();
-    
+        // Create a new TimerFunctionality instance based on the selected time and start it
+        activeTimer = new TimerFunctionality(this, timerText, sessionTime);
+        activeTimer.startPomodoro();
+    } else if (lblText.equals("Pause")) {
+        jButton1.setText("Resume");
+        if (activeTimer != null) {
+            activeTimer.pauseTimer();
+        }
+    } else if (lblText.equals("Resume")) {
+        jButton1.setText("Pause");
+        if (activeTimer != null) {
+            activeTimer.resumeTimer();
+        }
+    }
         
 
     }//GEN-LAST:event_jButton1ActionPerformed
