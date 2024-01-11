@@ -3,6 +3,9 @@ package com.mycompany.flashy;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 public class TimerFunctionality {
 
@@ -42,11 +45,15 @@ public class TimerFunctionality {
 
     private void updateTimer() {
         long elapsed = System.currentTimeMillis() - startTime;
-        long timeLeft = sessionTime * 60000 - (elapsed - totalPauseTime);
+        long timeLeft = sessionTime * 400 - (elapsed - totalPauseTime); // change value to 60000 later
 
         if (timeLeft <= 0) {
             timer.stop();
             timerLabel.setText("00:00");
+            
+            // Play the sound when the timer reaches zero
+            playSound("src\\main\\java\\com\\mycompany\\flashy\\Alarm-Slow-A1-www.fesliyanstudios.com.wav");
+            
             JOptionPane.showMessageDialog(timerLabel.getParent(), "Pomodoro complete. Take a break!");
             return;
         }
@@ -54,6 +61,19 @@ public class TimerFunctionality {
         long minutesLeft = timeLeft / 60000;
         long secondsLeft = (timeLeft / 1000) % 60;
         timerLabel.setText(String.format("%02d:%02d", minutesLeft, secondsLeft));
+    }
+
+    // Method to play a sound
+    private void playSound(String soundFilePath) {
+        try {
+            File soundFile = new File(soundFilePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
     public void pauseTimer() {
