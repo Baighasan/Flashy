@@ -2,6 +2,7 @@ package com.mycompany.flashy;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JLabel;
 
 public class Flashy {
 
@@ -16,12 +17,16 @@ public class Flashy {
     private Timer countdownTimer;
     private boolean isStudyPeriod;
     private boolean isLongPeriod;
+    private TimerGUI timerGUI; // Add a reference to TimerGUI
+    private JLabel timerText; // Add a reference to JLabel
 
-    public Flashy() {
+    public Flashy(TimerGUI timerGUI, JLabel timerText) {
         this.timer = new Timer();
         this.countdownTimer = new Timer();
-        this.isStudyPeriod = true; // start with a study period
-        this.isLongPeriod = false; // start with a short period
+        this.isStudyPeriod = true;
+        this.isLongPeriod = false;
+        this.timerGUI = timerGUI; // Initialize the reference to TimerGUI
+        this.timerText = timerText; // Initialize the reference to JLabel
     }
 
     public void startPomodoro() {
@@ -64,7 +69,8 @@ public class Flashy {
                 if (timeLeft > 0) {
                     long minutes = timeLeft / 60;
                     long seconds = timeLeft % 60;
-                    System.out.printf("\rTime left: %02d:%02d     ", minutes, seconds); // Update on the same line
+                    String timeString = String.format("%02d:%02d", minutes, seconds);
+                    timerText.setText("Time left: " + timeString); // Update the timerText in TimerGUI
                     timeLeft--;
                 } else {
                     this.cancel();
@@ -77,7 +83,7 @@ public class Flashy {
         System.out.println("Flashy!");
         System.out.println("Soham loves Hasn!");
 
-        Flashy flashy = new Flashy();
-        flashy.startPomodoro();
+      
+   
     }
 }
