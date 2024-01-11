@@ -8,8 +8,6 @@ public class Flashy {
 
     private static final long SECOND = 1000; // 1 second in milliseconds
     private static final long MINUTE = 60000; // 1 minute in milliseconds
-    private static final long SHORT_STUDY_DURATION = 25 * MINUTE;
-    private static final long LONG_STUDY_DURATION = 50 * MINUTE;
     private static final long SHORT_BREAK_DURATION = 5 * MINUTE;
     private static final long LONG_BREAK_DURATION = 10 * MINUTE;
 
@@ -19,14 +17,16 @@ public class Flashy {
     private boolean isLongPeriod;
     private TimerGUI timerGUI; // Add a reference to TimerGUI
     private JLabel timerText; // Add a reference to JLabel
+    private long studyDuration; // The duration of the study session
 
-    public Flashy(TimerGUI timerGUI, JLabel timerText) {
+    public Flashy(TimerGUI timerGUI, JLabel timerText, int sessionDuration) {
         this.timer = new Timer();
         this.countdownTimer = new Timer();
         this.isStudyPeriod = true;
         this.isLongPeriod = false;
         this.timerGUI = timerGUI; // Initialize the reference to TimerGUI
         this.timerText = timerText; // Initialize the reference to JLabel
+        this.studyDuration = sessionDuration == 25 ? 25 * MINUTE : 50 * MINUTE;
     }
 
     public void startPomodoro() {
@@ -39,7 +39,7 @@ public class Flashy {
 
         long periodDuration;
         if (isStudyPeriod) {
-            periodDuration = isLongPeriod ? LONG_STUDY_DURATION : SHORT_STUDY_DURATION;
+            periodDuration = studyDuration;
             System.out.print("Study period started for " + (periodDuration / MINUTE) + " minutes.  ");
         } else {
             periodDuration = isLongPeriod ? LONG_BREAK_DURATION : SHORT_BREAK_DURATION;
@@ -82,8 +82,5 @@ public class Flashy {
     public static void main(String[] args) {
         System.out.println("Flashy!");
         System.out.println("Soham loves Hasn!");
-
-      
-   
     }
 }

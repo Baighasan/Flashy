@@ -8,8 +8,12 @@ package com.mycompany.flashy;
  *
  * @author arpan
  */
-public class TimerGUI extends javax.swing.JFrame {
+import javax.sound.sampled.*;
 
+
+
+public class TimerGUI extends javax.swing.JFrame {
+    private Flashy activeFlashy;
     /**
      * Creates new form TimerGUI
      */
@@ -28,10 +32,12 @@ public class TimerGUI extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         timerText = new javax.swing.JLabel();
+        alarm = new javax.swing.JButton();
+        cboxTimeSelection = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("start timer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -40,26 +46,44 @@ public class TimerGUI extends javax.swing.JFrame {
 
         timerText.setText("jLabel1");
 
+        alarm.setText("start alarm");
+        alarm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alarmActionPerformed(evt);
+            }
+        });
+
+        cboxTimeSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25 Min", "50 Min" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(timerText, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGap(110, 110, 110)
+                .addComponent(timerText, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(alarm)
+                .addGap(22, 22, 22))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addComponent(cboxTimeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(149, 149, 149))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
+                .addComponent(alarm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(cboxTimeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addComponent(timerText, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -69,9 +93,57 @@ public class TimerGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Flashy flashy = new Flashy(this, timerText);
-        flashy.startPomodoro();
+        jButton1.setText("Pause Timer");
+        String selectedTime = (String) cboxTimeSelection.getSelectedItem();
+
+        if (activeFlashy != null) {
+            // Stop the active Flashy instance if it exists
+            //activeFlashy.stopPomodoro();
+        }
+
+        int sessionTime;
+        if (selectedTime.equals("25 Min")) {
+            sessionTime = 25;
+        } else {
+            sessionTime = 50;
+        }
+
+        // Create a new Flashy instance based on the selected time and start it
+        activeFlashy = new Flashy(this, timerText, sessionTime);
+        activeFlashy.startPomodoro();
+    
+        
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void alarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alarmActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Get an audio input stream from a file or resource
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+            TimerGUI.class.getResource("C:\\Users\\arpan\\Downloads\\Alarm-Slow-A1-www.fesliyanstudios.com.wav")); // Replace with the actual path to your alarm sound file
+
+
+
+            // Get a clip to play the audio
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+            // Start playing the clip
+            clip.start();
+
+            // Wait for the clip to finish playing (you can add a timer or user interaction to stop it)
+            Thread.sleep(clip.getMicrosecondLength() / 1000);
+
+            // Close the clip and audio input stream when done
+            clip.close();
+            audioInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        
+    }//GEN-LAST:event_alarmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,6 +181,8 @@ public class TimerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alarm;
+    private javax.swing.JComboBox<String> cboxTimeSelection;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel timerText;
     // End of variables declaration//GEN-END:variables
