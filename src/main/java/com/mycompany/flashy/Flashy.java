@@ -62,7 +62,9 @@ public class Flashy {
             @Override
             public void run() {
                 if (timeLeft > 0) {
-                    System.out.print("\rTime left: " + timeLeft + " seconds     "); // Update on the same line
+                    long minutes = timeLeft / 60;
+                    long seconds = timeLeft % 60;
+                    System.out.printf("\rTime left: %02d:%02d     ", minutes, seconds); // Update on the same line
                     timeLeft--;
                 } else {
                     this.cancel();
@@ -72,7 +74,8 @@ public class Flashy {
     }
 
     public static void main(String[] args) {
-        
+        System.out.println("Flashy!");
+        System.out.println("Soham loves Hasn!");
 
         Flashy flashy = new Flashy();
         flashy.startPomodoro();
