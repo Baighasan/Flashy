@@ -72,8 +72,7 @@ public class Flashy {
     }
 
     public static void main(String[] args) {
-        System.out.println("Flashy!");
-        System.out.println("Soham loves Hasn!");
+        
 
         Flashy flashy = new Flashy();
         flashy.startPomodoro();
