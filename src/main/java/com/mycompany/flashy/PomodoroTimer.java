@@ -46,8 +46,16 @@ public class PomodoroTimer {
                     timer = null;
                     if (isStudySession) {
                         sessionCount++;
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Time for a break!");
+                            promptNextAction();
+                        });
+                    } else {
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Break over, ready to study?");
+                            promptNextAction();
+                        });
                     }
-                    promptNextAction();
                 } else {
                     updateLabel(remainingTimeInSeconds);
                     remainingTimeInSeconds--;
@@ -81,8 +89,48 @@ public class PomodoroTimer {
     }
 
     private void promptNextAction() {
-        isStudySession = !isStudySession;
-        isPaused = false; // Ensure the timer starts fresh for the next session
-        startSession();
+        if (isStudySession) {
+            int response = JOptionPane.showConfirmDialog(null, 
+                "Study session complete. Would you like to start your break?", 
+                "Pomodoro Timer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (response == JOptionPane.OK_OPTION) {
+                isStudySession = false; // Start break session
+                startSession();
+            } else {
+                resetTimer(); // User chose to not continue, reset timer
+            }
+        } else {
+            // For break session, automatically reset to study session
+            isStudySession = true;
+            resetTimer();
+        }
+    }
+
+    private void resetTimer() {
+        isStudySession = true; // Reset to study session
+        sessionCount = 0; // Reset the session count
+        isPaused = false; // Reset the pause state
+
+        // Set the timer label to the study duration
+        int studyMinutes = studyLength / 60;
+        int studySeconds = studyLength % 60;
+        String timeString = String.format("%02d:%02d", studyMinutes, studySeconds);
+        SwingUtilities.invokeLater(() -> {
+            timerLabel.setText(timeString);
+        });
+
+        // Signal GUI to update the start button text
+        // This can be done by invoking a callback or using another approach
+        // For example, if you have a callback method like updateStartButton()
+        // You can call it here. If not, you'll need to handle it in your GUI class.
+        updateStartButton("Start Timer");
+    }
+
+    // Placeholder for the updateStartButton method - implement this in your GUI class
+    private void updateStartButton(String text) {
+        // Implementation depends on your GUI structure.
+        // For example, you might have a method in your GUI class that updates the button text
+        // and you can call it here.
     }
 }
