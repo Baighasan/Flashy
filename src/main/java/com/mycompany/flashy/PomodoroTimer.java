@@ -19,43 +19,38 @@ public class PomodoroTimer {
         this.studyLength = 25 * 60; // Default to 25 minutes
         this.breakLength = 5 * 60; // Default to 5 minutes
         this.sessionCount = 0;
-        this.timer = new Timer();
         this.timerLabel = timerLabel;
         this.isStudySession = true; // Start with a study session
         this.isPaused = false;
     }
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
-        this.studyLength = studyMinutes * 60;
+        this.studyLength = 1 * 10;
         this.breakLength = breakMinutes * 60;
     }
 
     public void startSession() {
         if (!isPaused) {
-            // If not paused, set session time
             remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
         }
         startTimer();
     }
 
     private void startTimer() {
-        if (currentTask != null) {
-            currentTask.cancel();
-        }
+        timer = new Timer(); // Create a new Timer instance
         currentTask = new TimerTask() {
             @Override
             public void run() {
-                updateLabel(remainingTimeInSeconds);
-                remainingTimeInSeconds--;
                 if (remainingTimeInSeconds < 0) {
                     timer.cancel();
+                    timer = null;
                     if (isStudySession) {
                         sessionCount++;
-                        updateLabel("Study session completed. Total sessions: " + sessionCount);
-                    } else {
-                        updateLabel("Break completed.");
                     }
                     promptNextAction();
+                } else {
+                    updateLabel(remainingTimeInSeconds);
+                    remainingTimeInSeconds--;
                 }
             }
         };
@@ -81,18 +76,11 @@ public class PomodoroTimer {
         int seconds = (int) (remainingTimeInSeconds % 60);
         String timeString = String.format("%02d:%02d", minutes, seconds);
         SwingUtilities.invokeLater(() -> {
-            timerLabel.setText("Remaining time: " + timeString);
-        });
-    }
-
-    private void updateLabel(String message) {
-        SwingUtilities.invokeLater(() -> {
-            timerLabel.setText(message);
+            timerLabel.setText(timeString);
         });
     }
 
     private void promptNextAction() {
-        // This method should be replaced with GUI-based prompt
         isStudySession = !isStudySession;
         isPaused = false; // Ensure the timer starts fresh for the next session
         startSession();
