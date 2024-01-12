@@ -30,8 +30,8 @@ public class PomodoroTimer {
     }
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
-        this.studyLength = studyMinutes * 5; // Convert to seconds
-        this.breakLength = breakMinutes * 3; // Convert to seconds
+        this.studyLength = studyMinutes * 60; // Convert to seconds
+        this.breakLength = breakMinutes * 60; // Convert to seconds
     }
 
     public void startSession() {
