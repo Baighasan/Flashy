@@ -112,7 +112,7 @@ private PomodoroTimer pomodoroTimer;
                 selectedTimeInt = 50;
                 breakTime= 10;
             }
-            pomodoroTimer.setSessionLengths(1, breakTime); // Set to default or get values from user input
+            pomodoroTimer.setSessionLengths(25, breakTime); // Set to default or get values from user input
             pomodoroTimer.startSession();
             // Start initial timer
         } else if (buttonText.equals("Pause")) {
