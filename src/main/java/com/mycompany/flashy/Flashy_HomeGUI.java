@@ -26,19 +26,14 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblFlashy = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(197, 231, 227));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblFlashy.setBackground(new java.awt.Color(204, 255, 204));
-        lblFlashy.setFont(new java.awt.Font("Myanmar Text", 1, 18)); // NOI18N
-        lblFlashy.setForeground(new java.awt.Color(255, 102, 102));
-        lblFlashy.setText("FLASHY");
-        getContentPane().add(lblFlashy, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 320, 60));
 
         jTable2.setAutoCreateRowSorter(true);
         jTable2.setBackground(new java.awt.Color(204, 204, 255));
@@ -69,7 +64,16 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, -1, 130));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, -1, 130));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/FLASHY (1).png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 420, 90));
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 15)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel1.setText("Welcome to the FLASHY! 🚀Together, we'll turn your study sessions into epic quests toward excellence. Happy studying!\"");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 890, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -110,8 +114,9 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JLabel lblFlashy;
     // End of variables declaration//GEN-END:variables
 }
