@@ -17,20 +17,27 @@ public class PomodoroTimer {
     private JButton btnStartTimer;
     private JLabel lblPomodoroCountDisplay;
     private JLabel lblFocusStatus;
+    private JComboBox cboxTimerSelection; // Add this component
 
-    public PomodoroTimer(JLabel timerLabel, JButton btnStartTimer, JLabel lblPomodoroCountDisplay, JLabel lblFocusStatus) {
+    public PomodoroTimer(JLabel timerLabel, JButton btnStartTimer, JLabel lblPomodoroCountDisplay, JLabel lblFocusStatus, JComboBox cboxTimerSelection) {
         this.btnStartTimer = btnStartTimer;
         this.lblFocusStatus = lblFocusStatus;
         this.lblPomodoroCountDisplay = lblPomodoroCountDisplay;
+        this.cboxTimerSelection = cboxTimerSelection; // Initialize the combo box
         this.studyLength = 25 * 60; // Default to 25 minutes
         this.breakLength = 5 * 60; // Default to 5 minutes
         this.timerLabel = timerLabel;
         this.isStudySession = true; // Start with a study session
         this.isPaused = false;
+        updateComboBoxVisibility(); // Update the combo box visibility initially
+    }
+
+    private void updateComboBoxVisibility() {
+        cboxTimerSelection.setVisible(btnStartTimer.getText().equals("Start Timer"));
     }
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
-        this.studyLength = studyMinutes * 60; // Convert to seconds
+        this.studyLength = studyMinutes * 1; // Convert to seconds
         this.breakLength = breakMinutes * 60; // Convert to seconds
     }
 
@@ -39,6 +46,7 @@ public class PomodoroTimer {
             remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
         }
         startTimer();
+        updateComboBoxVisibility();
     }
 
     private void startTimer() {
@@ -65,6 +73,11 @@ public class PomodoroTimer {
                 } else {
                     updateLabel(remainingTimeInSeconds);
                     remainingTimeInSeconds--;
+                }
+
+                // Check if the button text is not "Start Timer" and hide cboxTimerSelection
+                if (!btnStartTimer.getText().equals("Start Timer")) {
+                    cboxTimerSelection.setEnabled(false);
                 }
             }
         };
@@ -113,9 +126,10 @@ public class PomodoroTimer {
             lblFocusStatus.setText("Study Time!"); // Update the focus status
             startSession(); // Start the next session right away
         }
+        updateComboBoxVisibility();
     }
 
-    private void resetTimer() {
+   private void resetTimer() {
         isPaused = false; // Reset the pause state
 
         // Set the timer label to the study duration
@@ -131,7 +145,13 @@ public class PomodoroTimer {
         // For example, if you have a callback method like updateStartButton()
         // You can call it here. If not, you'll need to handle it in your GUI class.
         updateStartButton("Start Timer");
+
+        // Remove the code that grays out the button
+        btnStartTimer.setEnabled(true);
     }
+
+    // Rest of the class remains the same...
+
 
     // Placeholder for the updateStartButton method - implement this in your GUI class
     private void updateStartButton(String text) {

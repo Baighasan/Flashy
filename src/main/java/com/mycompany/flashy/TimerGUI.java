@@ -20,7 +20,7 @@ private PomodoroTimer pomodoroTimer;
      */
     public TimerGUI() {
         initComponents();
-        pomodoroTimer = new PomodoroTimer(lblTimerDisplay, btnStartTimer, lblPomodoroCountDisplay, lblFocusStatus);
+        pomodoroTimer = new PomodoroTimer(lblTimerDisplay, btnStartTimer, lblPomodoroCountDisplay, lblFocusStatus, cboxTimerSelection);
     }
 
     /**
