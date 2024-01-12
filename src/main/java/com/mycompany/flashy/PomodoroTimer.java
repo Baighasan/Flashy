@@ -7,26 +7,29 @@ import java.util.TimerTask;
 public class PomodoroTimer {
     private int studyLength;
     private int breakLength;
-    private int sessionCount;
+    private static int globalSessionCount = 0; // Global session count
     private Timer timer;
     private TimerTask currentTask;
     private boolean isStudySession;
     private long remainingTimeInSeconds;
     private boolean isPaused;
     private JLabel timerLabel;
+    private JButton btnStartTimer;
+    private JLabel lblPomodoroCountDisplay;
 
-    public PomodoroTimer(JLabel timerLabel) {
+    public PomodoroTimer(JLabel timerLabel, JButton btnStartTimer, JLabel lblPomodoroCountDisplay) {
+        this.btnStartTimer = btnStartTimer;
+        this.lblPomodoroCountDisplay = lblPomodoroCountDisplay;
         this.studyLength = 25 * 60; // Default to 25 minutes
         this.breakLength = 5 * 60; // Default to 5 minutes
-        this.sessionCount = 0;
         this.timerLabel = timerLabel;
         this.isStudySession = true; // Start with a study session
         this.isPaused = false;
     }
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
-        this.studyLength = 1 * 10;
-        this.breakLength = breakMinutes * 60;
+        this.studyLength = studyMinutes * 5; // Convert to seconds
+        this.breakLength = breakMinutes * 60; // Convert to seconds
     }
 
     public void startSession() {
@@ -45,7 +48,8 @@ public class PomodoroTimer {
                     timer.cancel();
                     timer = null;
                     if (isStudySession) {
-                        sessionCount++;
+                        globalSessionCount++; // Increment global session count
+                        lblPomodoroCountDisplay.setText("You have completed " + globalSessionCount + " pomodoro sessions!");
                         SwingUtilities.invokeLater(() -> {
                             JOptionPane.showMessageDialog(null, "Time for a break!");
                             promptNextAction();
@@ -90,15 +94,15 @@ public class PomodoroTimer {
 
     private void promptNextAction() {
         if (isStudySession) {
-            int response = JOptionPane.showConfirmDialog(null, 
-                "Study session complete. Would you like to start your break?", 
-                "Pomodoro Timer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(null,
+                    "Study session complete. Would you like to start your break?",
+                    "Pomodoro Timer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if (response == JOptionPane.OK_OPTION) {
                 isStudySession = false; // Start break session
                 startSession();
             } else {
-                resetTimer(); // User chose to not continue, reset timer
+                resetTimer(); // User chose not to continue, reset timer
             }
         } else {
             // For break session, automatically reset to study session
@@ -108,8 +112,6 @@ public class PomodoroTimer {
     }
 
     private void resetTimer() {
-        isStudySession = true; // Reset to study session
-        sessionCount = 0; // Reset the session count
         isPaused = false; // Reset the pause state
 
         // Set the timer label to the study duration
@@ -132,5 +134,6 @@ public class PomodoroTimer {
         // Implementation depends on your GUI structure.
         // For example, you might have a method in your GUI class that updates the button text
         // and you can call it here.
+        btnStartTimer.setText(text);
     }
 }
