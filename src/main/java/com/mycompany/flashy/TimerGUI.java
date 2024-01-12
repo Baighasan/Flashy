@@ -8,20 +8,19 @@ package com.mycompany.flashy;
  *
  * @author arpan
  */
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
-import javax.sound.sampled.*;
-
-
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JLabel;
 
 public class TimerGUI extends javax.swing.JFrame {
-    private TimerFunctionality activeTimer;
+private PomodoroTimer pomodoroTimer;
     /**
      * Creates new form TimerGUI
      */
     public TimerGUI() {
         initComponents();
+        pomodoroTimer = new PomodoroTimer(lblTimerDisplay);
     }
 
     /**
@@ -33,133 +32,64 @@ public class TimerGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         lblTimerDisplay = new javax.swing.JLabel();
-        alarm = new javax.swing.JButton();
-        cboxTimeSelection = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        btnStartTimer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Start Timer");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        lblTimerDisplay.setText("jLabel1");
+
+        btnStartTimer.setText("Start Timer");
+        btnStartTimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnStartTimerActionPerformed(evt);
             }
         });
-
-        lblTimerDisplay.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
-        lblTimerDisplay.setText("25:00");
-
-        alarm.setText("start alarm");
-        alarm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alarmActionPerformed(evt);
-            }
-        });
-
-        cboxTimeSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25 Min", "50 Min" }));
-
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\arpan\\Downloads\\forward-button-symbol-vector-26063431 (1).jpg")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
-                .addComponent(cboxTimeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addGap(99, 99, 99))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblTimerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(alarm)
-                .addGap(22, 22, 22))
+                .addContainerGap(191, Short.MAX_VALUE)
+                .addComponent(btnStartTimer)
+                .addGap(121, 121, 121))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(lblTimerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(alarm)
-                    .addComponent(lblTimerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(cboxTimeSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(265, 265, 265))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(42, 42, 42)
+                .addComponent(lblTimerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(btnStartTimer)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        String lblText = jButton1.getText();
-    
-    if (lblText.equals("Start Timer")) {
-        jButton1.setText("Pause");
-        String selectedTime = (String) cboxTimeSelection.getSelectedItem();
-
-        // Stop and nullify the active TimerFunctionality instance if it exists
-        if (activeTimer != null) {
-            activeTimer.stopTimer();
-            activeTimer = null;
+    private void btnStartTimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartTimerActionPerformed
+        String buttonText = btnStartTimer.getText();
+        if (buttonText.equals("Start Timer")) {
+            btnStartTimer.setText("Pause");
+            pomodoroTimer.setSessionLengths(25, 5); // Set to default or get values from user input
+            pomodoroTimer.startSession();
+            // Start initial timer
+        } else if (buttonText.equals("Pause")) {
+            btnStartTimer.setText("Resume");
+            pomodoroTimer.pauseSession();
+            // Pause timer
+        } else if (buttonText.equals("Resume")) {
+            btnStartTimer.setText("Pause");
+            pomodoroTimer.resumeSession();
+            // Resume timer
         }
-
-        int sessionTime = selectedTime.equals("25 Min") ? 25 : 50;
-
-        // Create a new TimerFunctionality instance based on the selected time and start it
-        activeTimer = new TimerFunctionality(this, lblTimerDisplay, sessionTime);
-        activeTimer.startPomodoro();
-    } else if (lblText.equals("Pause")) {
-        jButton1.setText("Resume");
-        if (activeTimer != null) {
-            activeTimer.pauseTimer();
-        }
-    } else if (lblText.equals("Resume")) {
-        jButton1.setText("Pause");
-        if (activeTimer != null) {
-            activeTimer.resumeTimer();
-        }
-    }
         
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void alarmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alarmActionPerformed
-        // TODO add your handling code here:
-    String soundFilePath = "C:\\Users\\arpan\\Downloads\\Alarm-Slow-A1-www.fesliyanstudios.com.wav";
-
-    try {
-        // Create an AudioInputStream from the sound file
-        File soundFile = new File(soundFilePath);
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-
-        // Get the Clip for playing the sound
-        Clip clip = AudioSystem.getClip();
-
-        // Open the audioInputStream and start playing
-        clip.open(audioInputStream);
-        clip.start();
-    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-        // Handle any exceptions that may occur during sound playback
-        e.printStackTrace();
-    }
-        
-    }//GEN-LAST:event_alarmActionPerformed
+    }//GEN-LAST:event_btnStartTimerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +117,7 @@ public class TimerGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TimerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -197,10 +128,7 @@ public class TimerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alarm;
-    private javax.swing.JComboBox<String> cboxTimeSelection;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnStartTimer;
     private javax.swing.JLabel lblTimerDisplay;
     // End of variables declaration//GEN-END:variables
 }
