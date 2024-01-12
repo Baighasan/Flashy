@@ -16,9 +16,11 @@ public class PomodoroTimer {
     private JLabel timerLabel;
     private JButton btnStartTimer;
     private JLabel lblPomodoroCountDisplay;
+    private JLabel lblFocusStatus;
 
-    public PomodoroTimer(JLabel timerLabel, JButton btnStartTimer, JLabel lblPomodoroCountDisplay) {
+    public PomodoroTimer(JLabel timerLabel, JButton btnStartTimer, JLabel lblPomodoroCountDisplay, JLabel lblFocusStatus) {
         this.btnStartTimer = btnStartTimer;
+        this.lblFocusStatus = lblFocusStatus;
         this.lblPomodoroCountDisplay = lblPomodoroCountDisplay;
         this.studyLength = 25 * 60; // Default to 25 minutes
         this.breakLength = 5 * 60; // Default to 5 minutes
@@ -29,7 +31,7 @@ public class PomodoroTimer {
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
         this.studyLength = studyMinutes * 5; // Convert to seconds
-        this.breakLength = breakMinutes * 60; // Convert to seconds
+        this.breakLength = breakMinutes * 3; // Convert to seconds
     }
 
     public void startSession() {
@@ -100,14 +102,16 @@ public class PomodoroTimer {
 
             if (response == JOptionPane.OK_OPTION) {
                 isStudySession = false; // Start break session
-                startSession();
+                lblFocusStatus.setText("Break Time!"); // Update the focus status
+                startSession(); // Start the next session right away
             } else {
                 resetTimer(); // User chose not to continue, reset timer
             }
         } else {
             // For break session, automatically reset to study session
             isStudySession = true;
-            resetTimer();
+            lblFocusStatus.setText("Study Time!"); // Update the focus status
+            startSession(); // Start the next session right away
         }
     }
 

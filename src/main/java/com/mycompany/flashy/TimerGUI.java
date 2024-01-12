@@ -20,7 +20,7 @@ private PomodoroTimer pomodoroTimer;
      */
     public TimerGUI() {
         initComponents();
-        pomodoroTimer = new PomodoroTimer(lblTimerDisplay, btnStartTimer, lblPomodoroCountDisplay);
+        pomodoroTimer = new PomodoroTimer(lblTimerDisplay, btnStartTimer, lblPomodoroCountDisplay, lblFocusStatus);
     }
 
     /**
@@ -36,6 +36,7 @@ private PomodoroTimer pomodoroTimer;
         btnStartTimer = new javax.swing.JButton();
         cboxTimerSelection = new javax.swing.JComboBox<>();
         lblPomodoroCountDisplay = new javax.swing.JLabel();
+        lblFocusStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +53,8 @@ private PomodoroTimer pomodoroTimer;
         cboxTimerSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25 Min", "50 Min" }));
 
         lblPomodoroCountDisplay.setText("You have completed 0 pomodoro sessions!");
+
+        lblFocusStatus.setText("Study Time!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,11 +74,17 @@ private PomodoroTimer pomodoroTimer;
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblPomodoroCountDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(lblFocusStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(29, 29, 29)
+                .addComponent(lblFocusStatus)
+                .addGap(38, 38, 38)
                 .addComponent(lblTimerDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -157,6 +166,7 @@ private PomodoroTimer pomodoroTimer;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartTimer;
     private javax.swing.JComboBox<String> cboxTimerSelection;
+    private javax.swing.JLabel lblFocusStatus;
     private javax.swing.JLabel lblPomodoroCountDisplay;
     private javax.swing.JLabel lblTimerDisplay;
     // End of variables declaration//GEN-END:variables
