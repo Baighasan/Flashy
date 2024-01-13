@@ -1,13 +1,10 @@
 package com.mycompany.flashy;
 
 import javax.swing.*;
-import javax.swing.Timer;
+import java.util.Timer;
 import java.util.TimerTask;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PomodoroTimer {
-
     private RingProgressBar progressBar;
     private int studyLength;
     private int breakLength;
@@ -46,58 +43,56 @@ public class PomodoroTimer {
     }
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
-        this.studyLength = studyMinutes * 60; // Convert to seconds
+        this.studyLength = studyMinutes * 10; // Convert to seconds
         this.breakLength = breakMinutes * 10; // Convert to seconds
     }
 
     public void startSession() {
-        if (!isPaused) {
-            remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
-        }
-        startTimer();
-        startProgressBarUpdate(); // Start updating the progress bar
-        updateComboBoxVisibility();
+    if (!isPaused) {
+        remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
     }
+    startTimer();
+    startProgressBarUpdate(); // Start updating the progress bar
+    updateComboBoxVisibility();
+}
 
     private void startTimer() {
-        int delay = 1000; // 1-second interval for updating the timer
-        timer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (remainingTimeInSeconds < 0) {
-                    timer.stop();
-                    if (isStudySession) {
-                        globalSessionCount++; // Increment global session count
-                        lblPomodoroCountDisplay.setText("You have completed " + globalSessionCount + " pomodoro sessions!");
-                        SwingUtilities.invokeLater(() -> {
-                            JOptionPane.showMessageDialog(null, "Time for a break!");
-                            promptNextAction();
-                        });
-                    } else {
-                        SwingUtilities.invokeLater(() -> {
-                            JOptionPane.showMessageDialog(null, "Break over, ready to study?");
-                            promptNextAction();
-                        });
-                    }
+    timer = new Timer(); // Create a new Timer instance
+    currentTask = new TimerTask() {
+        @Override
+        public void run() {
+            if (remainingTimeInSeconds < 0) {
+                timer.cancel();
+                timer = null;
+                if (isStudySession) {
+                    globalSessionCount++; // Increment global session count
+                    lblPomodoroCountDisplay.setText("You have completed " + globalSessionCount + " pomodoro sessions!");
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(null, "Time for a break!");
+                        promptNextAction();
+                    });
                 } else {
-                    updateLabel(remainingTimeInSeconds);
-                    remainingTimeInSeconds--;
-
-                    // Update the progress bar here
-                    int progress = (int) (((double) remainingTimeInSeconds / (isStudySession ? studyLength : breakLength)) * 100);
-                    progressBar.setProgress(100 - progress); // Reverse progress to match the countdown
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(null, "Break over, ready to study?");
+                        promptNextAction();
+                    });
                 }
+            } else {
+                updateLabel(remainingTimeInSeconds);
+                remainingTimeInSeconds--;
 
-                // Check if the button text is not "Start Timer" and hide cboxTimerSelection
-                if (!btnStartTimer.getText().equals("Start Timer")) {
-                    cboxTimerSelection.setEnabled(false);
-                }
+                // Update the progress bar here after updating the remaining time
+                updateProgressBar();
             }
-        });
-        timer.setInitialDelay(0);
-        timer.start();
-    }
 
+            // Check if the button text is not "Start Timer" and hide cboxTimerSelection
+            if (!btnStartTimer.getText().equals("Start Timer")) {
+                cboxTimerSelection.setEnabled(false);
+            }
+        }
+    };
+    timer.scheduleAtFixedRate(currentTask, 0, 1000);
+}
     public void pauseSession() {
         if (currentTask != null) {
             currentTask.cancel();
@@ -177,20 +172,19 @@ public class PomodoroTimer {
 
     private boolean isTimerRunning() {
         return currentTask != null && !isPaused;
-    }
-
-    private void startProgressBarUpdate() {
-        int delay = 1000; // 1-second interval for updating the progress bar
-        Timer progressBarTimer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (isTimerRunning()) {
-                    int progress = (int) (((double) remainingTimeInSeconds / (isStudySession ? studyLength : breakLength)) * 100);
-                    progressBar.setProgress(progress);
-                }
+    } private void startProgressBarUpdate() {
+    Timer progressBarTimer = new Timer();
+    progressBarTimer.scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+            if (isTimerRunning()) {
+                // Progress is calculated based on the remaining time as updated in startTimer()
+                updateProgressBar();
             }
-        });
-        progressBarTimer.setInitialDelay(0);
-        progressBarTimer.start();
-    }
+        }
+    }, 0, 1000); // Update progress every second
+} private void updateProgressBar() {
+    int progress = (int) (((double) (remainingTimeInSeconds - 1) / (isStudySession ? studyLength : breakLength)) * 100);
+    progressBar.setProgress(100 - progress); // Reverse progress to match the countdown
+}
 }
