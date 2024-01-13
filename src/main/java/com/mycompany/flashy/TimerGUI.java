@@ -65,7 +65,7 @@ private RingProgressBar ringProgressBar;
 
         lblPomodoroCountDisplay.setText("You have completed 0 pomodoro sessions!");
 
-        lblFocusStatus.setText("Study Time!");
+        lblFocusStatus.setText("Time to Study!");
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 51));
 
@@ -169,6 +169,18 @@ private RingProgressBar ringProgressBar;
 
     private void cboxTimerSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTimerSelectionActionPerformed
         // TODO add your handling code here:
+        String selectedItem = cboxTimerSelection.getSelectedItem().toString();
+        String timeDisplay = "";
+        if (selectedItem.equals("25 Min")) {
+            timeDisplay = "25:00";
+            
+        } else if (selectedItem.equals("50 Min")) {
+            timeDisplay = "50:00";
+        }
+            
+    
+    // Print the selected item to the console
+        lblTimerDisplay.setText(timeDisplay);
     }//GEN-LAST:event_cboxTimerSelectionActionPerformed
 
     /**
