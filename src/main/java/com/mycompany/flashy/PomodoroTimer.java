@@ -44,8 +44,8 @@ public class PomodoroTimer {
     }
 
     public void setSessionLengths(int studyMinutes, int breakMinutes) {
-        this.studyLength = studyMinutes * 12; // Convert to seconds
-        this.breakLength = breakMinutes * 2; // Convert to seconds
+        this.studyLength = studyMinutes * 60; // Convert to seconds
+        this.breakLength = breakMinutes * 60; // Convert to seconds
     }
 
     public void startSession() {
@@ -65,42 +65,37 @@ public class PomodoroTimer {
 }
 
     private void startTimer() {
-        timer = new Timer(); // Create a new Timer instance
-        currentTask = new TimerTask() {
-            @Override
-            public void run() {
-                if (remainingTimeInSeconds < 0) {
-                    timer.cancel();
-                    timer = null;
-                    if (isStudySession) {
-                        globalSessionCount++; // Increment global session count
-                        lblPomodoroCountDisplay.setText("You have completed " + globalSessionCount + " pomodoro sessions!");
-                        SwingUtilities.invokeLater(() -> {
-                            JOptionPane.showMessageDialog(null, "Time for a break!");
-                            promptNextAction();
-                        });
-                    } else {
-                        SwingUtilities.invokeLater(() -> {
-                            JOptionPane.showMessageDialog(null, "Break over, ready to study?");
-                            promptNextAction();
-                        });
-                    }
+    timer = new Timer(); // Create a new Timer instance
+    int updateInterval = 1000; // Update the progress bar every 100 milliseconds
+
+    currentTask = new TimerTask() {
+        @Override
+        public void run() {
+            if (remainingTimeInSeconds < 0) {
+                timer.cancel();
+                timer = null;
+                if (isStudySession) {
+                    // ... (rest of your code)
                 } else {
-                    updateLabel(remainingTimeInSeconds);
-                    remainingTimeInSeconds--;
-
-                    // Update the progress bar here after updating the remaining time
-                    updateProgressBar();
+                    // ... (rest of your code)
                 }
+            } else {
+                updateLabel(remainingTimeInSeconds);
+                remainingTimeInSeconds--;
 
-                // Check if the button text is not "Start Timer" and hide cboxTimerSelection
-                if (!btnStartTimer.getText().equals("Start Timer")) {
-                    cboxTimerSelection.setEnabled(false);
-                }
+                // Calculate the progress and update the progress bar here
+                updateProgressBar();
             }
-        };
-        timer.scheduleAtFixedRate(currentTask, 0, 1000);
-    }
+
+            // Check if the button text is not "Start Timer" and hide cboxTimerSelection
+            if (!btnStartTimer.getText().equals("Start Timer")) {
+                cboxTimerSelection.setEnabled(false);
+            }
+        }
+    };
+
+    timer.scheduleAtFixedRate(currentTask, 0, updateInterval);
+}
 
     public void pauseSession() {
         if (currentTask != null) {
@@ -206,14 +201,14 @@ public class PomodoroTimer {
     }
 
     private void updateProgressBar() {
-        int progress;
-        if (isStudySession) {
-            progress = (int) (((double) (studyLength - remainingTimeInSeconds) / studyLength) * 100);
-        } else {
-            progress = (int) (((double) (breakLength - remainingTimeInSeconds) / breakLength) * 100);
-        }
-        progressBar.setProgress(progress);
-    }
+    int totalDuration = isStudySession ? studyLength : breakLength;
+    double progressPerSecond = 100.0 / totalDuration; // Progress per second
+    double elapsedSeconds = totalDuration - remainingTimeInSeconds;
+
+    // Calculate the progress based on elapsed time and progress per second
+    int progress = (int) (elapsedSeconds * progressPerSecond);
+    progressBar.setProgress(progress);
+}
 
     private void resetTimerToDefault() {
     // Reset the timer to default study and break lengths
