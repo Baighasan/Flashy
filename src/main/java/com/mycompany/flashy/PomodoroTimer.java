@@ -184,7 +184,12 @@ public class PomodoroTimer {
         }
     }, 0, 1000); // Update progress every second
 } private void updateProgressBar() {
-    int progress = (int) (((double) (remainingTimeInSeconds - 1) / (isStudySession ? studyLength : breakLength)) * 100);
-    progressBar.setProgress(100 - progress); // Reverse progress to match the countdown
+    int progress;
+    if (isStudySession) {
+        progress = (int) (((double) (studyLength - remainingTimeInSeconds) / studyLength) * 100);
+    } else {
+        progress = (int) (((double) (breakLength - remainingTimeInSeconds) / breakLength) * 100);
+    }
+    progressBar.setProgress(progress);
 }
 }
