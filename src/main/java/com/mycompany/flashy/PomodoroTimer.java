@@ -20,6 +20,7 @@ public class PomodoroTimer {
     private JLabel lblPomodoroCountDisplay;
     private JLabel lblFocusStatus;
     private JComboBox cboxTimerSelection; // Add this component
+    private boolean hasSkippedWhilePaused = false;
 
     public PomodoroTimer(JLabel timerLabel, JButton btnStartTimer, JLabel lblPomodoroCountDisplay, JLabel lblFocusStatus, JComboBox cboxTimerSelection, RingProgressBar progressBar) {
         this.btnStartTimer = btnStartTimer;
@@ -49,53 +50,61 @@ public class PomodoroTimer {
     }
 
     public void startSession() {
-    if (!isPaused) {
-        remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
+        if (!isPaused) {
+            remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
+        }
+
+        if (isStudySession) {
+            lblFocusStatus.setText("Study Time!"); // Set lblFocusStatus to "Study Time!"
+        } else {
+            lblFocusStatus.setText("Break Time!"); // Set lblFocusStatus to "Break Time!"
+        }
+
+        startTimer();
+        startProgressBarUpdate(); // Start updating the progress bar
+        updateComboBoxVisibility();
     }
-    
-    if (isStudySession) {
-        lblFocusStatus.setText("Study Time!"); // Set lblFocusStatus to "Study Time!"
-    } else {
-        lblFocusStatus.setText("Break Time!"); // Set lblFocusStatus to "Break Time!"
-    }
-    
-    startTimer();
-    startProgressBarUpdate(); // Start updating the progress bar
-    updateComboBoxVisibility();
-}
 
     private void startTimer() {
-    timer = new Timer(); // Create a new Timer instance
-    int updateInterval = 1000; // Update the progress bar every 100 milliseconds
+        timer = new Timer(); // Create a new Timer instance
+        int updateInterval = 1000; // Update the progress bar every 100 milliseconds
 
-    currentTask = new TimerTask() {
-        @Override
-        public void run() {
-            if (remainingTimeInSeconds < 0) {
-                timer.cancel();
-                timer = null;
-                if (isStudySession) {
-                    // ... (rest of your code)
+        currentTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (remainingTimeInSeconds < 0) {
+                    timer.cancel();
+                    timer = null;
+                    if (isStudySession) {
+                        globalSessionCount++; // Increment global session count
+                        lblPomodoroCountDisplay.setText("You have completed " + globalSessionCount + " pomodoro sessions!");
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Time for a break!");
+                            promptNextAction();
+                        });
+                    } else {
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Break over, ready to study?");
+                            promptNextAction();
+                        });
+                    }
                 } else {
-                    // ... (rest of your code)
+                    updateLabel(remainingTimeInSeconds);
+                    remainingTimeInSeconds--;
+
+                    // Calculate the progress and update the progress bar here
+                    updateProgressBar();
                 }
-            } else {
-                updateLabel(remainingTimeInSeconds);
-                remainingTimeInSeconds--;
 
-                // Calculate the progress and update the progress bar here
-                updateProgressBar();
+                // Check if the button text is not "Start Timer" and hide cboxTimerSelection
+                if (!btnStartTimer.getText().equals("Start Timer")) {
+                    cboxTimerSelection.setEnabled(false);
+                }
             }
+        };
 
-            // Check if the button text is not "Start Timer" and hide cboxTimerSelection
-            if (!btnStartTimer.getText().equals("Start Timer")) {
-                cboxTimerSelection.setEnabled(false);
-            }
-        }
-    };
-
-    timer.scheduleAtFixedRate(currentTask, 0, updateInterval);
-}
+        timer.scheduleAtFixedRate(currentTask, 0, updateInterval);
+    }
 
     public void pauseSession() {
         if (currentTask != null) {
@@ -121,17 +130,19 @@ public class PomodoroTimer {
     }
 
     private void promptNextAction() {
-        String message;
-        String title;
 
-        if (isStudySession) {
-            message = "Study session complete. Would you like to start your break?";
-            title = "Pomodoro Timer";
-        } else {
-            message = "Break over, ready to study?";
-            title = "Pomodoro Timer";
-        }
+    String message;
+    String title;
 
+    if (isStudySession) {
+        message = "Study session complete. Would you like to start your break?";
+        title = "Pomodoro Timer";
+    } else {
+        message = "Break over, ready to study?";
+        title = "Pomodoro Timer";
+    }
+
+    if (!hasSkippedWhilePaused) {
         int response = JOptionPane.showConfirmDialog(null,
                 message, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -149,8 +160,11 @@ public class PomodoroTimer {
             resetTimerToDefault();
             lblFocusStatus.setText("Time to Study!"); // Set lblFocusStatus to an empty string
         }
-        // Don't need to update combo box visibility here
+    } else {
+        // Reset the flag since a skip action has occurred while paused
+        hasSkippedWhilePaused = false;
     }
+}
 
     private void resetTimer() {
         isPaused = false; // Reset the pause state
@@ -201,42 +215,58 @@ public class PomodoroTimer {
     }
 
     private void updateProgressBar() {
-    int totalDuration = isStudySession ? studyLength : breakLength;
-    double progressPerSecond = 100.0 / totalDuration; // Progress per second
-    double elapsedSeconds = totalDuration - remainingTimeInSeconds;
+        int totalDuration = isStudySession ? studyLength : breakLength;
+        double progressPerSecond = 100.0 / totalDuration; // Progress per second
+        double elapsedSeconds = (totalDuration - remainingTimeInSeconds);
 
-    // Calculate the progress based on elapsed time and progress per second
-    int progress = (int) (elapsedSeconds * progressPerSecond);
-    progressBar.setProgress(progress);
-}
+        // Calculate the progress based on elapsed time and progress per second
+        int progress = (int) (elapsedSeconds * progressPerSecond);
+        progressBar.setProgress(progress);
+    }
 
     private void resetTimerToDefault() {
-    // Reset the timer to default study and break lengths
-    studyLength = 25 * 60; // Default to 25 minutes
-    breakLength = 5 * 60; // Default to 5 minutes
-    isPaused = false; // Reset the pause state
-    isStudySession = true; // Set it to study session
-    updateComboBoxVisibility();
+        // Reset the timer to default study and break lengths
+        studyLength = 25 * 60; // Default to 25 minutes
+        breakLength = 5 * 60; // Default to 5 minutes
+        isPaused = false; // Reset the pause state
+        isStudySession = true; // Set it to study session
+        updateComboBoxVisibility();
 
-    // Set the timer label to the study duration
-    int studyMinutes = studyLength / 60;
-    int studySeconds = studyLength % 60;
-    String timeString = String.format("%02d:%02d", studyMinutes, studySeconds);
-    SwingUtilities.invokeLater(() -> {
-        timerLabel.setText(timeString);
-    });
+        // Set the timer label to the study duration
+        int studyMinutes = studyLength / 60;
+        int studySeconds = studyLength % 60;
+        String timeString = String.format("%02d:%02d", studyMinutes, studySeconds);
+        SwingUtilities.invokeLater(() -> {
+            timerLabel.setText(timeString);
+        });
 
-    // Signal GUI to update the start button text
-    // This can be done by invoking a callback or using another approach
-    // For example, if you have a callback method like updateStartButton()
-    // You can call it here. If not, you'll need to handle it in your GUI class.
-    updateStartButton("Start Timer");
+        // Signal GUI to update the start button text
+        // This can be done by invoking a callback or using another approach
+        // For example, if you have a callback method like updateStartButton()
+        // You can call it here. If not, you'll need to handle it in your GUI class.
+        updateStartButton("Start Timer");
 
-    // Enable the combo box for changing timer intervals
-    cboxTimerSelection.setEnabled(true);
+        // Enable the combo box for changing timer intervals
+        cboxTimerSelection.setEnabled(true);
 
-    // Remove the code that grays out the button
-    btnStartTimer.setEnabled(true);
-    progressBar.setProgress(0); // Reset the progress bar to 0
+        // Remove the code that grays out the button
+        btnStartTimer.setEnabled(true);
+        progressBar.setProgress(0); // Reset the progress bar to 0
+    }
+
+    public void skipSession() {
+    if (isTimerRunning() || isPaused) {
+        remainingTimeInSeconds = 0;
+        if (isTimerRunning()) {
+            timer.cancel();
+            timer = null;
+        }
+        updateLabel(remainingTimeInSeconds);
+        updateProgressBar();
+        if (!isPaused) {
+            // Only prompt the next action if the timer is not paused
+            promptNextAction();
+        }
+    }
 }
 }
