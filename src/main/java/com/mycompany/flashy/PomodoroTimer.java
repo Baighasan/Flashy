@@ -50,24 +50,27 @@ public class PomodoroTimer {
     }
 
     public void startSession() {
-        if (!isPaused) {
-            remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
-        }
-
-        if (isStudySession) {
-            lblFocusStatus.setText("Study Time!"); // Set lblFocusStatus to "Study Time!"
-        } else {
-            lblFocusStatus.setText("Break Time!"); // Set lblFocusStatus to "Break Time!"
-        }
-
-        startTimer();
-        startProgressBarUpdate(); // Start updating the progress bar
-        updateComboBoxVisibility();
+    if (!isPaused) {
+        remainingTimeInSeconds = isStudySession ? studyLength : breakLength;
     }
+
+    if (isStudySession) {
+        lblFocusStatus.setText("Study Time!"); // Set lblFocusStatus to "Study Time!"
+    } else {
+        lblFocusStatus.setText("Break Time!"); // Set lblFocusStatus to "Break Time!"
+    }
+
+    // Change the button text to "Pause" as the timer starts
+    updateStartButton("Pause");
+
+    startTimer();
+    startProgressBarUpdate(); // Start updating the progress bar
+    updateComboBoxVisibility();
+}
 
     private void startTimer() {
         timer = new Timer(); // Create a new Timer instance
-        int updateInterval = 1000; // Update the progress bar every 100 milliseconds
+        int updateInterval = 100; // Update the progress bar every 100 milliseconds
 
         currentTask = new TimerTask() {
             @Override
@@ -191,11 +194,10 @@ public class PomodoroTimer {
     // Rest of the class remains the same...
     // Placeholder for the updateStartButton method - implement this in your GUI class
     private void updateStartButton(String text) {
-        // Implementation depends on your GUI structure.
-        // For example, you might have a method in your GUI class that updates the button text
-        // and you can call it here.
+    SwingUtilities.invokeLater(() -> {
         btnStartTimer.setText(text);
-    }
+    });
+}
 
     private boolean isTimerRunning() {
         return currentTask != null && !isPaused;
@@ -257,16 +259,23 @@ public class PomodoroTimer {
     public void skipSession() {
     if (isTimerRunning() || isPaused) {
         remainingTimeInSeconds = 0;
-        if (isTimerRunning()) {
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }
+        currentTask = null; // Ensure the current task is reset
+
         updateLabel(remainingTimeInSeconds);
         updateProgressBar();
-        if (!isPaused) {
-            // Only prompt the next action if the timer is not paused
-            promptNextAction();
-        }
+
+        // Reset the paused state as we are moving to the next session
+        isPaused = false;
+
+        // Update the button text to "Start Timer"
+        updateStartButton("Start Timer");
+
+        // Always prompt the next action after skipping, regardless of paused state
+        promptNextAction();
     }
 }
 }
