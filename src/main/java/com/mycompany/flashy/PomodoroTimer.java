@@ -70,7 +70,7 @@ public class PomodoroTimer {
 
     private void startTimer() {
         timer = new Timer(); // Create a new Timer instance
-        int updateInterval = 100; // Update the progress bar every 100 milliseconds
+        int updateInterval = 1000; // Update the progress bar every 100 milliseconds
 
         currentTask = new TimerTask() {
             @Override

@@ -78,8 +78,13 @@ private RingProgressBar ringProgressBar;
             }
         });
 
+        lblPomodoroCountDisplay.setBackground(new java.awt.Color(255, 255, 255));
+        lblPomodoroCountDisplay.setForeground(new java.awt.Color(255, 255, 255));
         lblPomodoroCountDisplay.setText("You have completed 0 pomodoro sessions!");
 
+        lblFocusStatus.setBackground(new java.awt.Color(255, 255, 255));
+        lblFocusStatus.setFont(new java.awt.Font("Swis721 BT", 1, 12)); // NOI18N
+        lblFocusStatus.setForeground(new java.awt.Color(255, 255, 255));
         lblFocusStatus.setText("Time to Study!");
 
         cboxTimerSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25 Min", "50 Min" }));
@@ -106,10 +111,8 @@ private RingProgressBar ringProgressBar;
                         .addContainerGap()
                         .addComponent(lblPomodoroCountDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTimerDisplay)
-                            .addComponent(lblFocusStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(74, 74, 74)
+                        .addComponent(lblTimerDisplay))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +120,10 @@ private RingProgressBar ringProgressBar;
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btnStartTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cboxTimerSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cboxTimerSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(lblFocusStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -135,7 +141,7 @@ private RingProgressBar ringProgressBar;
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPomodoroCountDisplay)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         ringProgressBar = new RingProgressBar();
