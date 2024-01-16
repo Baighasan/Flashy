@@ -1,6 +1,5 @@
 com\mycompany\flashy\Flashy.class
-com\mycompany\flashy\TimerGUI.class
-com\mycompany\flashy\PomodoroTimer$1.class
-com\mycompany\flashy\TimerGUI$1.class
-com\mycompany\flashy\PomodoroTimer.class
-com\mycompany\flashy\TimerGUI$2.class
+com\mycompany\flashy\FlashcardCollection.class
+com\mycompany\flashy\FlashcardCategory.class
+com\mycompany\flashy\Flashcard.class
+com\mycompany\flashy\FlashcardTopic.class
