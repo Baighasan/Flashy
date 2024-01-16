@@ -3,6 +3,14 @@
  */
 
 package com.mycompany.flashy;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 
 /**
  *
@@ -11,6 +19,6 @@ package com.mycompany.flashy;
 public class Flashy {
 
     public static void main(String[] args) {
-        System.out.println("Flashy!");
+        System.out.println("Flashy!!!");
     }
 }
