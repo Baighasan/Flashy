@@ -12,59 +12,9 @@
             <version>RELEASE190</version>
         </dependency>
         <dependency>
-            <groupId>21</groupId>
-            <artifactId>0</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>22</groupId>
-            <artifactId>1</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>23</groupId>
-            <artifactId>2</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>24</groupId>
-            <artifactId>3</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>25</groupId>
-            <artifactId>4</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>26</groupId>
-            <artifactId>5</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>27</groupId>
-            <artifactId>6</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>28</groupId>
-            <artifactId>7</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>29</groupId>
-            <artifactId>8</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>30</groupId>
-            <artifactId>9</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>31</groupId>
-            <artifactId>10</artifactId>
-            <version>1.0</version>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.0.13</version>
         </dependency>
     </dependencies>
     <properties>
