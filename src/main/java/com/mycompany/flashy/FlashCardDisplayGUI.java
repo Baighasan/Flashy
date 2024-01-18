@@ -3,17 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.flashy;
-
+import java.util.ArrayList; 
+import java.util.List;
 /**
  *
  * @author soham
  */
 public class FlashCardDisplayGUI extends javax.swing.JFrame {
-
+    private List<FlashcardCategory> categories;
+  
     /**
      * Creates new form FlashCardDisplayGUI
      */
-    public FlashCardDisplayGUI() {
+   public FlashCardDisplayGUI() {
+       FlashcardReading flashcardReading = new FlashcardReading();
+        flashcardReading.loadCategories();  // This will populate allCategories
+        categories = flashcardReading.returnCategories();
+        flashcardReading.printCategories(); // Now you can print the categories
         initComponents();
     }
 
@@ -71,10 +77,10 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FlashCardDisplayGUI().setVisible(true);
-            }
-        });
+    public void run() {
+        new FlashCardDisplayGUI().setVisible(true);
+    }
+});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,45 +6,67 @@ package com.mycompany.flashy;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FlashcardReading {
-    public static void main(String[] args) {
-        String flashcardsFolderPath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards";
+    private List<FlashcardCategory> allCategories = new ArrayList<>();
 
+    public void loadCategories() {
+        String flashcardsFolderPath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards";
         File flashcardsFolder = new File(flashcardsFolderPath);
         if (flashcardsFolder.exists() && flashcardsFolder.isDirectory()) {
-            // List all category folders
-            File[] categoryFolders = flashcardsFolder.listFiles(File::isDirectory);
+            Map<String, FlashcardCategory> categoryMap = new HashMap<>();
 
+            File[] categoryFolders = flashcardsFolder.listFiles(File::isDirectory);
             if (categoryFolders != null) {
                 for (File categoryFolder : categoryFolders) {
-                    // List all topic folders inside each category
-                    File[] topicFolders = categoryFolder.listFiles(File::isDirectory);
+                    String categoryName = categoryFolder.getName();
+                    FlashcardCategory flashcardCategory = categoryMap.get(categoryName);
+                    if (flashcardCategory == null) {
+                        flashcardCategory = new FlashcardCategory(categoryName);
+                        categoryMap.put(categoryName, flashcardCategory);
+                    }
 
+                    File[] topicFolders = categoryFolder.listFiles(File::isDirectory);
                     if (topicFolders != null) {
                         for (File topicFolder : topicFolders) {
-                            // Check for flashcards.json file in each topic folder
                             File flashcardsFile = new File(topicFolder, "flashcards.json");
 
                             if (flashcardsFile.exists() && flashcardsFile.isFile()) {
-                                // Print the topic name before reading and creating flashcards
-                                System.out.println("Topic: " + topicFolder.getName());
-
-                                // Create a FlashcardTopic object for the current topic
                                 FlashcardTopic flashcardTopic = new FlashcardTopic(topicFolder.getName());
-                                
-
-                                // Create flashcards and add them to the FlashcardTopic
-                                createFlashcardsFromJsonFile(categoryFolder.getName(), flashcardTopic, flashcardsFile);
+                                createFlashcardsFromJsonFile(categoryName, flashcardTopic, flashcardsFile);
+                                flashcardCategory.addFlashCardTopic(flashcardTopic);
                             }
                         }
                     }
+
+                    allCategories.add(flashcardCategory);
                 }
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        FlashcardReading flashcardReading = new FlashcardReading();
+        flashcardReading.loadCategories();
+        flashcardReading.printCategories();
+    }
+
+    public List<FlashcardCategory> returnCategories() {
+        return allCategories;
+    }
+
+    public void printCategories() {
+        for (FlashcardCategory category : allCategories) {
+            System.out.println(category.getFlashcardCategory());
         }
     }
 
@@ -54,10 +76,7 @@ public class FlashcardReading {
         try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Replace tab characters with spaces before parsing as JSON
                 line = line.replace("\t", " ");
-
-                // Parse each line as JSON
                 JsonNode jsonNode = objectMapper.readTree(line);
 
                 if (jsonNode.isArray()) {
@@ -65,19 +84,13 @@ public class FlashcardReading {
                         String question = flashcardNode.get("question").asText();
                         String answer = flashcardNode.get("answer").asText();
 
-                        // Create a flashcard with category, topic, question, and answer
                         Flashcard flashcard = new Flashcard(category, flashcardTopic.getTopicName(), question, answer);
-                        // Add the flashcard to the FlashcardTopic
                         flashcardTopic.addFlashCard(flashcard);
-                        
                     }
                 }
             }
-            System.out.println(flashcardTopic.getFlashcardCount());
-            System.out.println(); // Add an empty line to separate topics
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-

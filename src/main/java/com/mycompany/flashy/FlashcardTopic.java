@@ -42,4 +42,4 @@ public class FlashcardTopic {
     public ArrayList<Flashcard> getFlashcardList() {
         return flashcardList;
     }
-}
+} 

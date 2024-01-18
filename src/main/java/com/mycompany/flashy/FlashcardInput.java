@@ -29,6 +29,7 @@ public class FlashcardInput extends javax.swing.JFrame {
      */
     public FlashcardInput() {
         initComponents();
+    updateCategoryComboBox();
         
     }
 
@@ -417,6 +418,19 @@ public class FlashcardInput extends javax.swing.JFrame {
             currentFile.delete();
         }
         folderToDelete.delete();
+    }
+} private void updateCategoryComboBox() {
+    String directoryPath = "C:/Users/arpan/OneDrive/Documents/NetBeansProjects/Flashy/Flashcards";
+    File directory = new File(directoryPath);
+
+    if (directory.exists() && directory.isDirectory()) {
+        File[] categoryFolders = directory.listFiles(File::isDirectory);
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
+        model.removeAllElements();
+
+        for (File categoryFolder : categoryFolders) {
+            model.addElement(categoryFolder.getName());
+        }
     }
 }
 
