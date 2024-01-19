@@ -62,8 +62,11 @@ public class FlashcardEditing extends javax.swing.JFrame {
         cboxCategorySelection = new javax.swing.JComboBox<>();
         cboxTopicSelection = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        flashcardTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         cboxCategorySelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -76,6 +79,19 @@ public class FlashcardEditing extends javax.swing.JFrame {
             }
         });
 
+        flashcardTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(flashcardTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,7 +103,11 @@ public class FlashcardEditing extends javax.swing.JFrame {
                 .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(btnSearch)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +117,9 @@ public class FlashcardEditing extends javax.swing.JFrame {
                     .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -106,34 +128,31 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String selectedCategoryName = cboxCategorySelection.getSelectedItem().toString();
-    String selectedTopicName = cboxTopicSelection.getSelectedItem().toString();
+String selectedTopicName = cboxTopicSelection.getSelectedItem().toString();
 
-    FlashcardTopic selectedTopic = findTopicByCategoryAndName(selectedCategoryName, selectedTopicName);
-    if (selectedTopic != null) {
-        ArrayList<Flashcard> flashcards = selectedTopic.getFlashcardList();
-        if (flashcards.isEmpty()) {
-            // No flashcards available for the selected topic
-            JOptionPane.showMessageDialog(this, "No flashcards available for the selected topic.");
-        } else {
-            // Create a two-dimensional array to store flashcard data
-            String[][] data = new String[flashcards.size()][2];
-
-            for (int i = 0; i < flashcards.size(); i++) {
-                Flashcard flashcard = flashcards.get(i);
-                data[i][0] = flashcard.getQuestion();
-                data[i][1] = flashcard.getAnswer();
-            }
-
-            // Create a table model and set it to the JTable
-            DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer"});
-            JTable flashcardTable = new JTable(tableModel);
-
-            // Display the table in a JOptionPane dialog
-            JOptionPane.showMessageDialog(this, new JScrollPane(flashcardTable), "Flashcards", JOptionPane.PLAIN_MESSAGE);
-        }
+FlashcardTopic selectedTopic = findTopicByCategoryAndName(selectedCategoryName, selectedTopicName);
+if (selectedTopic != null) {
+    ArrayList<Flashcard> flashcards = selectedTopic.getFlashcardList();
+    if (flashcards.isEmpty()) {
+        // No flashcards available for the selected topic
+        JOptionPane.showMessageDialog(this, "No flashcards available for the selected topic.");
     } else {
-        JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
+        // Create a two-dimensional array to store flashcard data
+        String[][] data = new String[flashcards.size()][2];
+
+        for (int i = 0; i < flashcards.size(); i++) {
+            Flashcard flashcard = flashcards.get(i);
+            data[i][0] = flashcard.getQuestion();
+            data[i][1] = flashcard.getAnswer();
+        }
+
+        // Create a table model and set it to the JTable
+        DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer"});
+        flashcardTable.setModel(tableModel);
     }
+} else {
+    JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
+}
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -214,5 +233,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cboxCategorySelection;
     private javax.swing.JComboBox<String> cboxTopicSelection;
+    private javax.swing.JTable flashcardTable;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
