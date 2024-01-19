@@ -1,5 +1,6 @@
 com\mycompany\flashy\FlashcardInput$1.class
 com\mycompany\flashy\Flashcard.class
+com\mycompany\flashy\FlashcardEditing$1.class
 com\mycompany\flashy\FlashcardInput$7.class
 com\mycompany\flashy\FlashCardDisplayGUI.class
 com\mycompany\flashy\FlashcardInput$3.class
@@ -7,6 +8,7 @@ com\mycompany\flashy\FlashcardInput$4.class
 com\mycompany\flashy\Flashy.class
 com\mycompany\flashy\FlashcardCollection.class
 com\mycompany\flashy\FlashcardCategory.class
+com\mycompany\flashy\FlashcardEditing.class
 com\mycompany\flashy\FlashcardInput.class
 com\mycompany\flashy\FlashcardInput$5.class
 com\mycompany\flashy\FlashcardInput$6.class

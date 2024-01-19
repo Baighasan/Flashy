@@ -420,7 +420,7 @@ public class FlashcardInput extends javax.swing.JFrame {
         folderToDelete.delete();
     }
 } private void updateCategoryComboBox() {
-    String directoryPath = "C:/Users/arpan/OneDrive/Documents/NetBeansProjects/Flashy/Flashcards";
+    String directoryPath = "Flashcards";
     File directory = new File(directoryPath);
 
     if (directory.exists() && directory.isDirectory()) {
