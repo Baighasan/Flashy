@@ -4,9 +4,15 @@
  */
 package com.mycompany.flashy;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,16 +24,31 @@ public class FlashcardEditing extends javax.swing.JFrame {
      * Creates new form FlashcardEditing
      */
     public FlashcardEditing() {
-        FlashcardReading flashcardReading = new FlashcardReading();
-        flashcardReading.loadCategories();  // This will populate allCategories
+    FlashcardReading flashcardReading = new FlashcardReading();
+        flashcardReading.loadCategories();
         categories = flashcardReading.returnCategories();
 
         initComponents();
         populateCategoryComboBox();
-        
-        //flashcardReading.printCategories(); // Now you can print the categories
 
-    }
+        // Add an ItemListener to the category combo box
+        cboxCategorySelection.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent event) {
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+                    int selectedIndex = cboxCategorySelection.getSelectedIndex();
+                    if (selectedIndex >= 0) {
+                        FlashcardCategory selectedCategory = categories.get(selectedIndex);
+                        populateTopicComboBox(selectedCategory);
+                    }
+                }
+            }
+        });
+
+        // Initial population of topics if categories exist
+        if (!categories.isEmpty()) {
+            populateTopicComboBox(categories.get(0));
+        }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,13 +60,21 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private void initComponents() {
 
         cboxCategorySelection = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboxTopicSelection = new javax.swing.JComboBox<>();
+        btnSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         cboxCategorySelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxTopicSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnSearch.setText("jButton1");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,25 +83,58 @@ public class FlashcardEditing extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
+                .addGap(36, 36, 36)
+                .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(btnSearch)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String selectedCategoryName = cboxCategorySelection.getSelectedItem().toString();
+    String selectedTopicName = cboxTopicSelection.getSelectedItem().toString();
+
+    FlashcardTopic selectedTopic = findTopicByCategoryAndName(selectedCategoryName, selectedTopicName);
+    if (selectedTopic != null) {
+        ArrayList<Flashcard> flashcards = selectedTopic.getFlashcardList();
+        if (flashcards.isEmpty()) {
+            // No flashcards available for the selected topic
+            JOptionPane.showMessageDialog(this, "No flashcards available for the selected topic.");
+        } else {
+            // Create a two-dimensional array to store flashcard data
+            String[][] data = new String[flashcards.size()][2];
+
+            for (int i = 0; i < flashcards.size(); i++) {
+                Flashcard flashcard = flashcards.get(i);
+                data[i][0] = flashcard.getQuestion();
+                data[i][1] = flashcard.getAnswer();
+            }
+
+            // Create a table model and set it to the JTable
+            DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer"});
+            JTable flashcardTable = new JTable(tableModel);
+
+            // Display the table in a JOptionPane dialog
+            JOptionPane.showMessageDialog(this, new JScrollPane(flashcardTable), "Flashcards", JOptionPane.PLAIN_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
+    }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,32 +170,49 @@ public class FlashcardEditing extends javax.swing.JFrame {
             }
         });
     } private void populateCategoryComboBox() {
-    // Create a model for the combo box
-    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-
-    // Iterate over each category
-    for (FlashcardCategory category : categories) {
-        model.addElement(category.getFlashcardCategory());
-        System.out.println("Category: " + category.getFlashcardCategory());
-        System.out.println("Topic Count: " + category.getTopicCount());
-
-        // Fetch the list of topics for the current category
-        ArrayList<FlashcardTopic> topicList = category.getFlashcardTopicList();
-        
-        // Print each topic in the current category
-        for (FlashcardTopic topic : topicList) {
-            // Assuming FlashcardTopic has a method like getTopicName() to fetch the name of the topic
-            System.out.println("Topic: " + topic.getTopicName());
+        DefaultComboBoxModel<String> categoryModel = new DefaultComboBoxModel<>();
+        for (FlashcardCategory category : categories) {
+            categoryModel.addElement(category.getFlashcardCategory());
         }
-        System.out.println(); // Print a blank line for better readability between categories
+        cboxCategorySelection.setModel(categoryModel);
     }
 
-    // Set the model to the combo box
-    cboxCategorySelection.setModel(model);
-}
+    private void populateTopicComboBox(FlashcardCategory category) {
+        DefaultComboBoxModel<String> topicModel = new DefaultComboBoxModel<>();
+        ArrayList<FlashcardTopic> topicList = category.getFlashcardTopicList();
+        for (FlashcardTopic topic : topicList) {
+            topicModel.addElement(topic.getTopicName());
+        }
+        cboxTopicSelection.setModel(topicModel);
+    } private FlashcardTopic findTopicByCategoryAndName(String categoryName, String topicName) {
+    for (FlashcardCategory category : categories) {
+        if (category.getFlashcardCategory().equals(categoryName)) {
+            for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+                if (topic.getTopicName().equals(topicName)) {
+                    return topic;
+                }
+            }
+        }
+    }
+    return null;
+}  private void printFlashcards(FlashcardTopic topic) {
+    ArrayList<Flashcard> flashcards = topic.getFlashcardList();
+    if (flashcards.isEmpty()) {
+        System.out.println("No flashcards available for the topic: " + topic.getTopicName());
+        return;
+    }
+    
+    for (Flashcard flashcard : flashcards) {
+        System.out.println("Question: " + flashcard.getQuestion());
+        System.out.println("Answer: " + flashcard.getAnswer());
+        System.out.println("---");
+    }
+} 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cboxCategorySelection;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cboxTopicSelection;
     // End of variables declaration//GEN-END:variables
 }
