@@ -92,5 +92,25 @@ public class FlashcardReading {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    } public void saveCategory(FlashcardCategory category) {
+    String categoryName = category.getFlashcardCategory();
+    for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+        String topicName = topic.getTopicName();
+        List<Flashcard> flashcards = topic.getFlashcardList();
+
+        // Define the JSON file path for the current topic
+        String jsonFilePath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards\\" + categoryName + "\\" + topicName + "\\flashcards.json";
+        File jsonFile = new File(jsonFilePath);
+        saveFlashcardsToJsonFile(flashcards, jsonFile);
     }
+}
+
+private void saveFlashcardsToJsonFile(List<Flashcard> flashcards, File jsonFile) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    try {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, flashcards);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 }

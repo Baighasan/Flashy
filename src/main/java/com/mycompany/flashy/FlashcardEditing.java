@@ -4,6 +4,9 @@
  */
 package com.mycompany.flashy;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -13,22 +16,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author arpan
  */
 public class FlashcardEditing extends javax.swing.JFrame {
+
     private List<FlashcardCategory> categories;
+
     /**
      * Creates new form FlashcardEditing
      */
     public FlashcardEditing() {
-    FlashcardReading flashcardReading = new FlashcardReading();
+        FlashcardReading flashcardReading = new FlashcardReading();
         flashcardReading.loadCategories();
         categories = flashcardReading.returnCategories();
 
         initComponents();
+    
         populateCategoryComboBox();
 
         // Add an ItemListener to the category combo box
@@ -48,7 +55,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         if (!categories.isEmpty()) {
             populateTopicComboBox(categories.get(0));
         }
-}
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,13 +88,13 @@ public class FlashcardEditing extends javax.swing.JFrame {
 
         flashcardTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2"
             }
         ));
         jScrollPane1.setViewportView(flashcardTable);
@@ -128,31 +135,39 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String selectedCategoryName = cboxCategorySelection.getSelectedItem().toString();
-String selectedTopicName = cboxTopicSelection.getSelectedItem().toString();
+        String selectedTopicName = cboxTopicSelection.getSelectedItem().toString();
 
-FlashcardTopic selectedTopic = findTopicByCategoryAndName(selectedCategoryName, selectedTopicName);
-if (selectedTopic != null) {
-    ArrayList<Flashcard> flashcards = selectedTopic.getFlashcardList();
-    if (flashcards.isEmpty()) {
-        // No flashcards available for the selected topic
-        JOptionPane.showMessageDialog(this, "No flashcards available for the selected topic.");
-    } else {
-        // Create a two-dimensional array to store flashcard data
-        String[][] data = new String[flashcards.size()][2];
+        FlashcardTopic selectedTopic = findTopicByCategoryAndName(selectedCategoryName, selectedTopicName);
+        if (selectedTopic != null) {
+            ArrayList<Flashcard> flashcards = selectedTopic.getFlashcardList();
+            if (flashcards.isEmpty()) {
+                // No flashcards available for the selected topic
+                JOptionPane.showMessageDialog(this, "No flashcards available for the selected topic.");
+            } else {
+                // Create a two-dimensional array to store flashcard data, including an extra column for the edit buttons
+                String[][] data = new String[flashcards.size()][3];
 
-        for (int i = 0; i < flashcards.size(); i++) {
-            Flashcard flashcard = flashcards.get(i);
-            data[i][0] = flashcard.getQuestion();
-            data[i][1] = flashcard.getAnswer();
+                for (int i = 0; i < flashcards.size(); i++) {
+                    Flashcard flashcard = flashcards.get(i);
+                    data[i][0] = flashcard.getQuestion();
+                    data[i][1] = flashcard.getAnswer();
+                    data[i][2] = "Edit";  // Placeholder for the button
+                }
+
+                // Create a table model and set it to the JTable
+                DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer", "Edit"}) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return column == 2;  // Only the third column (Edit buttons) is editable
+                    }
+                };
+                flashcardTable.setModel(tableModel);
+                flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
         }
-
-        // Create a table model and set it to the JTable
-        DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer"});
-        flashcardTable.setModel(tableModel);
-    }
-} else {
-    JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
-}
     }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
@@ -188,7 +203,9 @@ if (selectedTopic != null) {
                 new FlashcardEditing().setVisible(true);
             }
         });
-    } private void populateCategoryComboBox() {
+    }
+
+    private void populateCategoryComboBox() {
         DefaultComboBoxModel<String> categoryModel = new DefaultComboBoxModel<>();
         for (FlashcardCategory category : categories) {
             categoryModel.addElement(category.getFlashcardCategory());
@@ -203,30 +220,119 @@ if (selectedTopic != null) {
             topicModel.addElement(topic.getTopicName());
         }
         cboxTopicSelection.setModel(topicModel);
-    } private FlashcardTopic findTopicByCategoryAndName(String categoryName, String topicName) {
-    for (FlashcardCategory category : categories) {
-        if (category.getFlashcardCategory().equals(categoryName)) {
-            for (FlashcardTopic topic : category.getFlashcardTopicList()) {
-                if (topic.getTopicName().equals(topicName)) {
-                    return topic;
+    }
+
+    private FlashcardTopic findTopicByCategoryAndName(String categoryName, String topicName) {
+        for (FlashcardCategory category : categories) {
+            if (category.getFlashcardCategory().equals(categoryName)) {
+                for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+                    if (topic.getTopicName().equals(topicName)) {
+                        return topic;
+                    }
                 }
             }
         }
+        return null;
     }
-    return null;
-}  private void printFlashcards(FlashcardTopic topic) {
-    ArrayList<Flashcard> flashcards = topic.getFlashcardList();
-    if (flashcards.isEmpty()) {
-        System.out.println("No flashcards available for the topic: " + topic.getTopicName());
-        return;
+
+    private void printFlashcards(FlashcardTopic topic) {
+        ArrayList<Flashcard> flashcards = topic.getFlashcardList();
+        if (flashcards.isEmpty()) {
+            System.out.println("No flashcards available for the topic: " + topic.getTopicName());
+            return;
+        }
+
+        for (Flashcard flashcard : flashcards) {
+            System.out.println("Question: " + flashcard.getQuestion());
+            System.out.println("Answer: " + flashcard.getAnswer());
+            System.out.println("---");
+        }
     }
+
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    } private void showEditDialog(int row) {
     
-    for (Flashcard flashcard : flashcards) {
-        System.out.println("Question: " + flashcard.getQuestion());
-        System.out.println("Answer: " + flashcard.getAnswer());
-        System.out.println("---");
+    FlashcardCategory selectedCategory = categories.get(cboxCategorySelection.getSelectedIndex());
+    FlashcardTopic selectedTopic = selectedCategory.getFlashcardTopicList().get(cboxTopicSelection.getSelectedIndex());
+    Flashcard flashcard = selectedTopic.getFlashcardList().get(row);
+
+
+    // Use JOptionPane or a custom JDialog to get the new question and answer
+    String newQuestion = JOptionPane.showInputDialog(this, "Edit Question:", flashcard.getQuestion());
+    String newAnswer = JOptionPane.showInputDialog(this, "Edit Answer:", flashcard.getAnswer());
+
+    if (newQuestion != null && newAnswer != null) {
+        flashcard.setQuestion(newQuestion);
+        flashcard.setAnswer(newAnswer);
+        // Optionally refresh the table to show the updated values
+    } 
+    FlashcardReading flashcardReading = new FlashcardReading();
+     flashcardReading.saveCategory(selectedCategory);
+}
+
+    class ButtonEditor extends DefaultCellEditor {
+    protected JButton button;
+    private String label;
+    private boolean isPushed;
+    private JTable table; // Add this line
+
+    public ButtonEditor(JCheckBox checkBox, JTable table) { // Update the constructor to accept JTable
+        super(checkBox);
+        this.table = table;
+            button = new JButton();
+            button.setOpaque(true);
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    fireEditingStopped();
+                }
+            });
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            if (isSelected) {
+                button.setForeground(table.getSelectionForeground());
+                button.setBackground(table.getSelectionBackground());
+            } else {
+                button.setForeground(table.getForeground());
+                button.setBackground(table.getBackground());
+            }
+            label = (value == null) ? "" : value.toString();
+            button.setText(label);
+            isPushed = true;
+            return button;
+        }
+
+        public Object getCellEditorValue() {
+            if (isPushed) {
+                // This is where you can implement the edit functionality
+                JOptionPane.showMessageDialog(button, "Button clicked for row " + table.getSelectedRow());
+                // You can create and show an edit dialog here using the selected flashcard
+               showEditDialog(table.getSelectedRow());
+            }
+            isPushed = false;
+            return label;
+        }
+
+        public boolean stopCellEditing() {
+            isPushed = false;
+            return super.stopCellEditing();
+        }
+
+        protected void fireEditingStopped() {
+            super.fireEditingStopped();
+        }
     }
-} 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
