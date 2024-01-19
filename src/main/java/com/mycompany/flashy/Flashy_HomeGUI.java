@@ -27,27 +27,28 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,41 +58,27 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/rsz_1rsz_menu.png"))); // NOI18N
-        jLabel5.setText("jLabel5");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 50, 40));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/rsz_1rsz_menu.png"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 40));
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/arpan.png"))); // NOI18N
-        jLabel2.setText("Hello , Admin");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, 120, 40));
-
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("HAVE AN INSIGHT AT YOUR DASHBOARD ! ");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 270, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 270, 20));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 40));
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\rsz_1rsz_menu.png")); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\arpan.png")); // NOI18N
+        jLabel5.setText("HELLO, ARPAN !");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 0, 140, 40));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 40));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/grad.png"))); // NOI18N
-        jLabel6.setText("jLabel6");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 120, -1));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/rsz_flashy_1.png"))); // NOI18N
-        jLabel7.setText("jLabel7");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 320, -1));
-
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 3, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setText("Welcome to the FLASHY! Together, we'll turn your study sessions into epic quests toward excellence. Happy studying!\"");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 890, 60));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 890, 60));
 
         jTable2.setAutoCreateRowSorter(true);
         jTable2.setBackground(new java.awt.Color(102, 255, 102));
@@ -122,64 +109,84 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 390, 150));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, 390, 150));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 153, 0));
         jLabel3.setText("YOUR PROGRESS : ");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 190, 30));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, 190, 30));
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 153));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 130, 40));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel6.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jPanel6.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jButton3.setBackground(new java.awt.Color(153, 153, 153));
+        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\rsz_timer-icon-in-hand-hand-points-at-stopwatch-timer-start-concept-illustration-free-vector.jpg")); // NOI18N
+        jButton3.setText("TIMER");
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 40));
+
+        jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 170, 40));
+
+        jPanel7.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        jPanel7.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setBackground(new java.awt.Color(153, 153, 153));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\rsz_download_1.png")); // NOI18N
+        jButton2.setText("FLASHCARDS");
+        jPanel7.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 40));
+
+        jPanel4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 170, 40));
 
         jButton1.setBackground(new java.awt.Color(153, 153, 153));
-        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/rsz_125694.png"))); // NOI18N
-        jButton1.setText("HOME ");
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\rsz_125694.png")); // NOI18N
+        jButton1.setText("HOME");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 170, 40));
 
-        jPanel4.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 130, 40));
-
-        jPanel7.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jPanel7.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel4.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 130, 40));
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 130, 530));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 190, 690));
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel9.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 370, 280));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/flashy/rsz_1calendar5662.jpg"))); // NOI18N
-        jLabel10.setText("STREAK :");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 160, -1));
+        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 460, 350));
 
         jLabel11.setBackground(new java.awt.Color(255, 204, 204));
         jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, 120, 50));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 210, 120, 50));
 
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 360, 20));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 290, 360, 20));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1030, 520));
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\rsz_1calendar5662.jpg")); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 210, 60, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\rsz_flashy_1.png")); // NOI18N
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 360, 80));
+
+        jLabel7.setText("jLabel7");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon("C:\\Users\\user\\Documents\\My Stuff\\comp sc\\Flashy\\src\\main\\java\\com\\mycompany\\flashy\\grad.png")); // NOI18N
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 240, 80));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1280, 690));
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -226,6 +233,8 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -242,7 +251,6 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
