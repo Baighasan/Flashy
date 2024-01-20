@@ -155,6 +155,7 @@ public class FlashcardReading {
                                 flashcards.remove(i); // Remove the flashcard from the list
                                 saveCategory(category); // Update the JSON file
                                 System.out.println("Flashcard deleted: " + question); // Debugging line
+                                
                                 return true; // Return true if deletion is successful
                             }
                         }

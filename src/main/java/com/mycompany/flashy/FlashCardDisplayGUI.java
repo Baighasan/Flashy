@@ -3,25 +3,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.flashy;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.ArrayList; 
 import java.util.List;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 /**
  *
  * @author soham
  */
 public class FlashCardDisplayGUI extends javax.swing.JFrame {
     private List<FlashcardCategory> categories;
+    private DefaultTableModel tableModel;
   
     /**
      * Creates new form FlashCardDisplayGUI
      */
    public FlashCardDisplayGUI() {
        FlashcardReading flashcardReading = new FlashcardReading();
-        flashcardReading.loadCategories();  // This will populate allCategories
+        flashcardReading.loadCategories();  // This will populate categories
         categories = flashcardReading.returnCategories();
-        System.out.println(categories);
-        flashcardReading.printCategories(); // Now you can print the categories
         initComponents();
+        populateTable();
     }
 
     /**
@@ -103,6 +113,157 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         new FlashCardDisplayGUI().setVisible(true);
     }
 });
+    } private void populateTable() {
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Category / Topic");
+        tableModel.addColumn("Card Counts");
+        tableModel.addColumn("");  // Column for review buttons
+
+        for (FlashcardCategory category : categories) {
+            tableModel.addRow(new Object[]{category.getFlashcardCategory(), ""});  // Empty string for card count and button in category row
+
+            for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+                String indentedTopic = "    " + topic.getTopicName();  // Indent topics for visual hierarchy
+                int cardCount = topic.getFlashcardList().size();
+                tableModel.addRow(new Object[]{indentedTopic, cardCount, "Review"});
+            }
+        }
+
+        jTable1.setModel(tableModel);
+        jTable1.getColumn("Category / Topic").setCellRenderer(new IndentedCellRenderer());
+        jTable1.getColumn("").setCellRenderer(new ButtonRenderer());
+        jTable1.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+    }
+
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    }
+
+    class ButtonEditor extends DefaultCellEditor {
+        protected JButton button;
+        private String label;
+        private boolean isPushed;
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton();
+            button.setOpaque(true);
+            button.addActionListener(e -> {
+    System.out.println("Button clicked");
+    fireEditingStopped();
+});
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            if (isSelected) {
+                button.setForeground(table.getSelectionForeground());
+                button.setBackground(table.getSelectionBackground());
+            } else {
+                button.setForeground(table.getForeground());
+                button.setBackground(table.getBackground());
+            }
+            label = (value == null) ? "" : value.toString();
+            button.setText(label);
+            isPushed = true;
+            return button;
+        }
+
+        public Object getCellEditorValue() {
+    if (isPushed) {
+        int row = jTable1.getSelectedRow();
+        int accumulatedRows = 0;
+        FlashcardCategory selectedCategory = null;
+        FlashcardTopic selectedTopic = null;
+
+        // Iterate through categories and topics
+        for (FlashcardCategory category : categories) {
+            if (row == accumulatedRows) {
+                // It's a category row, not a topic row
+                selectedCategory = category;
+                break;
+            }
+
+            // Accumulate category row
+            accumulatedRows++;
+            
+            // Check each topic in the current category
+            for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+                if (row == accumulatedRows) {
+                    // Found the topic row
+                    selectedCategory = category;
+                    selectedTopic = topic;
+                    break;
+                }
+
+                // Accumulate topic row
+                accumulatedRows++;
+            }
+
+            if (selectedTopic != null) {
+                // Break the outer loop if the topic is found
+                break;
+            }
+        }
+
+        if (selectedCategory != null && selectedTopic != null) {
+            // Logic for when a topic row is clicked
+            System.out.println("Category: " + selectedCategory.getFlashcardCategory());
+            System.out.println("Topic: " + selectedTopic.getTopicName());
+            FlashcardReviewInterface reviewInterface = new FlashcardReviewInterface();
+            reviewInterface.setVisible(true);
+        } else if (selectedCategory != null) {
+            // Logic for when a category row is clicked, if needed
+            System.out.println("Category row clicked: " + selectedCategory.getFlashcardCategory());
+        }
+    }
+    isPushed = false;
+    return label;
+}
+    }
+
+    private FlashcardCategory findCategoryForRow(int row) {
+    FlashcardCategory currentCategory = null;
+    
+    for (int i = 0; i <= row; i++) {
+        String cellValue = (String) jTable1.getValueAt(i, 0); // Assuming first column contains the Category / Topic names
+        
+        // Check if the row is a category (not indented)
+        if (!cellValue.startsWith("    ")) {
+            // Find the category in the list of categories
+            for (FlashcardCategory category : categories) {
+                if (category.getFlashcardCategory().equals(cellValue.trim())) {
+                    currentCategory = category;
+                    break;
+                }
+            }
+        }
+        // If it's a topic (indented), currentCategory is already set to the right category
+    }
+    
+    return currentCategory;
+}
+
+    class IndentedCellRenderer extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (value instanceof String && ((String) value).startsWith("    ")) {  // Detect indented text
+                c.setFont(c.getFont().deriveFont(Font.PLAIN));  // Make topic font plain
+            } else {
+                c.setFont(c.getFont().deriveFont(Font.BOLD));  // Make category font bold
+            }
+            return c;
+        }
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

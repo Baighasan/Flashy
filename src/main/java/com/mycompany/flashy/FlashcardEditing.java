@@ -25,11 +25,13 @@ import javax.swing.table.TableCellRenderer;
 public class FlashcardEditing extends javax.swing.JFrame {
 
     private List<FlashcardCategory> categories;
+    private DefaultTableModel tableModel;
 
     /**
      * Creates new form FlashcardEditing
      */
     public FlashcardEditing() {
+        
         FlashcardReading flashcardReading = new FlashcardReading();
         flashcardReading.loadCategories();
         categories = flashcardReading.returnCategories();
@@ -250,26 +252,21 @@ public class FlashcardEditing extends javax.swing.JFrame {
     }
 
     private void updateFlashcardTable(FlashcardCategory category, FlashcardTopic topic) {
-        ArrayList<Flashcard> flashcards = topic.getFlashcardList();
-        String[][] data = new String[flashcards.size()][3];
-        for (int i = 0; i < flashcards.size(); i++) {
-            Flashcard flashcard = flashcards.get(i);
-            data[i][0] = flashcard.getQuestion();
-            data[i][1] = flashcard.getAnswer();
-            data[i][2] = "Edit";
-        }
-
-        DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer", "Edit"}) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 2; // Only the third column (Edit buttons) is editable
-            }
-        };
-        flashcardTable.setModel(tableModel);
-        flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
-        flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
-        ((DefaultTableModel)flashcardTable.getModel()).fireTableDataChanged();
+    ArrayList<Flashcard> flashcards = topic.getFlashcardList();
+    String[][] data = new String[flashcards.size()][3];
+    for (int i = 0; i < flashcards.size(); i++) {
+        Flashcard flashcard = flashcards.get(i);
+        data[i][0] = flashcard.getQuestion();
+        data[i][1] = flashcard.getAnswer();
+        data[i][2] = "Edit";
     }
+
+    DefaultTableModel tableModel = (DefaultTableModel) flashcardTable.getModel();
+    tableModel.setDataVector(data, new String[]{"Question", "Answer", "Edit"});
+    flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+    flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
+    tableModel.fireTableDataChanged(); // Notify the model that data has changed
+}
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
 
@@ -284,7 +281,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         }
     }
 
-    private void showEditDialog(int row) {
+   private void showEditDialog(int row) {
     if (row == -1) {
         JOptionPane.showMessageDialog(this, "No row selected.");
         return;
@@ -307,6 +304,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         boolean isDeleted = flashcardReading.deleteFlashcard(categoryName, topicName, question);
 
         if (isDeleted) {
+            selectedTopic.getFlashcardList().remove(row); // Remove the flashcard from the list
             updateFlashcardTable(selectedCategory, selectedTopic); // Update the table to show the flashcards after deletion
         } else {
             JOptionPane.showMessageDialog(this, "Error deleting the flashcard.");
