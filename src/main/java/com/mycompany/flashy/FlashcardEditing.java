@@ -35,7 +35,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         categories = flashcardReading.returnCategories();
 
         initComponents();
-    
+
         populateCategoryComboBox();
 
         // Add an ItemListener to the category combo box
@@ -163,7 +163,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
                 };
                 flashcardTable.setModel(tableModel);
                 flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
-flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
+                flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
             }
         } else {
             JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
@@ -249,6 +249,28 @@ flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new 
         }
     }
 
+    private void updateFlashcardTable(FlashcardCategory category, FlashcardTopic topic) {
+        ArrayList<Flashcard> flashcards = topic.getFlashcardList();
+        String[][] data = new String[flashcards.size()][3];
+        for (int i = 0; i < flashcards.size(); i++) {
+            Flashcard flashcard = flashcards.get(i);
+            data[i][0] = flashcard.getQuestion();
+            data[i][1] = flashcard.getAnswer();
+            data[i][2] = "Edit";
+        }
+
+        DefaultTableModel tableModel = new DefaultTableModel(data, new String[]{"Question", "Answer", "Edit"}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2; // Only the third column (Edit buttons) is editable
+            }
+        };
+        flashcardTable.setModel(tableModel);
+        flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+        flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
+        ((DefaultTableModel)flashcardTable.getModel()).fireTableDataChanged();
+    }
+
     class ButtonRenderer extends JButton implements TableCellRenderer {
 
         public ButtonRenderer() {
@@ -260,25 +282,52 @@ flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new 
             setText((value == null) ? "" : value.toString());
             return this;
         }
-    } private void showEditDialog(int row) {
-    
+    }
+
+    private void showEditDialog(int row) {
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "No row selected.");
+        return;
+    }
+
     FlashcardCategory selectedCategory = categories.get(cboxCategorySelection.getSelectedIndex());
     FlashcardTopic selectedTopic = selectedCategory.getFlashcardTopicList().get(cboxTopicSelection.getSelectedIndex());
     Flashcard flashcard = selectedTopic.getFlashcardList().get(row);
 
+    FlashcardEditDialog dialog = new FlashcardEditDialog(this, flashcard.getQuestion(), flashcard.getAnswer());
+    dialog.setVisible(true);
 
-    // Use JOptionPane or a custom JDialog to get the new question and answer
-    String newQuestion = JOptionPane.showInputDialog(this, "Edit Question:", flashcard.getQuestion());
-    String newAnswer = JOptionPane.showInputDialog(this, "Edit Answer:", flashcard.getAnswer());
+    if (dialog.isDeleted()) {
+        String categoryName = selectedCategory.getFlashcardCategory();
+        String topicName = selectedTopic.getTopicName();
+        String question = flashcard.getQuestion();
 
-    if (newQuestion != null && newAnswer != null) {
-        flashcard.setQuestion(newQuestion);
-        flashcard.setAnswer(newAnswer);
-        // Optionally refresh the table to show the updated values
-    } 
-    FlashcardReading flashcardReading = new FlashcardReading();
-     flashcardReading.saveCategory(selectedCategory);
+        FlashcardReading flashcardReading = new FlashcardReading();
+        flashcardReading.loadCategories(); // Load categories if not already loaded
+        boolean isDeleted = flashcardReading.deleteFlashcard(categoryName, topicName, question);
+
+        if (isDeleted) {
+            updateFlashcardTable(selectedCategory, selectedTopic); // Update the table to show the flashcards after deletion
+        } else {
+            JOptionPane.showMessageDialog(this, "Error deleting the flashcard.");
+        }
+    } else if (dialog.isSaved()) {
+        String newQuestion = dialog.getQuestion();
+        String newAnswer = dialog.getAnswer();
+
+        if (newQuestion != null && newAnswer != null && (!newQuestion.isEmpty() || !newAnswer.isEmpty())) {
+            flashcard.setQuestion(newQuestion);
+            flashcard.setAnswer(newAnswer);
+
+            FlashcardReading flashcardReading = new FlashcardReading();
+            flashcardReading.saveCategory(selectedCategory);
+
+            // Update the table to show the updated values
+            updateFlashcardTable(selectedCategory, selectedTopic);
+        }
+    }
 }
+
 
     class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
@@ -289,50 +338,52 @@ flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new 
     public ButtonEditor(JCheckBox checkBox, JTable table) { // Update the constructor to accept JTable
         super(checkBox);
         this.table = table;
-            button = new JButton();
-            button.setOpaque(true);
-            button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        button = new JButton();
+        button.setOpaque(true);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) { // Check if a row is selected
                     fireEditingStopped();
+                    // Call the edit dialog here, passing the selectedRow
+                    showEditDialog(selectedRow); 
+                } else {
+                    // Maybe add some error handling here, like a message dialog
+                    JOptionPane.showMessageDialog(button, "Please select a row to edit.");
                 }
-            });
-        }
-
-        public Component getTableCellEditorComponent(JTable table, Object value,
-                boolean isSelected, int row, int column) {
-            if (isSelected) {
-                button.setForeground(table.getSelectionForeground());
-                button.setBackground(table.getSelectionBackground());
-            } else {
-                button.setForeground(table.getForeground());
-                button.setBackground(table.getBackground());
             }
-            label = (value == null) ? "" : value.toString();
-            button.setText(label);
-            isPushed = true;
-            return button;
-        }
-
-        public Object getCellEditorValue() {
-            if (isPushed) {
-                // This is where you can implement the edit functionality
-                JOptionPane.showMessageDialog(button, "Button clicked for row " + table.getSelectedRow());
-                // You can create and show an edit dialog here using the selected flashcard
-               showEditDialog(table.getSelectedRow());
-            }
-            isPushed = false;
-            return label;
-        }
-
-        public boolean stopCellEditing() {
-            isPushed = false;
-            return super.stopCellEditing();
-        }
-
-        protected void fireEditingStopped() {
-            super.fireEditingStopped();
-        }
+        });
     }
+
+    public Component getTableCellEditorComponent(JTable table, Object value,
+            boolean isSelected, int row, int column) {
+        if (isSelected) {
+            button.setForeground(table.getSelectionForeground());
+            button.setBackground(table.getSelectionBackground());
+        } else {
+            button.setForeground(table.getForeground());
+            button.setBackground(table.getBackground());
+        }
+        label = (value == null) ? "" : value.toString();
+        button.setText(label);
+        isPushed = true;
+        return button;
+    }
+
+    public Object getCellEditorValue() {
+        isPushed = false;
+        return label;
+    }
+
+    public boolean stopCellEditing() {
+        isPushed = false;
+        return super.stopCellEditing();
+    }
+
+    protected void fireEditingStopped() {
+        super.fireEditingStopped();
+    }
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

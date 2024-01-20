@@ -4,6 +4,9 @@
  */
 package com.mycompany.flashy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -349,57 +352,38 @@ public class FlashcardInput extends javax.swing.JFrame {
         String categoryDirectory = rootDirectory + "/" + flashcard.getFlashCardCategory();
         String topicDirectory = categoryDirectory + "/" + flashcard.getTopic();
 
-        File root = new File(rootDirectory);
-        File categoryDir = new File(categoryDirectory);
-        File topicDir = new File(topicDirectory);
+        new File(rootDirectory).mkdirs();
+        new File(categoryDirectory).mkdirs();
+        new File(topicDirectory).mkdirs();
 
-        if (!root.exists()) {
-            root.mkdir();
-        }
-        
-        if (!categoryDir.exists()) {
-            categoryDir.mkdir();
-        }
-
-        if (!topicDir.exists()) {
-            topicDir.mkdir();
-        }
-
-        // Create a JSON file with the flashcard details
+        // JSON file path
         String filePath = topicDirectory + "/flashcards.json";
         File file = new File(filePath);
 
-        // Create JSON data manually without newlines for compact formatting
-        String jsonData = "{" +
-                "\"question\": \"" + flashcard.getQuestion().replace("\"", "\\\"") + "\"," +
-                "\"answer\": \"" + flashcard.getAnswer().replace("\"", "\\\"") + "\"" +
-                "}";
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayNode flashcardsArray;
 
-        // If the JSON file already exists, append the new flashcard data
-        if (file.exists()) {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            StringBuilder existingJsonData = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                existingJsonData.append(line);
-            }
-            reader.close();
-
-            // Remove trailing square bracket and add a comma
-            String existingJsonStr = existingJsonData.toString();
-            existingJsonStr = existingJsonStr.substring(0, existingJsonStr.length() - 1);
-            existingJsonStr += ",";
-
-            // Append the new flashcard data
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write(existingJsonStr + jsonData + "]");
-            writer.close();
+        if (file.exists() && file.length() != 0) {
+            // Read existing data and convert to ArrayNode
+            flashcardsArray = (ArrayNode) objectMapper.readTree(file);
         } else {
-            // If the file doesn't exist, create a new JSON file with compact formatting
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            writer.write("[" + jsonData + "]");
-            writer.close();
+            // Create new ArrayNode
+            flashcardsArray = objectMapper.createArrayNode();
         }
+
+        // Create new flashcard node
+        ObjectNode flashcardNode = objectMapper.createObjectNode();
+        flashcardNode.put("flashCardCategory", flashcard.getFlashCardCategory());
+        flashcardNode.put("question", flashcard.getQuestion());
+        flashcardNode.put("answer", flashcard.getAnswer());
+        flashcardNode.put("topic", flashcard.getTopic());
+        flashcardNode.put("status", flashcard.getStatus());
+
+        // Add new flashcard to array
+        flashcardsArray.add(flashcardNode);
+
+        // Write array back to file
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, flashcardsArray);
 
         lblMessage.setText("Flashcard saved to: " + filePath);
     } catch (IOException e) {

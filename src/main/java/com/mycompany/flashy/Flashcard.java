@@ -20,6 +20,7 @@ public class Flashcard {
         setQuestion(question);
         setAnswer(answer);
         setFlashCardTopic(topic);
+        setStatus(status);
     }
     
     public void setFlashCardCategory(String flashCardCategory) {

@@ -6,6 +6,9 @@ package com.mycompany.flashy;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FlashcardReading {
+
     private List<FlashcardCategory> allCategories = new ArrayList<>();
 
     public void loadCategories() {
@@ -74,16 +78,21 @@ public class FlashcardReading {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
+            StringBuilder jsonContent = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                line = line.replace("\t", " ");
-                JsonNode jsonNode = objectMapper.readTree(line);
+                jsonContent.append(line);
+            }
 
-                if (jsonNode.isArray()) {
-                    for (JsonNode flashcardNode : jsonNode) {
-                        String question = flashcardNode.get("question").asText();
-                        String answer = flashcardNode.get("answer").asText();
+            JsonNode jsonNode = objectMapper.readTree(jsonContent.toString());
+            if (jsonNode.isArray()) {
+                ArrayNode arrayNode = (ArrayNode) jsonNode;
+                for (JsonNode flashcardNode : arrayNode) {
+                    String question = flashcardNode.path("question").asText(null);
+                    String answer = flashcardNode.path("answer").asText(null);
+                    boolean status = flashcardNode.path("status").asBoolean(true); // default to true if not present
 
+                    if (question != null && answer != null) { // check if question and answer are present
                         Flashcard flashcard = new Flashcard(category, flashcardTopic.getTopicName(), question, answer);
                         flashcardTopic.addFlashCard(flashcard);
                     }
@@ -92,25 +101,68 @@ public class FlashcardReading {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } public void saveCategory(FlashcardCategory category) {
-    String categoryName = category.getFlashcardCategory();
-    for (FlashcardTopic topic : category.getFlashcardTopicList()) {
-        String topicName = topic.getTopicName();
-        List<Flashcard> flashcards = topic.getFlashcardList();
-
-        // Define the JSON file path for the current topic
-        String jsonFilePath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards\\" + categoryName + "\\" + topicName + "\\flashcards.json";
-        File jsonFile = new File(jsonFilePath);
-        saveFlashcardsToJsonFile(flashcards, jsonFile);
     }
-}
 
-private void saveFlashcardsToJsonFile(List<Flashcard> flashcards, File jsonFile) {
-    ObjectMapper objectMapper = new ObjectMapper();
-    try {
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, flashcards);
-    } catch (IOException e) {
-        e.printStackTrace();
+    public void saveCategory(FlashcardCategory category) {
+        String categoryName = category.getFlashcardCategory();
+        for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+            String topicName = topic.getTopicName();
+            List<Flashcard> flashcards = topic.getFlashcardList();
+
+            // Define the JSON file path for the current topic
+            String jsonFilePath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards\\" + categoryName + "\\" + topicName + "\\flashcards.json";
+            File jsonFile = new File(jsonFilePath);
+            saveFlashcardsToJsonFile(flashcards, jsonFile);
+        }
     }
-}
+
+    private void saveFlashcardsToJsonFile(List<Flashcard> flashcards, File jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ArrayNode flashcardArray = objectMapper.createArrayNode();
+
+            for (Flashcard flashcard : flashcards) {
+                ObjectNode flashcardNode = JsonNodeFactory.instance.objectNode();
+                flashcardNode.put("flashCardCategory", flashcard.getFlashCardCategory());
+                flashcardNode.put("question", flashcard.getQuestion());
+                flashcardNode.put("answer", flashcard.getAnswer());
+                flashcardNode.put("topic", flashcard.getTopic());
+                flashcardNode.put("status", flashcard.getStatus());
+
+                flashcardArray.add(flashcardNode);
+            }
+
+            // Overwrite the existing file content with the new flashcard array
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, flashcardArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean deleteFlashcard(String categoryName, String topicName, String question) {
+        loadCategories();
+        System.out.println(categoryName);
+        System.out.println(allCategories);
+        for (FlashcardCategory category : allCategories) {
+            System.out.println(category.getFlashcardCategory());
+            if (category.getFlashcardCategory().equals(categoryName)) {
+                System.out.println(category);
+                for (FlashcardTopic topic : category.getFlashcardTopicList()) {
+                    if (topic.getTopicName().equals(topicName)) {
+                        List<Flashcard> flashcards = topic.getFlashcardList();
+                        for (int i = 0; i < flashcards.size(); i++) {
+                            if (flashcards.get(i).getQuestion().equals(question)) {
+                                flashcards.remove(i); // Remove the flashcard from the list
+                                saveCategory(category); // Update the JSON file
+                                System.out.println("Flashcard deleted: " + question); // Debugging line
+                                return true; // Return true if deletion is successful
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Flashcard not found: " + question); // Debugging line
+        return false; // Return false if flashcard is not found
+    }
 }
