@@ -32,5 +32,10 @@
             <artifactId>json</artifactId>
             <version>20210307</version> <!-- Specify the version you want to use -->
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE190</version>
+        </dependency>
     </dependencies>
 </project>
