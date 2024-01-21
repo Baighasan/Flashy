@@ -24,7 +24,7 @@ public class FlashcardReading {
     private List<FlashcardCategory> allCategories = new ArrayList<>();
 
     public void loadCategories() {
-        String flashcardsFolderPath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards";
+        String flashcardsFolderPath = "Flashcards";
         File flashcardsFolder = new File(flashcardsFolderPath);
         if (flashcardsFolder.exists() && flashcardsFolder.isDirectory()) {
             Map<String, FlashcardCategory> categoryMap = new HashMap<>();
@@ -110,7 +110,7 @@ public class FlashcardReading {
             List<Flashcard> flashcards = topic.getFlashcardList();
 
             // Define the JSON file path for the current topic
-            String jsonFilePath = "C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards\\" + categoryName + "\\" + topicName + "\\flashcards.json";
+            String jsonFilePath = "Flashy\\Flashcards\\" + categoryName + "\\" + topicName + "\\flashcards.json";
             File jsonFile = new File(jsonFilePath);
             saveFlashcardsToJsonFile(flashcards, jsonFile);
         }
