@@ -150,6 +150,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 120, 70));
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/grad.png"))); // NOI18N
         jLabel5.setText("jLabel5");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 300, 70));
 
