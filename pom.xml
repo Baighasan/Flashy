@@ -11,13 +11,21 @@
         <maven.compiler.target>20</maven.compiler.target>
         <exec.mainClass>com.mycompany.flashy.Flashy</exec.mainClass>
     </properties>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
     <dependencies>
+        <!-- AbsoluteLayout Class -->
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE190</version>
         </dependency>
-        
+      
         <!-- jFreeChart Library -->
         <dependency>
             <groupId>jfree</groupId>
