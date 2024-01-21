@@ -6,17 +6,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
+        <!-- AbsoluteLayout Class -->
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE190</version>
         </dependency>
-        <dependency>
-            <groupId>de.xwic.jwic</groupId>
-            <artifactId>jwic-samples</artifactId>
-            <version>5.3.43</version>
-            <type>war</type>
-        </dependency>
+ 
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
