@@ -1,7 +1,6 @@
 package com.mycompany.flashy;
 
-import java.io.*;
-import java.util.Scanner;
+
 
 
 public class Flashy {
