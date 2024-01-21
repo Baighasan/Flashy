@@ -61,10 +61,7 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         txtQuestionDisplay = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        txtAnswerDisplay = new javax.swing.JTextArea();
         Question = new javax.swing.JLabel();
-        Question1 = new javax.swing.JLabel();
         lblFlashcardCount = new javax.swing.JLabel();
         lblFlashcardsRemaining = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -74,6 +71,10 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
         btnHard = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtAnswerDisplay = new javax.swing.JTextArea();
+        Question1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -84,23 +85,15 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 510, 139));
 
-        txtAnswerDisplay.setColumns(20);
-        txtAnswerDisplay.setRows(5);
-        jScrollPane3.setViewportView(txtAnswerDisplay);
-
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 510, 139));
-
+        Question.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         Question.setText("Question");
         getContentPane().add(Question, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 84, 20));
 
-        Question1.setText("Answer");
-        getContentPane().add(Question1, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 216, 84, -1));
-
-        lblFlashcardCount.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblFlashcardCount.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblFlashcardCount.setText("Total Flashcard Count: 0");
         getContentPane().add(lblFlashcardCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 168, -1));
 
-        lblFlashcardsRemaining.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        lblFlashcardsRemaining.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblFlashcardsRemaining.setText("Flashcards Remaining: 0");
         getContentPane().add(lblFlashcardsRemaining, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, 168, -1));
 
@@ -170,27 +163,57 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 750, 90));
 
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 153), 2));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setForeground(new java.awt.Color(255, 204, 204));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emoji.png"))); // NOI18N
         jLabel1.setText("jLabel1");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsz_4877819.png"))); // NOI18N
+        jLabel2.setText("jLabel2");
+
+        txtAnswerDisplay.setColumns(20);
+        txtAnswerDisplay.setRows(5);
+        jScrollPane3.setViewportView(txtAnswerDisplay);
+
+        Question1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Question1.setText("Answer");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(676, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Question1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(405, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addComponent(Question1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(77, 77, 77))))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 480));
@@ -313,6 +336,7 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
     private javax.swing.JButton btnHard;
     private javax.swing.JButton btnShowAnswer;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
