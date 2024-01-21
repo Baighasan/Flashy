@@ -5,6 +5,12 @@
     <artifactId>Flashy</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
+        <exec.mainClass>com.mycompany.flashy.Flashy</exec.mainClass>
+    </properties>
     <dependencies>
         <!-- AbsoluteLayout Class -->
         <dependency>
@@ -12,11 +18,31 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE190</version>
         </dependency>
- 
+      
+        <!-- jFreeChart Library -->
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.0.13</version>
+        </dependency>
+
+        <!-- Jackson JSON Library -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.5</version> <!-- Replace with the latest version -->
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.8</version>
+        </dependency>
+        
+        <!-- JSON Library -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version> <!-- Specify the version you want to use -->
         </dependency>
     </dependencies>
     <properties>
