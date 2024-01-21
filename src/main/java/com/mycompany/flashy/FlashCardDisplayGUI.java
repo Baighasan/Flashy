@@ -22,6 +22,7 @@ import javax.swing.table.TableCellRenderer;
 public class FlashCardDisplayGUI extends javax.swing.JFrame {
     private List<FlashcardCategory> categories;
     private DefaultTableModel tableModel;
+    
   
     /**
      * Creates new form FlashCardDisplayGUI
@@ -218,7 +219,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             // Logic for when a topic row is clicked
             System.out.println("Category: " + selectedCategory.getFlashcardCategory());
             System.out.println("Topic: " + selectedTopic.getTopicName());
-            FlashcardReviewInterface reviewInterface = new FlashcardReviewInterface();
+            FlashcardReviewInterface reviewInterface = new FlashcardReviewInterface(selectedTopic);
             reviewInterface.setVisible(true);
         } else if (selectedCategory != null) {
             // Logic for when a category row is clicked, if needed

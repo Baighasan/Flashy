@@ -4,19 +4,48 @@
  */
 package com.mycompany.flashy;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * @author arpan
  */
 public class FlashcardReviewInterface extends javax.swing.JFrame {
+
     private FlashcardTopic topic;
+    private Flashcard currentFlashcard;
+    private List<Flashcard> sessionFlashcards;
+    private List<Flashcard> hardFlashcards;
+    private int easyFlashcardCount; // Counter for 'Easy' flashcards
+    private Queue<Flashcard> hardFlashcardsQueue;
+    private int currentIndex; // Index to track the current flashcard
+
     /**
      * Creates new form FlashcardReviewInterface
      */
-    public FlashcardReviewInterface() {
-         //this.topic = topic;
-        //System.out.println(topic.getFlashcardCount()); // Just for checking, you may remove this line.
+    public FlashcardReviewInterface(FlashcardTopic topic) {
+            
+        this.topic = topic;
+        this.sessionFlashcards = new ArrayList<>(topic.getFlashcardList()); // Copy all flashcards to session list\
+        for (Flashcard flashcard : sessionFlashcards) {
+    System.out.println(flashcard.getQuestion());
+}
+        
+        this.hardFlashcards = new ArrayList<>(); // Initialize the list for 'hard' flashcards
+        this.easyFlashcardCount = 0; // Initialize 'Easy' flashcard counter
+        this.hardFlashcardsQueue = new LinkedList<>();
+        this.currentIndex = 0; // Initialize the current index
+        if (!sessionFlashcards.isEmpty()) {
+            currentFlashcard = sessionFlashcards.get(currentIndex); // Start with the first flashcard
+        }
         initComponents();
+        lblFlashcardCount.setText("Total Flashcards: " + sessionFlashcards.size());
+    lblFlashcardsRemaining.setText("Flashcards Remaining: " + sessionFlashcards.size());
+        displayFlashcard();
         // Optionally, use topic to populate UI elements, like a list of flashcards
         //populateFlashcards();
     }
@@ -30,21 +59,152 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtQuestionDisplay = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtAnswerDisplay = new javax.swing.JTextArea();
+        Question = new javax.swing.JLabel();
+        Question1 = new javax.swing.JLabel();
+        btnShowAnswer = new javax.swing.JButton();
+        btnEasy = new javax.swing.JButton();
+        btnHard = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        lblFlashcardCount = new javax.swing.JLabel();
+        lblFlashcardsRemaining = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        txtQuestionDisplay.setColumns(20);
+        txtQuestionDisplay.setRows(5);
+        jScrollPane2.setViewportView(txtQuestionDisplay);
+
+        txtAnswerDisplay.setColumns(20);
+        txtAnswerDisplay.setRows(5);
+        jScrollPane3.setViewportView(txtAnswerDisplay);
+
+        Question.setText("Question");
+
+        Question1.setText("Answer");
+
+        btnShowAnswer.setText("Show Answer");
+        btnShowAnswer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowAnswerActionPerformed(evt);
+            }
+        });
+
+        btnEasy.setText("Easy");
+        btnEasy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEasyActionPerformed(evt);
+            }
+        });
+
+        btnHard.setText("Hard");
+        btnHard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHardActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        lblFlashcardCount.setText("Total Flashcard Count: 0");
+
+        lblFlashcardsRemaining.setText("Flashcards Remaining: 0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(btnBack)
+                .addGap(133, 133, 133)
+                .addComponent(btnEasy)
+                .addGap(18, 18, 18)
+                .addComponent(btnHard)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(112, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Question1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Question, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(100, 100, 100))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnShowAnswer)
+                        .addGap(102, 102, 102)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblFlashcardsRemaining, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(lblFlashcardCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(Question)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(Question1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnShowAnswer))
+                    .addComponent(lblFlashcardCount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFlashcardsRemaining)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEasy)
+                    .addComponent(btnHard)
+                    .addComponent(btnBack))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnShowAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAnswerActionPerformed
+        // TODO add your handling code here:
+         txtAnswerDisplay.setText(currentFlashcard.getAnswer());
+        btnShowAnswer.setEnabled(false);
+        btnHard.setEnabled(true);
+        btnEasy.setEnabled(true);
+    }//GEN-LAST:event_btnShowAnswerActionPerformed
+
+    private void btnEasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEasyActionPerformed
+        // TODO add your handling code here:
+          sessionFlashcards.remove(currentIndex);
+    easyFlashcardCount++;
+    lblFlashcardsRemaining.setText("Flashcards Remaining: " + (sessionFlashcards.size() - currentIndex));
+    checkAndDisplayNextFlashcard();
+    }//GEN-LAST:event_btnEasyActionPerformed
+
+    private void btnHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHardActionPerformed
+        // TODO add your handling code here:
+        lblFlashcardsRemaining.setText("Flashcards Remaining: " + (sessionFlashcards.size() - currentIndex));
+       checkAndDisplayNextFlashcard();
+    }//GEN-LAST:event_btnHardActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+       this.dispose();
+        FlashCardDisplayGUI displayGUI = new FlashCardDisplayGUI(); // Create a new instance of FlashCardDisplayGUI
+        displayGUI.setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -75,12 +235,67 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-    public void run() {
-        new FlashcardReviewInterface().setVisible(true);
+            public void run() {
+                // Create an instance of FlashcardTopic and pass it to the constructor
+
+            }
+        });
     }
-});
+
+  private void displayFlashcard() {
+        if (currentFlashcard != null) {
+            txtQuestionDisplay.setText(currentFlashcard.getQuestion()); // Display the question
+            txtAnswerDisplay.setText(""); // Clear the answer field
+            btnShowAnswer.setEnabled(true);
+            btnHard.setEnabled(false);
+            btnEasy.setEnabled(false);
+        } else {
+            txtQuestionDisplay.setText("You have finished reviewing your flashcards for this session.");
+            txtAnswerDisplay.setText("");
+            btnShowAnswer.setEnabled(false);
+            btnHard.setEnabled(false);
+            btnEasy.setEnabled(false);
+            btnBack.setEnabled(true); // Enable the "Back" button
+        }
+    }
+
+    private void checkAndDisplayNextFlashcard() {
+        // If there are no more flashcards in the session, check for hard flashcards
+        if (hardFlashcards.contains(currentFlashcard)) {
+        sessionFlashcards.add(currentFlashcard);  // Re-add the hard flashcard at the end of the session
+        hardFlashcards.remove(currentFlashcard);  // Remove from the hardFlashcards list to prevent duplicates
+    }
+
+    // Check if there are flashcards left in the session
+    if (currentIndex < sessionFlashcards.size()) {
+        currentFlashcard = sessionFlashcards.get(currentIndex);  // Get the next flashcard
+        displayFlashcard();
+    } else {
+        // No more flashcards in the session, display completion message
+        currentFlashcard = null;
+        displayFlashcard();
+    }
+    if (currentFlashcard == null) {
+        lblFlashcardsRemaining.setText("Flashcards Remaining: 0");
+    }
+
+    // Increment the currentIndex for the next call to this method
+    //currentIndex++;
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Question;
+    private javax.swing.JLabel Question1;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnEasy;
+    private javax.swing.JButton btnHard;
+    private javax.swing.JButton btnShowAnswer;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblFlashcardCount;
+    private javax.swing.JLabel lblFlashcardsRemaining;
+    private javax.swing.JTextArea txtAnswerDisplay;
+    private javax.swing.JTextArea txtQuestionDisplay;
     // End of variables declaration//GEN-END:variables
 }

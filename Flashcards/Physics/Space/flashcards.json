@@ -1,13 +1,85 @@
 [ {
   "flashCardCategory" : "Physics",
-  "question" : "fffff",
-  "answer" : "gggggg",
+  "question" : "What is the force that keeps planets in orbit around the Sun?",
+  "answer" : "Gravity",
   "topic" : "Space",
   "status" : true
 }, {
   "flashCardCategory" : "Physics",
-  "question" : "f",
-  "answer" : "f",
+  "question" : "What is the speed of light in a vacuum?",
+  "answer" : "299,792,458 meters per second",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the largest planet in our solar system?",
+  "answer" : "Jupiter",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the phenomenon where light is bent as it passes through a medium with different density, such as Earth's atmosphere?",
+  "answer" : "Refraction",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the name of the galaxy that contains our solar system?",
+  "answer" : "Milky Way",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the term for the explosive death of a massive star?",
+  "answer" : "Supernova",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the name of the theory that describes the origin of the universe from a singularity?",
+  "answer" : "Big Bang Theory",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the approximate distance from the Earth to the Moon?",
+  "answer" : "384,400 kilometers",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "Which planet in our solar system is known as the 'Red Planet'?",
+  "answer" : "Mars",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the name of the first artificial satellite launched into space by humans?",
+  "answer" : "Sputnik 1",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the process by which stars generate energy through nuclear fusion?",
+  "answer" : "Stellar nucleosynthesis",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the name of the largest moon in our solar system, which orbits Jupiter?",
+  "answer" : "Ganymede",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the phenomenon where a celestial object's apparent position shifts due to Earth's motion around the Sun?",
+  "answer" : "Stellar parallax",
+  "topic" : "Space",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the name of the region beyond Neptune where many small icy bodies and dwarf planets are found?",
+  "answer" : "Kuiper Belt",
   "topic" : "Space",
   "status" : true
 } ]
