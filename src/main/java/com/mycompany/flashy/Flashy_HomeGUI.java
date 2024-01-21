@@ -146,13 +146,13 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jLabel12.setText("YOUR STREAK :");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 200, 200, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_1rsz_menu.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_flashy_1.png"))); // NOI18N
         jLabel2.setText("jLabel2");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 120, 70));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 340, 70));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/grad.png"))); // NOI18N
         jLabel5.setText("jLabel5");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 300, 70));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 40, 300, 70));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_1rsz_menu.png"))); // NOI18N
         jLabel6.setText("jLabel6");
