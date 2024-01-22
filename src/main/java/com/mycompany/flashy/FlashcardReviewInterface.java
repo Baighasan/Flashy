@@ -246,8 +246,8 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
        this.dispose();
-        FlashCardDisplayGUI displayGUI = new FlashCardDisplayGUI(); // Create a new instance of FlashCardDisplayGUI
-        displayGUI.setVisible(true);
+        //FlashCardDisplayGUI displayGUI = new FlashCardDisplayGUI(); // Create a new instance of FlashCardDisplayGUI
+        //displayGUI.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**
