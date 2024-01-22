@@ -196,40 +196,41 @@ public class FlashcardInput extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
        String category = (String) jComboBox1.getSelectedItem();
-        String topic = txtTopic.getText();
-        String question = jTextArea2.getText();
-        String answer = jTextArea1.getText();
+    String topic = txtTopic.getText();
+    String question = jTextArea2.getText();
+    String answer = jTextArea1.getText();
 
-        ArrayList<String> errors = new ArrayList<>();
+    ArrayList<String> errors = new ArrayList<>();
 
-        if (category == null || category.trim().isEmpty()) {
-            errors.add("Category is missing.");
+    if (category == null || category.trim().isEmpty()) {
+        errors.add("Category is missing.");
+    }
+
+    if (topic == null || topic.trim().isEmpty()) {
+        errors.add("Topic is missing.");
+    } else if (!isValidName(topic)) {
+        errors.add("Invalid topic name. Topic names cannot contain characters like \\/:*?\"<>|.");
+    }
+
+    if (question == null || question.trim().isEmpty()) {
+        errors.add("Question is missing.");
+    }
+
+    if (answer == null || answer.trim().isEmpty()) {
+        errors.add("Answer is missing.");
+    }
+
+    if (!errors.isEmpty()) {
+        // Print error messages for missing inputs or inputs with invalid characters
+        StringBuilder errorMessage = new StringBuilder("Errors:\n");
+        for (String error : errors) {
+            errorMessage.append(error).append("\n");
         }
-
-        if (topic == null || topic.trim().isEmpty()) {
-            errors.add("Topic is missing.");
-        }
-
-        if (question == null || question.trim().isEmpty()) {
-            errors.add("Question is missing.");
-        }
-
-        if (answer == null || answer.trim().isEmpty()) {
-            errors.add("Answer is missing.");
-        }
-
-        if (!errors.isEmpty()) {
-            // Print error messages for missing inputs
-            String errorMessage = "Errors:\n";
-            for (String error : errors) {
-                errorMessage += error + "\n";
-            }
-            JOptionPane.showMessageDialog(this, errorMessage, "Input Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Flashcard flashcard = new Flashcard(category, topic, question, answer);
-            saveFlashcardToJson(flashcard);
-        }
-        
+        JOptionPane.showMessageDialog(this, errorMessage.toString(), "Input Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        Flashcard flashcard = new Flashcard(category, topic, question, answer);
+        saveFlashcardToJson(flashcard);
+    }  
         
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -243,11 +244,15 @@ public class FlashcardInput extends javax.swing.JFrame {
 
     // Check if the user entered a category and it's not empty
     if (category != null && !category.trim().isEmpty()) {
-        // Add the category to the jComboBox1
-        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
-        model.addElement(category);
-    }
-        
+        // Check for invalid characters in the category name
+        if (!isValidName(category)) {
+            JOptionPane.showMessageDialog(this, "Invalid category name. Category names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Add the category to the jComboBox1
+            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
+            model.addElement(category);
+        }
+    }  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -423,6 +428,14 @@ public class FlashcardInput extends javax.swing.JFrame {
             model.addElement(categoryFolder.getName());
         }
     }
+} private boolean isValidName(String name) {
+    String invalidChars = "\\/:*?\"<>|";
+    for (char c : invalidChars.toCharArray()) {
+        if (name.indexOf(c) >= 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
