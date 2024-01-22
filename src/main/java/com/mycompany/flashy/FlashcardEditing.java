@@ -111,7 +111,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         cboxTopicSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSearch.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        btnSearch.setText("jButton1");
+        btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);

@@ -19,6 +19,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.*;
+import java.nio.file.Paths;
+import java.util.Comparator;
 import javax.swing.*;
 
 /**
@@ -388,18 +393,22 @@ public class FlashcardInput extends javax.swing.JFrame {
         e.printStackTrace();
     }
 } private void deleteCategoryFolder(String category) {
-    // Define the path to the folder to be deleted
-    String folderPath = "Flashy\\Flashcards\\" + category;
-    File folderToDelete = new File(folderPath);
-
-    // Check if the folder exists and delete it
-    if (folderToDelete.exists() && folderToDelete.isDirectory()) {
-        String[] entries = folderToDelete.list();
-        for (String entry : entries) {
-            File currentFile = new File(folderToDelete.getPath(), entry);
-            currentFile.delete();
+    Path directory = Paths.get("C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards", category);
+    try {
+        // Delete all contents of the directory recursively and then the directory itself
+        if (Files.exists(directory)) { // Only proceed if the directory exists
+            Files.walk(directory)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
+            
+            System.out.println("Category folder deleted successfully.");
+        } else {
+            System.out.println("Directory does not exist, nothing to delete.");
         }
-        folderToDelete.delete();
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("An error occurred while deleting the category folder.");
     }
 } private void updateCategoryComboBox() {
     String directoryPath = "Flashcards";
