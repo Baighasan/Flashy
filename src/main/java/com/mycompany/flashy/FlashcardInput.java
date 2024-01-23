@@ -170,7 +170,7 @@ public class FlashcardInput extends javax.swing.JFrame {
                     .addGroup(pnlFlashcardTopFrameLayout.createSequentialGroup()
                         .addGap(99, 99, 99)
                         .addComponent(cboxTopic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(210, 210, 210)
+                        .addGap(185, 185, 185)
                         .addComponent(lblCategory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -179,7 +179,7 @@ public class FlashcardInput extends javax.swing.JFrame {
                         .addComponent(btnAddTopic)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemoveTopic)))
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
         pnlFlashcardTopFrameLayout.setVerticalGroup(
             pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
