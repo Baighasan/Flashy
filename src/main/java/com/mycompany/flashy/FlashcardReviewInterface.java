@@ -61,20 +61,20 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         txtQuestionDisplay = new javax.swing.JTextArea();
-        Question = new javax.swing.JLabel();
+        lblQuestion = new javax.swing.JLabel();
         lblFlashcardCount = new javax.swing.JLabel();
         lblFlashcardsRemaining = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pnlReviewBottom = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnShowAnswer = new javax.swing.JButton();
         btnEasy = new javax.swing.JButton();
         btnHard = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlReviewTop = new javax.swing.JPanel();
+        imgQuestion = new javax.swing.JLabel();
+        imgAnswer = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtAnswerDisplay = new javax.swing.JTextArea();
-        Question1 = new javax.swing.JLabel();
+        lblAnswer = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,12 +82,14 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
         txtQuestionDisplay.setColumns(20);
         txtQuestionDisplay.setRows(5);
         jScrollPane2.setViewportView(txtQuestionDisplay);
+        txtQuestionDisplay.setLineWrap(true);  // Enable line wrap
+        txtQuestionDisplay.setWrapStyleWord(true);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 510, 139));
 
-        Question.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        Question.setText("Question");
-        getContentPane().add(Question, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 84, 20));
+        lblQuestion.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblQuestion.setText("Question");
+        getContentPane().add(lblQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 84, 20));
 
         lblFlashcardCount.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblFlashcardCount.setText("Total Flashcard Count: 0");
@@ -97,8 +99,8 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
         lblFlashcardsRemaining.setText("Flashcards Remaining: 0");
         getContentPane().add(lblFlashcardsRemaining, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, 168, -1));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlReviewBottom.setBackground(new java.awt.Color(204, 204, 255));
+        pnlReviewBottom.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnBack.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 12)); // NOI18N
         btnBack.setText("Back");
@@ -132,91 +134,93 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlReviewBottomLayout = new javax.swing.GroupLayout(pnlReviewBottom);
+        pnlReviewBottom.setLayout(pnlReviewBottomLayout);
+        pnlReviewBottomLayout.setHorizontalGroup(
+            pnlReviewBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReviewBottomLayout.createSequentialGroup()
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnShowAnswer)
                 .addGap(16, 16, 16))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(pnlReviewBottomLayout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addComponent(btnEasy, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81)
                 .addComponent(btnHard, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(205, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlReviewBottomLayout.setVerticalGroup(
+            pnlReviewBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReviewBottomLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlReviewBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHard, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(btnEasy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(pnlReviewBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnShowAnswer, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 750, 90));
+        getContentPane().add(pnlReviewBottom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 750, 90));
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 153), 2));
-        jPanel2.setForeground(new java.awt.Color(255, 204, 204));
+        pnlReviewTop.setBackground(new java.awt.Color(255, 204, 204));
+        pnlReviewTop.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 153), 2));
+        pnlReviewTop.setForeground(new java.awt.Color(255, 204, 204));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emoji.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        imgQuestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emoji.png"))); // NOI18N
+        imgQuestion.setText("jLabel1");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsz_4877819.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
+        imgAnswer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsz_4877819.png"))); // NOI18N
+        imgAnswer.setText("jLabel2");
 
         txtAnswerDisplay.setColumns(20);
         txtAnswerDisplay.setRows(5);
         jScrollPane3.setViewportView(txtAnswerDisplay);
+        txtAnswerDisplay.setLineWrap(true);  // Enable line wrap
+        txtAnswerDisplay.setWrapStyleWord(true);
 
-        Question1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Question1.setText("Answer");
+        lblAnswer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblAnswer.setText("Answer");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlReviewTopLayout = new javax.swing.GroupLayout(pnlReviewTop);
+        pnlReviewTop.setLayout(pnlReviewTopLayout);
+        pnlReviewTopLayout.setHorizontalGroup(
+            pnlReviewTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReviewTopLayout.createSequentialGroup()
+                .addGroup(pnlReviewTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlReviewTopLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(imgQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlReviewTopLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imgAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlReviewTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Question1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlReviewTopLayout.setVerticalGroup(
+            pnlReviewTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReviewTopLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(imgQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlReviewTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlReviewTopLayout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imgAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlReviewTopLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
-                        .addComponent(Question1)
+                        .addComponent(lblAnswer)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(77, 77, 77))))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 480));
+        getContentPane().add(pnlReviewTop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -329,20 +333,20 @@ public class FlashcardReviewInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Question;
-    private javax.swing.JLabel Question1;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEasy;
     private javax.swing.JButton btnHard;
     private javax.swing.JButton btnShowAnswer;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel imgAnswer;
+    private javax.swing.JLabel imgQuestion;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblAnswer;
     private javax.swing.JLabel lblFlashcardCount;
     private javax.swing.JLabel lblFlashcardsRemaining;
+    private javax.swing.JLabel lblQuestion;
+    private javax.swing.JPanel pnlReviewBottom;
+    private javax.swing.JPanel pnlReviewTop;
     private javax.swing.JTextArea txtAnswerDisplay;
     private javax.swing.JTextArea txtQuestionDisplay;
     // End of variables declaration//GEN-END:variables

@@ -31,14 +31,16 @@ import javax.swing.*;
  * @author arpan
  */
 public class FlashcardInput extends javax.swing.JFrame {
+
     private JComboBox<String> categoryComboBox;
+
     /**
      * Creates new form FlashcardInput
      */
     public FlashcardInput() {
         initComponents();
-    updateCategoryComboBox();
-        
+        updateCategoryComboBox();
+
     }
 
     /**
@@ -50,30 +52,33 @@ public class FlashcardInput extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblQuestion = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        btnRemove = new javax.swing.JButton();
+        lblTopic = new javax.swing.JLabel();
+        btnAddCategory = new javax.swing.JButton();
+        btnRemoveCategory = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
+        txtAnswerInput = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtQuestionInput = new javax.swing.JTextArea();
         lblMessage = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        txtTopic = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlFlashcardTopFrame = new javax.swing.JPanel();
+        cboxCategory = new javax.swing.JComboBox<>();
+        cboxTopic = new javax.swing.JComboBox<>();
+        btnAddTopic = new javax.swing.JButton();
+        btnRemoveTopic = new javax.swing.JButton();
+        lblCategory = new javax.swing.JLabel();
+        pnlInputBackground = new javax.swing.JPanel();
+        lblAnswer = new javax.swing.JLabel();
+        lblFlashcardConfirmation = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("Front (Question)");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 109, 140, 30));
+        lblQuestion.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblQuestion.setForeground(new java.awt.Color(102, 102, 102));
+        lblQuestion.setText("Front (Question)");
+        getContentPane().add(lblQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 109, 140, 30));
 
         btnAdd.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 51, 51));
@@ -85,120 +90,159 @@ public class FlashcardInput extends javax.swing.JFrame {
         });
         getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, 87, 33));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Topic: ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 30, -1, -1));
+        lblTopic.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblTopic.setForeground(new java.awt.Color(102, 102, 102));
+        lblTopic.setText("Topic: ");
+        getContentPane().add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 30, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Add Category");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAddCategory.setText("Add Category");
+        btnAddCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddCategoryActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 130, -1));
+        getContentPane().add(btnAddCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 130, -1));
 
-        btnRemove.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRemove.setText("Remove Category");
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+        btnRemoveCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRemoveCategory.setText("Remove Category");
+        btnRemoveCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveActionPerformed(evt);
+                btnRemoveCategoryActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, -1));
+        getContentPane().add(btnRemoveCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAnswerInput.setColumns(20);
+        txtAnswerInput.setRows(5);
+        jScrollPane1.setViewportView(txtAnswerInput);
+        txtAnswerInput.setLineWrap(true);  // Enable line wrap
+        txtAnswerInput.setWrapStyleWord(true);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 480, 130));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Category:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, -1));
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        txtQuestionInput.setColumns(20);
+        txtQuestionInput.setRows(5);
+        jScrollPane2.setViewportView(txtQuestionInput);
+        txtQuestionInput.setLineWrap(true);  // Enable line wrap
+        txtQuestionInput.setWrapStyleWord(true);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 480, 130));
         getContentPane().add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 347, 230, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlFlashcardTopFrame.setBackground(new java.awt.Color(255, 153, 153));
+        pnlFlashcardTopFrame.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        txtTopic.addActionListener(new java.awt.event.ActionListener() {
+        cboxCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTopicActionPerformed(evt);
+                cboxCategoryActionPerformed(evt);
             }
         });
 
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cboxTopic.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnAddTopic.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAddTopic.setText("Add Topic");
+        btnAddTopic.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                btnAddTopicActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(txtTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+        btnRemoveTopic.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRemoveTopic.setText("Remove Topic");
+        btnRemoveTopic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveTopicActionPerformed(evt);
+            }
+        });
+
+        lblCategory.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblCategory.setForeground(new java.awt.Color(102, 102, 102));
+        lblCategory.setText("Category:");
+
+        javax.swing.GroupLayout pnlFlashcardTopFrameLayout = new javax.swing.GroupLayout(pnlFlashcardTopFrame);
+        pnlFlashcardTopFrame.setLayout(pnlFlashcardTopFrameLayout);
+        pnlFlashcardTopFrameLayout.setHorizontalGroup(
+            pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFlashcardTopFrameLayout.createSequentialGroup()
+                .addGroup(pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFlashcardTopFrameLayout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(cboxTopic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(210, 210, 210)
+                        .addComponent(lblCategory)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFlashcardTopFrameLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(btnAddTopic)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRemoveTopic)))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlFlashcardTopFrameLayout.setVerticalGroup(
+            pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFlashcardTopFrameLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTopic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGroup(pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxTopic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCategory))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddTopic)
+                    .addComponent(btnRemoveTopic))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
+        getContentPane().add(pnlFlashcardTopFrame, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        pnlInputBackground.setBackground(new java.awt.Color(204, 204, 255));
+        pnlInputBackground.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("Back (Answer)");
+        lblAnswer.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblAnswer.setForeground(new java.awt.Color(102, 102, 102));
+        lblAnswer.setText("Back (Answer)");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(624, Short.MAX_VALUE))
+        lblFlashcardConfirmation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFlashcardConfirmation.setForeground(new java.awt.Color(102, 102, 102));
+
+        javax.swing.GroupLayout pnlInputBackgroundLayout = new javax.swing.GroupLayout(pnlInputBackground);
+        pnlInputBackground.setLayout(pnlInputBackgroundLayout);
+        pnlInputBackgroundLayout.setHorizontalGroup(
+            pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
+                .addGroup(pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
+                        .addGap(247, 247, 247)
+                        .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(187, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(160, 160, 160))
+        pnlInputBackgroundLayout.setVerticalGroup(
+            pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInputBackgroundLayout.createSequentialGroup()
+                .addContainerGap(203, Short.MAX_VALUE)
+                .addComponent(lblAnswer)
+                .addGap(101, 101, 101)
+                .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 750, 370));
+        getContentPane().add(pnlInputBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 750, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-       String category = (String) jComboBox1.getSelectedItem();
-    String topic = txtTopic.getText();
-    String question = jTextArea2.getText();
-    String answer = jTextArea1.getText();
+        String category = (String) cboxCategory.getSelectedItem();
+    String topic = (String) cboxTopic.getSelectedItem();
+    String question = txtQuestionInput.getText();
+    String answer = txtAnswerInput.getText();
 
     ArrayList<String> errors = new ArrayList<>();
 
@@ -208,8 +252,6 @@ public class FlashcardInput extends javax.swing.JFrame {
 
     if (topic == null || topic.trim().isEmpty()) {
         errors.add("Topic is missing.");
-    } else if (!isValidName(topic)) {
-        errors.add("Invalid topic name. Topic names cannot contain characters like \\/:*?\"<>|.");
     }
 
     if (question == null || question.trim().isEmpty()) {
@@ -230,95 +272,160 @@ public class FlashcardInput extends javax.swing.JFrame {
     } else {
         Flashcard flashcard = new Flashcard(category, topic, question, answer);
         saveFlashcardToJson(flashcard);
-    }  
-        
+
+        // Print confirmation message to the console
+        lblFlashcardConfirmation.setText("Flashcard was added successfully.");
+
+        // Clear the question and answer fields
+        txtQuestionInput.setText("");
+        txtAnswerInput.setText("");
+
+        // Optionally, you can show a confirmation message to the user
+       
+    }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void txtTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTopicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTopicActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCategoryActionPerformed
         // TODO add your handling code here:
         String category = JOptionPane.showInputDialog(this, "Enter a category:");
 
-    // Check if the user entered a category and it's not empty
-    if (category != null && !category.trim().isEmpty()) {
-        // Check for invalid characters in the category name
-        if (!isValidName(category)) {
-            JOptionPane.showMessageDialog(this, "Invalid category name. Category names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-        } else {
-            // Add the category to the jComboBox1
-            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
-            model.addElement(category);
-        }
-    }  
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        JFrame categoryFrame = new JFrame("Categories");
-    
-    // Create a JList to display the categories
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-    for (int i = 0; i < jComboBox1.getItemCount(); i++) {
-        listModel.addElement(jComboBox1.getItemAt(i).toString());
-    }
-    JList<String> categoryList = new JList<>(listModel);
-    JScrollPane scrollPane = new JScrollPane(categoryList);
-
-    // Create a button to remove the selected category
-    JButton removeButton = new JButton("Remove");
-    removeButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String selectedCategory = categoryList.getSelectedValue();
-            if (selectedCategory != null) {
-                // Delete the corresponding folder
-                deleteCategoryFolder(selectedCategory);
-                
-                // Remove the selected item from jComboBox1
-                jComboBox1.removeItem(selectedCategory);
-                
-                categoryFrame.dispose(); // Close the category frame
+        // Check if the user entered a category and it's not empty
+        if (category != null && !category.trim().isEmpty()) {
+            // Check for invalid characters in the category name
+            if (!isValidName(category)) {
+                JOptionPane.showMessageDialog(this, "Invalid category name. Category names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                // Add the category to the jComboBox1
+                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxCategory.getModel();
+                model.addElement(category);
             }
         }
-    });
+    }//GEN-LAST:event_btnAddCategoryActionPerformed
 
-    // Create a panel to hold the components using GridBagLayout
-    JPanel panel = new JPanel(new GridBagLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.insets = new Insets(10, 10, 10, 10); // Add some padding
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.weightx = 1.0;
-    gbc.weighty = 1.0;
-    gbc.fill = GridBagConstraints.BOTH;
-    
-    // Add the scroll pane to the panel
-    panel.add(scrollPane, gbc);
+    private void cboxCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCategoryActionPerformed
+        // TODO add your handling code here:
+        String selectedCategory = (String) cboxCategory.getSelectedItem();
+        updateTopicComboBox(selectedCategory);
 
-    // Increment the y-coordinate for the remove button
-    gbc.gridy++;
-    gbc.weighty = 0.0;
-    
-    // Add the remove button to the panel
-    panel.add(removeButton, gbc);
+    }//GEN-LAST:event_cboxCategoryActionPerformed
 
-    // Add the panel to the frame
-    categoryFrame.add(panel);
+    private void btnRemoveCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveCategoryActionPerformed
+        JFrame categoryFrame = new JFrame("Categories");
 
-    // Set the default close operation to dispose on close
-    categoryFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        // Create a JList to display the categories
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (int i = 0; i < cboxCategory.getItemCount(); i++) {
+            listModel.addElement(cboxCategory.getItemAt(i).toString());
+        }
+        JList<String> categoryList = new JList<>(listModel);
+        JScrollPane scrollPane = new JScrollPane(categoryList);
 
-    // Pack and set the frame to be visible
-    categoryFrame.pack();
-    categoryFrame.setVisible(true);
+        // Create a button to remove the selected category
+        JButton removeButton = new JButton("Remove");
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedCategory = categoryList.getSelectedValue();
+                if (selectedCategory != null) {
+                    // Delete the corresponding folder
+                    deleteCategoryFolder(selectedCategory);
 
-    }//GEN-LAST:event_btnRemoveActionPerformed
+                    // Remove the selected item from jComboBox1
+                    cboxCategory.removeItem(selectedCategory);
+
+                    categoryFrame.dispose(); // Close the category frame
+                }
+            }
+        });
+
+        // Create a panel to hold the components using GridBagLayout
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Add some padding
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        // Add the scroll pane to the panel
+        panel.add(scrollPane, gbc);
+
+        // Increment the y-coordinate for the remove button
+        gbc.gridy++;
+        gbc.weighty = 0.0;
+
+        // Add the remove button to the panel
+        panel.add(removeButton, gbc);
+
+        // Add the panel to the frame
+        categoryFrame.add(panel);
+
+        // Set the default close operation to dispose on close
+        categoryFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        // Pack and set the frame to be visible
+        categoryFrame.pack();
+        categoryFrame.setVisible(true);
+
+    }//GEN-LAST:event_btnRemoveCategoryActionPerformed
+
+    private void btnAddTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTopicActionPerformed
+        // TODO add your handling code here:
+        String selectedCategory = (String) cboxCategory.getSelectedItem();
+        String topic = JOptionPane.showInputDialog(this, "Enter a topic:");
+
+        if (topic != null && !topic.trim().isEmpty()) {
+            if (!isValidName(topic)) {
+                JOptionPane.showMessageDialog(this, "Invalid topic name. Topic names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String topicDirectoryPath = "Flashcards/" + selectedCategory + "/" + topic;
+                File topicDirectory = new File(topicDirectoryPath);
+                if (!topicDirectory.exists()) {
+                    topicDirectory.mkdirs();
+                    updateTopicComboBox(selectedCategory);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Topic already exists.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnAddTopicActionPerformed
+
+    private void btnRemoveTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveTopicActionPerformed
+        // TODO add your handling code here:
+        String selectedCategory = (String) cboxCategory.getSelectedItem();
+        String selectedTopic = (String) cboxTopic.getSelectedItem();
+
+        if (selectedTopic != null) {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the topic \"" + selectedTopic + "\"?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                String topicDirectoryPath = "Flashcards/" + selectedCategory + "/" + selectedTopic;
+                Path topicDirectory = Paths.get(topicDirectoryPath);
+                deleteDirectory(topicDirectory);
+                updateTopicComboBox(selectedCategory);
+            }
+        }
+    }
+
+    private void deleteDirectory(Path directory) {
+
+        try {
+            if (Files.exists(directory)) {
+                Files.walk(directory)
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+
+                System.out.println("Topic folder deleted successfully.");
+            } else {
+                System.out.println("Directory does not exist, nothing to delete.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("An error occurred while deleting the topic folder.");
+        }
+
+    }//GEN-LAST:event_btnRemoveTopicActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,107 +460,133 @@ public class FlashcardInput extends javax.swing.JFrame {
                 new FlashcardInput().setVisible(true);
             }
         });
-    } private void saveFlashcardToJson(Flashcard flashcard) {
-    try {
-        // Create a directory for the category and topic if they don't exist
-        String rootDirectory = "Flashcards";
-        String categoryDirectory = rootDirectory + "/" + flashcard.getFlashCardCategory();
-        String topicDirectory = categoryDirectory + "/" + flashcard.getTopic();
-
-        new File(rootDirectory).mkdirs();
-        new File(categoryDirectory).mkdirs();
-        new File(topicDirectory).mkdirs();
-
-        // JSON file path
-        String filePath = topicDirectory + "/flashcards.json";
-        File file = new File(filePath);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayNode flashcardsArray;
-
-        if (file.exists() && file.length() != 0) {
-            // Read existing data and convert to ArrayNode
-            flashcardsArray = (ArrayNode) objectMapper.readTree(file);
-        } else {
-            // Create new ArrayNode
-            flashcardsArray = objectMapper.createArrayNode();
-        }
-
-        // Create new flashcard node
-        ObjectNode flashcardNode = objectMapper.createObjectNode();
-        flashcardNode.put("flashCardCategory", flashcard.getFlashCardCategory());
-        flashcardNode.put("question", flashcard.getQuestion());
-        flashcardNode.put("answer", flashcard.getAnswer());
-        flashcardNode.put("topic", flashcard.getTopic());
-        flashcardNode.put("status", flashcard.getStatus());
-
-        // Add new flashcard to array
-        flashcardsArray.add(flashcardNode);
-
-        // Write array back to file
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, flashcardsArray);
-
-        lblMessage.setText("Flashcard saved to: " + filePath);
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-} private void deleteCategoryFolder(String category) {
-    Path directory = Paths.get("C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards", category);
-    try {
-        // Delete all contents of the directory recursively and then the directory itself
-        if (Files.exists(directory)) { // Only proceed if the directory exists
-            Files.walk(directory)
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
-            
-            System.out.println("Category folder deleted successfully.");
-        } else {
-            System.out.println("Directory does not exist, nothing to delete.");
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("An error occurred while deleting the category folder.");
-    }
-} private void updateCategoryComboBox() {
-    String directoryPath = "Flashcards";
-    File directory = new File(directoryPath);
 
-    if (directory.exists() && directory.isDirectory()) {
-        File[] categoryFolders = directory.listFiles(File::isDirectory);
-        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) jComboBox1.getModel();
-        model.removeAllElements();
+    private void saveFlashcardToJson(Flashcard flashcard) {
+        try {
+            // Create a directory for the category and topic if they don't exist
+            String rootDirectory = "Flashcards";
+            String categoryDirectory = rootDirectory + "/" + flashcard.getFlashCardCategory();
+            String topicDirectory = categoryDirectory + "/" + flashcard.getTopic();
 
-        for (File categoryFolder : categoryFolders) {
-            model.addElement(categoryFolder.getName());
+            new File(rootDirectory).mkdirs();
+            new File(categoryDirectory).mkdirs();
+            new File(topicDirectory).mkdirs();
+
+            // JSON file path
+            String filePath = topicDirectory + "/flashcards.json";
+            File file = new File(filePath);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            ArrayNode flashcardsArray;
+
+            if (file.exists() && file.length() != 0) {
+                // Read existing data and convert to ArrayNode
+                flashcardsArray = (ArrayNode) objectMapper.readTree(file);
+            } else {
+                // Create new ArrayNode
+                flashcardsArray = objectMapper.createArrayNode();
+            }
+
+            // Create new flashcard node
+            ObjectNode flashcardNode = objectMapper.createObjectNode();
+            flashcardNode.put("flashCardCategory", flashcard.getFlashCardCategory());
+            flashcardNode.put("question", flashcard.getQuestion());
+            flashcardNode.put("answer", flashcard.getAnswer());
+            flashcardNode.put("topic", flashcard.getTopic());
+            flashcardNode.put("status", flashcard.getStatus());
+
+            // Add new flashcard to array
+            flashcardsArray.add(flashcardNode);
+
+            // Write array back to file
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, flashcardsArray);
+
+            lblMessage.setText("Flashcard saved to: " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-} private boolean isValidName(String name) {
-    String invalidChars = "\\/:*?\"<>|";
-    for (char c : invalidChars.toCharArray()) {
-        if (name.indexOf(c) >= 0) {
-            return false;
+
+    private void deleteCategoryFolder(String category) {
+        Path directory = Paths.get("C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards", category);
+        try {
+            // Delete all contents of the directory recursively and then the directory itself
+            if (Files.exists(directory)) { // Only proceed if the directory exists
+                Files.walk(directory)
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+
+                System.out.println("Category folder deleted successfully.");
+            } else {
+                System.out.println("Directory does not exist, nothing to delete.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("An error occurred while deleting the category folder.");
         }
     }
-    return true;
-}
+
+    private void updateCategoryComboBox() {
+        String directoryPath = "Flashcards";
+        File directory = new File(directoryPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] categoryFolders = directory.listFiles(File::isDirectory);
+            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxCategory.getModel();
+            model.removeAllElements();
+
+            for (File categoryFolder : categoryFolders) {
+                model.addElement(categoryFolder.getName());
+            }
+        }
+    }
+
+    private boolean isValidName(String name) {
+        String invalidChars = "\\/:*?\"<>|";
+        for (char c : invalidChars.toCharArray()) {
+            if (name.indexOf(c) >= 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void updateTopicComboBox(String selectedCategory) {
+        String directoryPath = "Flashcards/" + selectedCategory;
+        File directory = new File(directoryPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] topicFolders = directory.listFiles(File::isDirectory);
+            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxTopic.getModel();
+            model.removeAllElements();
+
+            for (File topicFolder : topicFolders) {
+                model.addElement(topicFolder.getName());
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnRemove;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton btnAddCategory;
+    private javax.swing.JButton btnAddTopic;
+    private javax.swing.JButton btnRemoveCategory;
+    private javax.swing.JButton btnRemoveTopic;
+    private javax.swing.JComboBox<String> cboxCategory;
+    private javax.swing.JComboBox<String> cboxTopic;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JLabel lblAnswer;
+    private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblFlashcardConfirmation;
     private javax.swing.JLabel lblMessage;
-    private javax.swing.JTextField txtTopic;
+    private javax.swing.JLabel lblQuestion;
+    private javax.swing.JLabel lblTopic;
+    private javax.swing.JPanel pnlFlashcardTopFrame;
+    private javax.swing.JPanel pnlInputBackground;
+    private javax.swing.JTextArea txtAnswerInput;
+    private javax.swing.JTextArea txtQuestionInput;
     // End of variables declaration//GEN-END:variables
 }

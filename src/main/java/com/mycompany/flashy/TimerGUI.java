@@ -47,7 +47,7 @@ private RingProgressBar ringProgressBar;
         lblPomodoroCountDisplay = new javax.swing.JLabel();
         lblFocusStatus = new javax.swing.JLabel();
         cboxTimerSelection = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnSkip = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,10 +94,10 @@ private RingProgressBar ringProgressBar;
             }
         });
 
-        jButton1.setText("Skip");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSkip.setText("Skip");
+        btnSkip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSkipActionPerformed(evt);
             }
         });
 
@@ -120,7 +120,7 @@ private RingProgressBar ringProgressBar;
                         .addComponent(lblFocusStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addComponent(jButton1)))
+                        .addComponent(btnSkip)))
                 .addContainerGap(63, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -138,7 +138,7 @@ private RingProgressBar ringProgressBar;
                     .addComponent(btnStartTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboxTimerSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
-                .addComponent(jButton1)
+                .addComponent(btnSkip)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPomodoroCountDisplay)
                 .addContainerGap(49, Short.MAX_VALUE))
@@ -215,10 +215,10 @@ private RingProgressBar ringProgressBar;
         lblTimerDisplay.setText(timeDisplay);
     }//GEN-LAST:event_cboxTimerSelectionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSkipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkipActionPerformed
         // TODO add your handling code here:
         pomodoroTimer.skipSession();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSkipActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,9 +257,9 @@ private RingProgressBar ringProgressBar;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSkip;
     private javax.swing.JButton btnStartTimer;
     private javax.swing.JComboBox<String> cboxTimerSelection;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFocusStatus;
