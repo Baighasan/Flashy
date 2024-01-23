@@ -77,7 +77,6 @@ public class FlashcardEditing extends javax.swing.JFrame {
         lblTopic = new javax.swing.JLabel();
         lblCategory = new javax.swing.JLabel();
         pnlFlashcardEditBottom = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         pnlFlashcardEditMiddle = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -87,7 +86,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -155,7 +154,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         pnlFlashcardEditTopLayout.setVerticalGroup(
             pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFlashcardEditTopLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategory)
                     .addComponent(lblTopic))
@@ -184,21 +183,6 @@ public class FlashcardEditing extends javax.swing.JFrame {
         );
 
         getContentPane().add(pnlFlashcardEditBottom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 630, 260));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 40));
 
         pnlFlashcardEditMiddle.setBackground(new java.awt.Color(204, 204, 255));
         pnlFlashcardEditMiddle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)));
@@ -581,7 +565,6 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
