@@ -49,6 +49,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblFlashcardDisplay.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
