@@ -3,6 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.flashy;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -13,9 +21,32 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     /**
      * Creates new form Flashy_HomeGUI
      */
-    public Flashy_HomeGUI() {
-        initComponents();
+    public Flashy_HomeGUI(String applicationTitle , String chartTitle ) {
+        super(applicationTitle);
+      JFreeChart lineChart = ChartFactory.createLineChart(
+         chartTitle,
+         "Years","Number of Schools",
+         createDataset(),
+         PlotOrientation.VERTICAL,
+         true,true,false);
+         
+      ChartPanel panelChart = new ChartPanel( lineChart );
+      this.chartPanel = new JPanel();
+      chartPanel.add(panelChart);
+      initComponents();
+        
     }
+    private DefaultCategoryDataset createDataset( ) {
+      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+      dataset.addValue( 15 , "schools" , "1970" );
+      dataset.addValue( 30 , "schools" , "1980" );
+      dataset.addValue( 60 , "schools" ,  "1990" );
+      dataset.addValue( 120 , "schools" , "2000" );
+      dataset.addValue( 240 , "schools" , "2010" );
+      dataset.addValue( 300 , "schools" , "2014" );
+      return dataset;
+   }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -236,7 +267,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Flashy_HomeGUI().setVisible(true);
+                new Flashy_HomeGUI(null, null).setVisible(true);
             }
         });
     }
