@@ -4,16 +4,22 @@
  */
 package com.mycompany.flashy;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author user
  */
 public class Flashy_HomeGUI extends javax.swing.JFrame {
-
+       private TimerGUI timerFrame;
+       private FlashCardDisplayGUI flashcardDisplay;
     /**
      * Creates new form Flashy_HomeGUI
      */
     public Flashy_HomeGUI() {
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+         timerFrame = new TimerGUI();
+         flashcardDisplay = new FlashCardDisplayGUI();
         initComponents();
     }
 
@@ -53,7 +59,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(197, 231, 227));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -134,6 +140,11 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_download_1.png"))); // NOI18N
         jButton3.setText("FLASHCARDS");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 190, 40));
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 170, 40));
@@ -162,6 +173,11 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_timer-icon-in-hand-hand-points-at-stopwatch-timer-start-concept-illustration-free-vector.jpg"))); // NOI18N
         jButton2.setText("TIMER");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel10.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 180, 40));
 
         jPanel4.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 170, 40));
@@ -200,11 +216,25 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jLabel4.setText("jLabel4");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 250, 50, 70));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1280, 690));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 1280, 690));
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+     
+    
+    // Set the frame to be visible
+    timerFrame.setVisible(true);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         flashcardDisplay.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

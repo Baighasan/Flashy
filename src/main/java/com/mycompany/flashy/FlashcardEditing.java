@@ -69,14 +69,16 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        flashcardTable = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        tblFlashcardQuestions = new javax.swing.JTable();
+        pnlFlashcardEditTop = new javax.swing.JPanel();
         cboxTopicSelection = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
         cboxCategorySelection = new javax.swing.JComboBox<>();
-        jPanel3 = new javax.swing.JPanel();
+        lblTopic = new javax.swing.JLabel();
+        lblCategory = new javax.swing.JLabel();
+        pnlFlashcardEditBottom = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        pnlFlashcardEditMiddle = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -89,7 +91,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        flashcardTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblFlashcardQuestions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -100,12 +102,12 @@ public class FlashcardEditing extends javax.swing.JFrame {
                 "Title 1", "Title 2"
             }
         ));
-        jScrollPane1.setViewportView(flashcardTable);
+        jScrollPane1.setViewportView(tblFlashcardQuestions);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 500, 360));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlFlashcardEditTop.setBackground(new java.awt.Color(204, 204, 204));
+        pnlFlashcardEditTop.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         cboxTopicSelection.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         cboxTopicSelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -121,47 +123,67 @@ public class FlashcardEditing extends javax.swing.JFrame {
         cboxCategorySelection.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         cboxCategorySelection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
-                .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+        lblTopic.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTopic.setForeground(new java.awt.Color(102, 102, 102));
+        lblTopic.setText("Topic:");
+
+        lblCategory.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCategory.setForeground(new java.awt.Color(102, 102, 102));
+        lblCategory.setText("Category:");
+
+        javax.swing.GroupLayout pnlFlashcardEditTopLayout = new javax.swing.GroupLayout(pnlFlashcardEditTop);
+        pnlFlashcardEditTop.setLayout(pnlFlashcardEditTopLayout);
+        pnlFlashcardEditTopLayout.setHorizontalGroup(
+            pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFlashcardEditTopLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFlashcardEditTopLayout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))
+                    .addGroup(pnlFlashcardEditTopLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(lblTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        pnlFlashcardEditTopLayout.setVerticalGroup(
+            pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFlashcardEditTopLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addGroup(pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCategory)
+                    .addComponent(lblTopic))
+                .addGap(4, 4, 4)
+                .addGroup(pnlFlashcardEditTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboxTopicSelection, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboxCategorySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 80));
+        getContentPane().add(pnlFlashcardEditTop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 80));
 
-        jPanel3.setBackground(new java.awt.Color(255, 153, 153));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)));
+        pnlFlashcardEditBottom.setBackground(new java.awt.Color(255, 153, 153));
+        pnlFlashcardEditBottom.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlFlashcardEditBottomLayout = new javax.swing.GroupLayout(pnlFlashcardEditBottom);
+        pnlFlashcardEditBottom.setLayout(pnlFlashcardEditBottomLayout);
+        pnlFlashcardEditBottomLayout.setHorizontalGroup(
+            pnlFlashcardEditBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 628, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlFlashcardEditBottomLayout.setVerticalGroup(
+            pnlFlashcardEditBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 258, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 630, 260));
+        getContentPane().add(pnlFlashcardEditBottom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 630, 260));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -178,21 +200,21 @@ public class FlashcardEditing extends javax.swing.JFrame {
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 40));
 
-        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)));
+        pnlFlashcardEditMiddle.setBackground(new java.awt.Color(204, 204, 255));
+        pnlFlashcardEditMiddle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlFlashcardEditMiddleLayout = new javax.swing.GroupLayout(pnlFlashcardEditMiddle);
+        pnlFlashcardEditMiddle.setLayout(pnlFlashcardEditMiddleLayout);
+        pnlFlashcardEditMiddleLayout.setHorizontalGroup(
+            pnlFlashcardEditMiddleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 628, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlFlashcardEditMiddleLayout.setVerticalGroup(
+            pnlFlashcardEditMiddleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 188, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 630, 190));
+        getContentPane().add(pnlFlashcardEditMiddle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 630, 190));
 
         jPanel6.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -331,9 +353,9 @@ public class FlashcardEditing extends javax.swing.JFrame {
                         return column == 2;  // Only the third column (Edit buttons) is editable
                     }
                 };
-                flashcardTable.setModel(tableModel);
-                flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
-                flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
+                tblFlashcardQuestions.setModel(tableModel);
+                tblFlashcardQuestions.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+                tblFlashcardQuestions.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), tblFlashcardQuestions));
             }
         } else {
             JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
@@ -429,10 +451,10 @@ public class FlashcardEditing extends javax.swing.JFrame {
         data[i][2] = "Edit";
     }
 
-    DefaultTableModel tableModel = (DefaultTableModel) flashcardTable.getModel();
+    DefaultTableModel tableModel = (DefaultTableModel) tblFlashcardQuestions.getModel();
     tableModel.setDataVector(data, new String[]{"Question", "Answer", "Edit"});
-    flashcardTable.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
-    flashcardTable.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), flashcardTable));
+    tblFlashcardQuestions.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+    tblFlashcardQuestions.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox(), tblFlashcardQuestions));
     tableModel.fireTableDataChanged(); // Notify the model that data has changed
 }
 
@@ -556,18 +578,20 @@ public class FlashcardEditing extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cboxCategorySelection;
     private javax.swing.JComboBox<String> cboxTopicSelection;
-    private javax.swing.JTable flashcardTable;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblTopic;
+    private javax.swing.JPanel pnlFlashcardEditBottom;
+    private javax.swing.JPanel pnlFlashcardEditMiddle;
+    private javax.swing.JPanel pnlFlashcardEditTop;
+    private javax.swing.JTable tblFlashcardQuestions;
     // End of variables declaration//GEN-END:variables
 }

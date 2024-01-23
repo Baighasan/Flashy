@@ -45,15 +45,15 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblFlashcardDisplay = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblFlashcardDisplay.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
+        tblFlashcardDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -63,8 +63,8 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
                 "Categories", "Count"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(204, 204, 255));
-        jScrollPane1.setViewportView(jTable1);
+        tblFlashcardDisplay.setGridColor(new java.awt.Color(204, 204, 255));
+        jScrollPane1.setViewportView(tblFlashcardDisplay);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 25, 570, 430));
 
@@ -157,10 +157,10 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             }
         }
 
-        jTable1.setModel(tableModel);
-        jTable1.getColumn("Category / Topic").setCellRenderer(new IndentedCellRenderer());
-        jTable1.getColumn("").setCellRenderer(new ButtonRenderer());
-        jTable1.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+        tblFlashcardDisplay.setModel(tableModel);
+        tblFlashcardDisplay.getColumn("Category / Topic").setCellRenderer(new IndentedCellRenderer());
+        tblFlashcardDisplay.getColumn("").setCellRenderer(new ButtonRenderer());
+        tblFlashcardDisplay.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
     }
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -207,7 +207,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
 
         public Object getCellEditorValue() {
     if (isPushed) {
-        int row = jTable1.getSelectedRow();
+        int row = tblFlashcardDisplay.getSelectedRow();
         int accumulatedRows = 0;
         FlashcardCategory selectedCategory = null;
         FlashcardTopic selectedTopic = null;
@@ -262,7 +262,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
     FlashcardCategory currentCategory = null;
     
     for (int i = 0; i <= row; i++) {
-        String cellValue = (String) jTable1.getValueAt(i, 0); // Assuming first column contains the Category / Topic names
+        String cellValue = (String) tblFlashcardDisplay.getValueAt(i, 0); // Assuming first column contains the Category / Topic names
         
         // Check if the row is a category (not indented)
         if (!cellValue.startsWith("    ")) {
@@ -298,6 +298,6 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblFlashcardDisplay;
     // End of variables declaration//GEN-END:variables
 }
