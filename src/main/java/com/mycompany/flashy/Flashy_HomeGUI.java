@@ -13,13 +13,15 @@ import javax.swing.JFrame;
 public class Flashy_HomeGUI extends javax.swing.JFrame {
        private TimerGUI timerFrame;
        private FlashCardDisplayGUI flashcardDisplay;
+       private FlashcardInput flashcardInput;
     /**
      * Creates new form Flashy_HomeGUI
      */
     public Flashy_HomeGUI() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
          timerFrame = new TimerGUI();
-         flashcardDisplay = new FlashCardDisplayGUI();
+         
+         
         initComponents();
     }
 
@@ -43,11 +45,12 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnFlashcardsView = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        btnFlashcardsAdd = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -135,17 +138,17 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton3.setBackground(new java.awt.Color(153, 153, 153));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_download_1.png"))); // NOI18N
-        jButton3.setText("FLASHCARDS");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnFlashcardsView.setBackground(new java.awt.Color(153, 153, 153));
+        btnFlashcardsView.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnFlashcardsView.setForeground(new java.awt.Color(255, 255, 255));
+        btnFlashcardsView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_download_1.png"))); // NOI18N
+        btnFlashcardsView.setText("FLASHCARDS");
+        btnFlashcardsView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFlashcardsViewActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 190, 40));
+        jPanel5.add(btnFlashcardsView, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 190, 40));
 
         jPanel4.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 170, 40));
 
@@ -181,6 +184,18 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jPanel10.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 180, 40));
 
         jPanel4.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 170, 40));
+
+        btnFlashcardsAdd.setBackground(new java.awt.Color(153, 153, 153));
+        btnFlashcardsAdd.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        btnFlashcardsAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnFlashcardsAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_download_1.png"))); // NOI18N
+        btnFlashcardsAdd.setText("ADD FLASHCARDS");
+        btnFlashcardsAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFlashcardsAddActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnFlashcardsAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 190, 40));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 190, 690));
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -231,10 +246,19 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnFlashcardsAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlashcardsAddActionPerformed
         // TODO add your handling code here:
-         flashcardDisplay.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+         
+        
+         flashcardInput = new FlashcardInput();
+          flashcardInput.setVisible(true);
+    }//GEN-LAST:event_btnFlashcardsAddActionPerformed
+
+    private void btnFlashcardsViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlashcardsViewActionPerformed
+        // TODO add your handling code here:
+        flashcardDisplay = new FlashCardDisplayGUI();
+        flashcardDisplay.setVisible(true);
+    }//GEN-LAST:event_btnFlashcardsViewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,9 +297,10 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFlashcardsAdd;
+    private javax.swing.JButton btnFlashcardsView;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

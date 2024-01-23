@@ -72,7 +72,7 @@ public class FlashcardInput extends javax.swing.JFrame {
         lblAnswer = new javax.swing.JLabel();
         lblFlashcardConfirmation = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblQuestion.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -215,11 +215,11 @@ public class FlashcardInput extends javax.swing.JFrame {
             .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
                 .addGroup(pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
                         .addGap(247, 247, 247)
-                        .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(lblAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(112, Short.MAX_VALUE))
         );
         pnlInputBackgroundLayout.setVerticalGroup(

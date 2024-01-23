@@ -49,7 +49,6 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblFlashcardDisplay.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 12)); // NOI18N
@@ -95,15 +94,15 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGap(0, 466, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(26, Short.MAX_VALUE)
+                    .addContainerGap(16, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(35, Short.MAX_VALUE)))
+                    .addContainerGap(25, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 490));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 630, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -248,6 +247,9 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             System.out.println("Topic: " + selectedTopic.getTopicName());
             FlashcardReviewInterface reviewInterface = new FlashcardReviewInterface(selectedTopic);
             reviewInterface.setVisible(true);
+
+            // Correctly reference the enclosing JFrame to dispose it
+            FlashCardDisplayGUI.this.dispose();
         } else if (selectedCategory != null) {
             // Logic for when a category row is clicked, if needed
             System.out.println("Category row clicked: " + selectedCategory.getFlashcardCategory());
