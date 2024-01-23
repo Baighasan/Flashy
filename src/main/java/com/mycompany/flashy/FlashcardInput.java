@@ -509,7 +509,7 @@ public class FlashcardInput extends javax.swing.JFrame {
     }
 
     private void deleteCategoryFolder(String category) {
-        Path directory = Paths.get("C:\\Users\\arpan\\OneDrive\\Documents\\NetBeansProjects\\Flashy\\Flashcards", category);
+        Path directory = Paths.get("Flashcards", category);
         try {
             // Delete all contents of the directory recursively and then the directory itself
             if (Files.exists(directory)) { // Only proceed if the directory exists
