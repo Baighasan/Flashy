@@ -21,19 +21,17 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     /**
      * Creates new form Flashy_HomeGUI
      */
-    public Flashy_HomeGUI(String applicationTitle , String chartTitle ) {
-        super(applicationTitle);
-      JFreeChart lineChart = ChartFactory.createLineChart(
+    public Flashy_HomeGUI(String chartTitle ) {
+        JFreeChart lineChart = ChartFactory.createLineChart(
          chartTitle,
          "Years","Number of Schools",
          createDataset(),
          PlotOrientation.VERTICAL,
          true,true,false);
-         
-      ChartPanel panelChart = new ChartPanel( lineChart );
-      this.chartPanel = new JPanel();
-      chartPanel.add(panelChart);
-      initComponents();
+        
+        
+        initComponents();
+        chartPanel.add(new ChartPanel( lineChart));
         
     }
     private DefaultCategoryDataset createDataset( ) {
@@ -267,7 +265,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Flashy_HomeGUI(null, null).setVisible(true);
+                new Flashy_HomeGUI(null).setVisible(true);
             }
         });
     }
