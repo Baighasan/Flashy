@@ -31,7 +31,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
          
         JFreeChart lineChart = ChartFactory.createLineChart(
          chartTitle,
-         "Years","Number of Schools",
+         "Day","Number of Pomodoro Sessions",
          createDataset(),
          PlotOrientation.VERTICAL,
          true,true,false);
@@ -41,12 +41,13 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     }
     private DefaultCategoryDataset createDataset( ) {
       DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-      dataset.addValue( 15 , "schools" , "1970" );
-      dataset.addValue( 30 , "schools" , "1980" );
-      dataset.addValue( 60 , "schools" ,  "1990" );
-      dataset.addValue( 120 , "schools" , "2000" );
-      dataset.addValue( 240 , "schools" , "2010" );
-      dataset.addValue( 300 , "schools" , "2014" );
+      dataset.addValue( 1 , "Pomodoro Sessions" , "Mon" );
+      dataset.addValue( 5 , "Pomodoro Sessions" , "Tues" );
+      dataset.addValue( 5 , "Pomodoro Sessions" ,  "Wed" );
+      dataset.addValue( 8 , "Pomodoro Sessions" , "Thur" );
+      dataset.addValue( 9 , "Pomodoro Sessions" , "Fri" );
+      dataset.addValue( 12 , "Pomodoro Sessions" , "Sat" );
+      dataset.addValue( 15 , "Pomodoro Sessions" , "Sun" );
       return dataset;
     }
 
