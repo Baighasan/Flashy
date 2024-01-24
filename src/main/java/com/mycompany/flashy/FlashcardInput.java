@@ -4,27 +4,22 @@
  */
 package com.mycompany.flashy;
 
+// Import necessary Java utility classes, IO classes, and Swing components.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.*;
-import java.awt.event.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.*;
 import java.nio.file.Paths;
 import java.util.Comparator;
-import javax.swing.*;
+
 
 /**
  *
@@ -32,14 +27,15 @@ import javax.swing.*;
  */
 public class FlashcardInput extends javax.swing.JFrame {
 
-    private JComboBox<String> categoryComboBox;
+   private JComboBox<String> categoryComboBox; // JComboBox to select categories.
 
     /**
      * Creates new form FlashcardInput
      */
     public FlashcardInput() {
-        initComponents();
-        updateCategoryComboBox();
+        initComponents(); // Initialize the GUI components.
+        updateCategoryComboBox(); // Update the category combo box with available categories.
+    
 
     }
 
@@ -57,9 +53,9 @@ public class FlashcardInput extends javax.swing.JFrame {
         lblTopic = new javax.swing.JLabel();
         btnAddCategory = new javax.swing.JButton();
         btnRemoveCategory = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        sbar1 = new javax.swing.JScrollPane();
         txtAnswerInput = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        sbar2 = new javax.swing.JScrollPane();
         txtQuestionInput = new javax.swing.JTextArea();
         lblMessage = new javax.swing.JLabel();
         pnlFlashcardTopFrame = new javax.swing.JPanel();
@@ -115,19 +111,19 @@ public class FlashcardInput extends javax.swing.JFrame {
 
         txtAnswerInput.setColumns(20);
         txtAnswerInput.setRows(5);
-        jScrollPane1.setViewportView(txtAnswerInput);
+        sbar1.setViewportView(txtAnswerInput);
         txtAnswerInput.setLineWrap(true);  // Enable line wrap
         txtAnswerInput.setWrapStyleWord(true);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 480, 130));
+        getContentPane().add(sbar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 480, 130));
 
         txtQuestionInput.setColumns(20);
         txtQuestionInput.setRows(5);
-        jScrollPane2.setViewportView(txtQuestionInput);
+        sbar2.setViewportView(txtQuestionInput);
         txtQuestionInput.setLineWrap(true);  // Enable line wrap
         txtQuestionInput.setWrapStyleWord(true);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 480, 130));
+        getContentPane().add(sbar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 480, 130));
         getContentPane().add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(278, 347, 230, -1));
 
         pnlFlashcardTopFrame.setBackground(new java.awt.Color(255, 153, 153));
@@ -138,8 +134,6 @@ public class FlashcardInput extends javax.swing.JFrame {
                 cboxCategoryActionPerformed(evt);
             }
         });
-
-        cboxTopic.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAddTopic.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAddTopic.setText("Add Topic");
@@ -179,7 +173,7 @@ public class FlashcardInput extends javax.swing.JFrame {
                         .addComponent(btnAddTopic)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemoveTopic)))
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         pnlFlashcardTopFrameLayout.setVerticalGroup(
             pnlFlashcardTopFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,62 +234,56 @@ public class FlashcardInput extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         String category = (String) cboxCategory.getSelectedItem();
-    String topic = (String) cboxTopic.getSelectedItem();
-    String question = txtQuestionInput.getText();
-    String answer = txtAnswerInput.getText();
+        String topic = (String) cboxTopic.getSelectedItem();
+        String question = txtQuestionInput.getText();
+        String answer = txtAnswerInput.getText();
 
-    ArrayList<String> errors = new ArrayList<>();
+        ArrayList<String> errors = new ArrayList<>();
 
-    if (category == null || category.trim().isEmpty()) {
-        errors.add("Category is missing.");
-    }
-
-    if (topic == null || topic.trim().isEmpty()) {
-        errors.add("Topic is missing.");
-    }
-
-    if (question == null || question.trim().isEmpty()) {
-        errors.add("Question is missing.");
-    }
-
-    if (answer == null || answer.trim().isEmpty()) {
-        errors.add("Answer is missing.");
-    }
-
-    if (!errors.isEmpty()) {
-        // Print error messages for missing inputs or inputs with invalid characters
-        StringBuilder errorMessage = new StringBuilder("Errors:\n");
-        for (String error : errors) {
-            errorMessage.append(error).append("\n");
+        // Validate inputs and add error messages if any field is missing.
+        if (category == null || category.trim().isEmpty()) {
+            errors.add("Category is missing.");
         }
-        JOptionPane.showMessageDialog(this, errorMessage.toString(), "Input Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        Flashcard flashcard = new Flashcard(category, topic, question, answer);
-        saveFlashcardToJson(flashcard);
+        if (topic == null || topic.trim().isEmpty()) {
+            errors.add("Topic is missing.");
+        }
+        if (question == null || question.trim().isEmpty()) {
+            errors.add("Question is missing.");
+        }
+        if (answer == null || answer.trim().isEmpty()) {
+            errors.add("Answer is missing.");
+        }
 
-        // Print confirmation message to the console
-        lblFlashcardConfirmation.setText("Flashcard was added successfully.");
+        if (!errors.isEmpty()) {
+            // If there are errors, display them to the user.
+            StringBuilder errorMessage = new StringBuilder("Errors:\n");
+            for (String error : errors) {
+                errorMessage.append(error).append("\n");
+            }
+            JOptionPane.showMessageDialog(this, errorMessage.toString(), "Input Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // If no errors, create a new Flashcard object and save it to JSON.
+            Flashcard flashcard = new Flashcard(category, topic, question, answer);
+            saveFlashcardToJson(flashcard);
 
-        // Clear the question and answer fields
-        txtQuestionInput.setText("");
-        txtAnswerInput.setText("");
-
-        // Optionally, you can show a confirmation message to the user
-       
-    }
+            // Display a confirmation message and clear input fields.
+            lblFlashcardConfirmation.setText("Flashcard added successfully.");
+            txtQuestionInput.setText("");
+            txtAnswerInput.setText("");
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAddCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCategoryActionPerformed
         // TODO add your handling code here:
+        // Prompt the user to enter a category.
         String category = JOptionPane.showInputDialog(this, "Enter a category:");
 
-        // Check if the user entered a category and it's not empty
+        // Validate the input and update the category combo box.
         if (category != null && !category.trim().isEmpty()) {
-            // Check for invalid characters in the category name
             if (!isValidName(category)) {
                 JOptionPane.showMessageDialog(this, "Invalid category name. Category names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             } else {
-                // Add the category to the jComboBox1
+                // If the category is valid, add it to the category combo box.
                 DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxCategory.getModel();
                 model.addElement(category);
             }
@@ -310,121 +298,145 @@ public class FlashcardInput extends javax.swing.JFrame {
     }//GEN-LAST:event_cboxCategoryActionPerformed
 
     private void btnRemoveCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveCategoryActionPerformed
-        JFrame categoryFrame = new JFrame("Categories");
+        // Open a new frame to display and remove categories.
+     
+    JFrame categoryFrame = new JFrame("Categories");
 
-        // Create a JList to display the categories
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (int i = 0; i < cboxCategory.getItemCount(); i++) {
-            listModel.addElement(cboxCategory.getItemAt(i).toString());
-        }
-        JList<String> categoryList = new JList<>(listModel);
-        JScrollPane scrollPane = new JScrollPane(categoryList);
+    // Initialize a DefaultListModel to hold the list of categories for display.
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    // Populate the listModel with categories retrieved from the cboxCategory (a JComboBox).
+    for (int i = 0; i < cboxCategory.getItemCount(); i++) {
+        listModel.addElement(cboxCategory.getItemAt(i).toString());
+    }
+    // Create a JList to display the categories contained in the listModel.
+    JList<String> categoryList = new JList<>(listModel);
+    // Wrap the JList in a JScrollPane to allow scrolling.
+    JScrollPane scrollPane = new JScrollPane(categoryList);
 
-        // Create a button to remove the selected category
-        JButton removeButton = new JButton("Remove");
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selectedCategory = categoryList.getSelectedValue();
-                if (selectedCategory != null) {
-                    // Delete the corresponding folder
-                    deleteCategoryFolder(selectedCategory);
-
-                    // Remove the selected item from jComboBox1
-                    cboxCategory.removeItem(selectedCategory);
-
-                    categoryFrame.dispose(); // Close the category frame
-                }
+    // Create a JButton for removing the selected category.
+    JButton removeButton = new JButton("Remove");
+    // Add an ActionListener to the removeButton to define what happens when clicked.
+    removeButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Get the currently selected category from the categoryList.
+            String selectedCategory = categoryList.getSelectedValue();
+            // Check if a category is actually selected.
+            if (selectedCategory != null) {
+                // Call the deleteCategoryFolder method to delete the folder associated with the selected category.
+                deleteCategoryFolder(selectedCategory);
+                // Remove the selected category from the cboxCategory JComboBox.
+                cboxCategory.removeItem(selectedCategory);
+                // Close the categoryFrame JFrame window after the category is removed.
+                categoryFrame.dispose();
             }
-        });
+        }
+    });
 
-        // Create a panel to hold the components using GridBagLayout
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Add some padding
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
+    // Create a JPanel to hold the components.
+    JPanel panel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    // Set constraints and layout for components using GridBagConstraints.
+    gbc.insets = new Insets(10, 10, 10, 10); // Add padding around components.
+    gbc.gridx = 0; // Set the gridx position.
+    gbc.gridy = 0; // Set the gridy position.
+    gbc.weightx = 1.0; // Give row some weight.
+    gbc.weighty = 1.0; // Give column some weight.
+    gbc.fill = GridBagConstraints.BOTH; // Make components occupy full area of the grid cell.
 
-        // Add the scroll pane to the panel
-        panel.add(scrollPane, gbc);
+    // Add the scrollPane containing the categoryList to the panel.
+    panel.add(scrollPane, gbc);
 
-        // Increment the y-coordinate for the remove button
-        gbc.gridy++;
-        gbc.weighty = 0.0;
+    // Increment the gridy position to place the next component below.
+    gbc.gridy++;
+    gbc.weighty = 0.0; // Reset the weighty as the remove button does not need to expand vertically.
 
-        // Add the remove button to the panel
-        panel.add(removeButton, gbc);
+    // Add the removeButton to the panel.
+    panel.add(removeButton, gbc);
 
-        // Add the panel to the frame
-        categoryFrame.add(panel);
+    // Add the panel to the categoryFrame.
+    categoryFrame.add(panel);
 
-        // Set the default close operation to dispose on close
-        categoryFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    // Set the default close operation for the categoryFrame to dispose on close.
+    categoryFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        // Pack and set the frame to be visible
-        categoryFrame.pack();
-        categoryFrame.setVisible(true);
+    // Pack the components within the frame and set the frame to be visible.
+    categoryFrame.pack();
+    categoryFrame.setVisible(true);
 
     }//GEN-LAST:event_btnRemoveCategoryActionPerformed
 
     private void btnAddTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTopicActionPerformed
-        // TODO add your handling code here:
-        String selectedCategory = (String) cboxCategory.getSelectedItem();
-        String topic = JOptionPane.showInputDialog(this, "Enter a topic:");
+        // Retrieve the selected category from cboxCategory JComboBox.
+    String selectedCategory = (String) cboxCategory.getSelectedItem();
+    // Display an input dialog to the user to enter the topic name.
+    String topic = JOptionPane.showInputDialog(this, "Enter a topic:");
 
-        if (topic != null && !topic.trim().isEmpty()) {
-            if (!isValidName(topic)) {
-                JOptionPane.showMessageDialog(this, "Invalid topic name. Topic names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+    // Check if a topic name was entered and is not just whitespace.
+    if (topic != null && !topic.trim().isEmpty()) {
+        // Validate the topic name using the isValidName method.
+        if (!isValidName(topic)) {
+            // If invalid, show an error dialog.
+            JOptionPane.showMessageDialog(this, "Invalid topic name. Topic names cannot contain characters like \\/:*?\"<>|.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Construct the directory path for the new topic.
+            String topicDirectoryPath = "Flashcards/" + selectedCategory + "/" + topic;
+            File topicDirectory = new File(topicDirectoryPath);
+            // Check if the directory for the topic already exists.
+            if (!topicDirectory.exists()) {
+                // If not, create the directories for the topic.
+                topicDirectory.mkdirs();
+                // Update the topic JComboBox to include the new topic.
+                updateTopicComboBox(selectedCategory);
             } else {
-                String topicDirectoryPath = "Flashcards/" + selectedCategory + "/" + topic;
-                File topicDirectory = new File(topicDirectoryPath);
-                if (!topicDirectory.exists()) {
-                    topicDirectory.mkdirs();
-                    updateTopicComboBox(selectedCategory);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Topic already exists.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                }
+                // If the topic already exists, show an error dialog.
+                JOptionPane.showMessageDialog(this, "Topic already exists.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
     }//GEN-LAST:event_btnAddTopicActionPerformed
 
     private void btnRemoveTopicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveTopicActionPerformed
-        // TODO add your handling code here:
-        String selectedCategory = (String) cboxCategory.getSelectedItem();
-        String selectedTopic = (String) cboxTopic.getSelectedItem();
+        // Retrieve the selected category and topic from their respective JComboBoxes.
+    String selectedCategory = (String) cboxCategory.getSelectedItem();
+    String selectedTopic = (String) cboxTopic.getSelectedItem();
 
-        if (selectedTopic != null) {
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the topic \"" + selectedTopic + "\"?", "Warning", JOptionPane.YES_NO_OPTION);
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                String topicDirectoryPath = "Flashcards/" + selectedCategory + "/" + selectedTopic;
-                Path topicDirectory = Paths.get(topicDirectoryPath);
-                deleteDirectory(topicDirectory);
-                updateTopicComboBox(selectedCategory);
-            }
+    // Check if a topic is actually selected.
+    if (selectedTopic != null) {
+        // Show a confirmation dialog to make sure the user wants to delete the topic.
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the topic \"" + selectedTopic + "\"?", "Warning", JOptionPane.YES_NO_OPTION);
+        // Check if the user confirmed the deletion.
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            // Construct the directory path for the selected topic.
+            String topicDirectoryPath = "Flashcards/" + selectedCategory + "/" + selectedTopic;
+            Path topicDirectory = Paths.get(topicDirectoryPath);
+            // Call the deleteDirectory method to delete the topic directory and its contents.
+            deleteDirectory(topicDirectory);
+            // Update the topic JComboBox to reflect the removal of the topic.
+            updateTopicComboBox(selectedCategory);
         }
+    }
     }
 
     private void deleteDirectory(Path directory) {
 
         try {
-            if (Files.exists(directory)) {
-                Files.walk(directory)
-                        .sorted(Comparator.reverseOrder())
-                        .map(Path::toFile)
-                        .forEach(File::delete);
-
-                System.out.println("Topic folder deleted successfully.");
-            } else {
-                System.out.println("Directory does not exist, nothing to delete.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("An error occurred while deleting the topic folder.");
+        // Check if the directory exists before attempting to delete.
+        if (Files.exists(directory)) {
+            // Walk through the directory structure, delete each file/subdirectory.
+            Files.walk(directory)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+            System.out.println("Topic folder deleted successfully.");
+        } else {
+            System.out.println("Directory does not exist, nothing to delete.");
         }
-
+    } catch (IOException e) {
+        // Print the stack trace if an IOException occurs during the deletion process.
+        e.printStackTrace();
+        System.out.println("An error occurred while deleting the topic folder.");
+    }
     }//GEN-LAST:event_btnRemoveTopicActionPerformed
 
     /**
@@ -463,76 +475,76 @@ public class FlashcardInput extends javax.swing.JFrame {
     }
 
     private void saveFlashcardToJson(Flashcard flashcard) {
-        try {
-            // Create a directory for the category and topic if they don't exist
-            String rootDirectory = "Flashcards";
-            String categoryDirectory = rootDirectory + "/" + flashcard.getFlashCardCategory();
-            String topicDirectory = categoryDirectory + "/" + flashcard.getTopic();
+         try {
+        // Create directories for the category, topic, and root if they don't exist
+        String rootDirectory = "Flashcards";
+        String categoryDirectory = rootDirectory + "/" + flashcard.getFlashCardCategory();
+        String topicDirectory = categoryDirectory + "/" + flashcard.getTopic();
 
-            new File(rootDirectory).mkdirs();
-            new File(categoryDirectory).mkdirs();
-            new File(topicDirectory).mkdirs();
+        new File(rootDirectory).mkdirs();      // Create root directory if it doesn't exist
+        new File(categoryDirectory).mkdirs();   // Create category directory if it doesn't exist
+        new File(topicDirectory).mkdirs();      // Create topic directory if it doesn't exist
 
-            // JSON file path
-            String filePath = topicDirectory + "/flashcards.json";
-            File file = new File(filePath);
+        // JSON file path
+        String filePath = topicDirectory + "/flashcards.json";
+        File file = new File(filePath);
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            ArrayNode flashcardsArray;
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayNode flashcardsArray;
 
-            if (file.exists() && file.length() != 0) {
-                // Read existing data and convert to ArrayNode
-                flashcardsArray = (ArrayNode) objectMapper.readTree(file);
-            } else {
-                // Create new ArrayNode
-                flashcardsArray = objectMapper.createArrayNode();
-            }
-
-            // Create new flashcard node
-            ObjectNode flashcardNode = objectMapper.createObjectNode();
-            flashcardNode.put("flashCardCategory", flashcard.getFlashCardCategory());
-            flashcardNode.put("question", flashcard.getQuestion());
-            flashcardNode.put("answer", flashcard.getAnswer());
-            flashcardNode.put("topic", flashcard.getTopic());
-            flashcardNode.put("status", flashcard.getStatus());
-
-            // Add new flashcard to array
-            flashcardsArray.add(flashcardNode);
-
-            // Write array back to file
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, flashcardsArray);
-
-            lblMessage.setText("Flashcard saved to: " + filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (file.exists() && file.length() != 0) {
+            // Read existing data and convert to ArrayNode
+            flashcardsArray = (ArrayNode) objectMapper.readTree(file);
+        } else {
+            // Create a new ArrayNode if the file doesn't exist or is empty
+            flashcardsArray = objectMapper.createArrayNode();
         }
+
+        // Create a new flashcard node
+        ObjectNode flashcardNode = objectMapper.createObjectNode();
+        flashcardNode.put("flashCardCategory", flashcard.getFlashCardCategory());
+        flashcardNode.put("question", flashcard.getQuestion());
+        flashcardNode.put("answer", flashcard.getAnswer());
+        flashcardNode.put("topic", flashcard.getTopic());
+        flashcardNode.put("status", flashcard.getStatus());
+
+        // Add the new flashcard to the array
+        flashcardsArray.add(flashcardNode);
+
+        // Write the array back to the file with pretty formatting
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, flashcardsArray);
+
+        lblMessage.setText("Flashcard saved to: " + filePath);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
 
     private void deleteCategoryFolder(String category) {
-        Path directory = Paths.get("Flashcards", category);
-        try {
-            // Delete all contents of the directory recursively and then the directory itself
-            if (Files.exists(directory)) { // Only proceed if the directory exists
-                Files.walk(directory)
-                        .sorted(Comparator.reverseOrder())
-                        .map(Path::toFile)
-                        .forEach(File::delete);
+         Path directory = Paths.get("Flashcards", category);
+    try {
+        // Delete all contents of the directory recursively and then the directory itself
+        if (Files.exists(directory)) { // Only proceed if the directory exists
+            Files.walk(directory)
+                    .sorted(Comparator.reverseOrder())  // Delete from deepest to shallowest
+                    .map(Path::toFile)
+                    .forEach(File::delete);
 
-                System.out.println("Category folder deleted successfully.");
-            } else {
-                System.out.println("Directory does not exist, nothing to delete.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("An error occurred while deleting the category folder.");
+            System.out.println("Category folder deleted successfully.");
+        } else {
+            System.out.println("Directory does not exist, nothing to delete.");
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.out.println("An error occurred while deleting the category folder.");
     }
-
+    }
+    // This method updates the category combo box with existing category folders
     private void updateCategoryComboBox() {
         String directoryPath = "Flashcards";
         File directory = new File(directoryPath);
 
-        if (directory.exists() && directory.isDirectory()) {
+        if (directory.exists() && directory.isDirectory()) { //Looks for directory to fetch categories to populate combo box with
             File[] categoryFolders = directory.listFiles(File::isDirectory);
             DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxCategory.getModel();
             model.removeAllElements();
@@ -543,30 +555,33 @@ public class FlashcardInput extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidName(String name) {
-        String invalidChars = "\\/:*?\"<>|";
-        for (char c : invalidChars.toCharArray()) {
-            if (name.indexOf(c) >= 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void updateTopicComboBox(String selectedCategory) {
-        String directoryPath = "Flashcards/" + selectedCategory;
-        File directory = new File(directoryPath);
-
-        if (directory.exists() && directory.isDirectory()) {
-            File[] topicFolders = directory.listFiles(File::isDirectory);
-            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxTopic.getModel();
-            model.removeAllElements();
-
-            for (File topicFolder : topicFolders) {
-                model.addElement(topicFolder.getName());
-            }
+    // This method checks if a given name contains any invalid characters
+private boolean isValidName(String name) {
+    String invalidChars = "\\/:*?\"<>|";
+    for (char c : invalidChars.toCharArray()) {
+        if (name.indexOf(c) >= 0) {
+            return false; // Invalid character found in the name
         }
     }
+    return true; // Name is valid
+}
+
+
+    // This method updates the topic combo box with existing topic folders within the selected category
+private void updateTopicComboBox(String selectedCategory) {
+    String directoryPath = "Flashcards/" + selectedCategory;
+    File directory = new File(directoryPath);
+
+    if (directory.exists() && directory.isDirectory()) {
+        File[] topicFolders = directory.listFiles(File::isDirectory);
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cboxTopic.getModel();
+        model.removeAllElements();
+
+        for (File topicFolder : topicFolders) {
+            model.addElement(topicFolder.getName());
+        }
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -576,8 +591,6 @@ public class FlashcardInput extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoveTopic;
     private javax.swing.JComboBox<String> cboxCategory;
     private javax.swing.JComboBox<String> cboxTopic;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAnswer;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblFlashcardConfirmation;
@@ -586,6 +599,8 @@ public class FlashcardInput extends javax.swing.JFrame {
     private javax.swing.JLabel lblTopic;
     private javax.swing.JPanel pnlFlashcardTopFrame;
     private javax.swing.JPanel pnlInputBackground;
+    private javax.swing.JScrollPane sbar1;
+    private javax.swing.JScrollPane sbar2;
     private javax.swing.JTextArea txtAnswerInput;
     private javax.swing.JTextArea txtQuestionInput;
     // End of variables declaration//GEN-END:variables
