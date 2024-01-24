@@ -1,0 +1,79 @@
+[ {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the SI unit of electric charge?",
+  "answer" : "The SI unit of electric charge is the Coulomb (C).",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the speed of light in a vacuum?",
+  "answer" : "The speed of light in a vacuum is approximately 299,792,458 meters per second (m/s).",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the first law of thermodynamics?",
+  "answer" : "The first law of thermodynamics, also known as the law of conservation of energy, states that energy cannot be created or destroyed, only converted from one form to another.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the formula for the gravitational force between two objects?",
+  "answer" : "The formula for gravitational force between two objects is F = G * (m1 * m2) / r^2, where F represents force, G is the gravitational constant, m1 and m2 are the masses of the two objects, and r is the distance between them.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is Ohm's Law?",
+  "answer" : "Ohm's Law states that the current (I) flowing through a conductor is directly proportional to the voltage (V) across it and inversely proportional to the resistance (R) of the conductor. Mathematically, it is expressed as I = V / R.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the concept of inertia?",
+  "answer" : "Inertia is the property of an object to resist changes in its state of motion. An object at rest tends to stay at rest, and an object in motion tends to stay in motion unless acted upon by an external force.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the principle of conservation of momentum?",
+  "answer" : "The principle of conservation of momentum states that the total momentum of a closed system remains constant if no external forces act on it. Mathematically, it can be expressed as the sum of initial momenta equals the sum of final momenta.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the concept of electric potential energy?",
+  "answer" : "Electric potential energy is the energy stored in an electric field due to the position of charged particles. It is calculated as U = k * (q1 * q2) / r, where U represents potential energy, k is the Coulomb constant, q1 and q2 are the charges, and r is the distance between them.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What are the three primary colors of light?",
+  "answer" : "The three primary colors of light are red, green, and blue (RGB). By mixing these colors, various other colors can be created in additive color mixing.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the difference between speed and velocity?",
+  "answer" : "Speed is a scalar quantity that measures how fast an object is moving, while velocity is a vector quantity that includes both speed and direction. Velocity specifies the rate and direction of motion.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the concept of electromagnetic induction?",
+  "answer" : "Electromagnetic induction is the process of generating an electromotive force (EMF) or voltage in a conductor when it is exposed to a changing magnetic field. This phenomenon is the basis for generating electricity in generators and transformers.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the principle of buoyancy?",
+  "answer" : "The principle of buoyancy, as described by Archimedes' principle, states that an object immersed in a fluid experiences an upward buoyant force equal to the weight of the displaced fluid. This is why objects float in water or other fluids.",
+  "topic" : "Exam Prep",
+  "status" : true
+}, {
+  "flashCardCategory" : "Physics",
+  "question" : "What is the conservation of energy principle?",
+  "answer" : "The conservation of energy principle states that the total energy of an isolated system remains constant over time. Energy can be converted from one form to another, but it is never created or destroyed.",
+  "topic" : "Exam Prep",
+  "status" : true
+} ]

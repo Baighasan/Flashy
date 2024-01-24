@@ -1,0 +1,128 @@
+[
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is a programming language?",
+    "answer": "A programming language is a formal language used to communicate instructions to a computer. It consists of a set of rules and syntax for writing code that can be executed by a computer.",
+    "topic": "Programming Basics",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is an algorithm?",
+    "answer": "An algorithm is a step-by-step procedure or set of instructions for solving a specific problem or performing a task. Algorithms are fundamental in computer science and programming.",
+    "topic": "Algorithms",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is a data structure?",
+    "answer": "A data structure is a way of organizing and storing data in a computer's memory. It defines the relationship between data elements and the operations that can be performed on them.",
+    "topic": "Data Structures",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is a variable in programming?",
+    "answer": "A variable is a named storage location in a program's memory where data can be stored and manipulated. Variables have types and values.",
+    "topic": "Variables and Data Types",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is object-oriented programming (OOP)?",
+    "answer": "Object-oriented programming is a programming paradigm that organizes code into objects, which are instances of classes. It emphasizes encapsulation, inheritance, and polymorphism.",
+    "topic": "Object-Oriented Programming",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is a function or method in programming?",
+    "answer": "A function or method is a reusable block of code that performs a specific task or operation. Functions help in organizing and simplifying code.",
+    "topic": "Functions and Methods",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is the purpose of conditional statements in programming?",
+    "answer": "Conditional statements allow a program to make decisions and execute different code blocks based on specified conditions. Common examples include if statements and switch statements.",
+    "topic": "Conditional Statements",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is debugging in software development?",
+    "answer": "Debugging is the process of identifying and fixing errors or bugs in a software program. It involves finding and correcting issues that cause the program to behave unexpectedly.",
+    "topic": "Debugging",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is a database in computer science?",
+    "answer": "A database is a structured collection of data that is organized and stored for efficient retrieval and manipulation. Databases are essential for data management in software applications.",
+    "topic": "Databases",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is the purpose of an operating system?",
+    "answer": "An operating system (OS) is software that manages computer hardware and provides services for running applications. It controls hardware resources and facilitates user interaction.",
+    "topic": "Operating Systems",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is the difference between HTTP and HTTPS?",
+    "answer": "HTTP (Hypertext Transfer Protocol) is a protocol for transmitting data over the internet, while HTTPS (Hypertext Transfer Protocol Secure) is a secure version of HTTP that uses encryption to protect data during transmission.",
+    "topic": "Internet and Web Technologies",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is a data breach?",
+    "answer": "A data breach is a security incident in which unauthorized access, disclosure, or acquisition of sensitive data occurs. It can lead to the exposure of confidential information.",
+    "topic": "Cybersecurity",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is version control in software development?",
+    "answer": "Version control is a system that tracks changes to files and code over time, allowing multiple developers to collaborate and manage code revisions. Git is a popular version control system.",
+    "topic": "Version Control",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is cloud computing?",
+    "answer": "Cloud computing is the delivery of computing services, such as storage, processing, and applications, over the internet. It allows users to access resources on-demand from remote servers.",
+    "topic": "Cloud Computing",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is the difference between a compiler and an interpreter?",
+    "answer": "A compiler translates the entire source code into machine code before execution, while an interpreter translates and executes the code line by line. Both are used in programming languages.",
+    "topic": "Compilers and Interpreters",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is cybersecurity?",
+    "answer": "Cybersecurity is the practice of protecting computer systems, networks, and data from theft, damage, or unauthorized access. It includes measures to ensure data confidentiality, integrity, and availability.",
+    "topic": "Cybersecurity",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is the role of an algorithm in search engines?",
+    "answer": "Algorithms in search engines determine the order in which search results are displayed based on relevance to a user's query. They analyze and rank web pages to provide accurate results.",
+    "topic": "Search Algorithms",
+    "status": true
+  },
+  {
+    "flashCardCategory": "Computer Science",
+    "question": "What is artificial intelligence (AI)?",
+    "answer": "Artificial intelligence is a field of computer science that focuses on creating systems and machines that can perform tasks that typically require human intelligence, such as learning and problem-solving.",
+    "topic": "Artificial Intelligence",
+    "status": true
+  }
+]

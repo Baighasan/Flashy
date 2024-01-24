@@ -1,0 +1,73 @@
+[ {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is an electrolyte?",
+  "answer" : "An electrolyte is a substance that can conduct electricity when dissolved in a solution or in molten form. It contains ions that can move freely, allowing the flow of electric current.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is an electrochemical cell?",
+  "answer" : "An electrochemical cell is a device that converts chemical energy into electrical energy or vice versa through redox reactions. It consists of two electrodes (anode and cathode) and an electrolyte.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is oxidation in electrochemistry?",
+  "answer" : "Oxidation in electrochemistry is the process in which an element or compound loses electrons, resulting in an increase in its oxidation state. It typically occurs at the anode of an electrochemical cell.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is reduction in electrochemistry?",
+  "answer" : "Reduction in electrochemistry is the process in which an element or compound gains electrons, resulting in a decrease in its oxidation state. It typically occurs at the cathode of an electrochemical cell.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is the standard hydrogen electrode (SHE) used for?",
+  "answer" : "The standard hydrogen electrode (SHE) is used as a reference electrode in electrochemistry to measure the standard electrode potential of other half-cells. Its electrode potential is defined as 0 volts at all conditions.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is Faraday's law of electrolysis?",
+  "answer" : "Faraday's law of electrolysis states that the amount of substance deposited or liberated at an electrode during electrolysis is directly proportional to the quantity of electric charge passed through the electrolyte.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is a galvanic cell?",
+  "answer" : "A galvanic cell, also known as a voltaic cell, is an electrochemical cell that converts chemical energy into electrical energy through spontaneous redox reactions. It is the basis for batteries.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is the Nernst equation used for?",
+  "answer" : "The Nernst equation is used to calculate the electrode potential of an electrochemical cell under non-standard conditions, taking into account the concentration of ions in the solution.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is corrosion in electrochemistry?",
+  "answer" : "Corrosion is a redox process in which metals react with their environment, often oxygen and moisture, leading to the degradation and weakening of metal structures. It is an undesirable electrochemical phenomenon.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is a half-cell in electrochemistry?",
+  "answer" : "A half-cell is one of the two compartments of an electrochemical cell, either the anode or the cathode, where either oxidation or reduction occurs. Half-cells are combined to create a complete electrochemical cell.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is the purpose of a salt bridge in electrochemical cells?",
+  "answer" : "A salt bridge is used in electrochemical cells to maintain electrical neutrality and allow the flow of ions between the two half-cells, preventing the buildup of charge and maintaining cell balance.",
+  "topic" : "Electrochemistry",
+  "status" : true
+}, {
+  "flashCardCategory" : "Chemistry",
+  "question" : "What is the significance of the standard electrode potential (E°) in electrochemistry?",
+  "answer" : "The standard electrode potential (E°) is a measure of the tendency of an electrode to undergo reduction. It helps in predicting the direction of redox reactions and the cell potential under standard conditions.",
+  "topic" : "Electrochemistry",
+  "status" : true
+} ]
