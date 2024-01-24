@@ -173,17 +173,20 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         pnlBackground.add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 190, 690));
 
         chartPanel.setLayout(new java.awt.BorderLayout());
-        pnlBackground.add(chartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 500, 350));
+        pnlBackground.add(chartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 770, 420));
 
         lblStreakDisplay.setBackground(new java.awt.Color(255, 204, 204));
-        lblStreakDisplay.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblStreakDisplay.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        lblStreakDisplay.setForeground(new java.awt.Color(255, 51, 51));
+        lblStreakDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStreakDisplay.setText("7");
         lblStreakDisplay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        pnlBackground.add(lblStreakDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 260, 120, 50));
+        pnlBackground.add(lblStreakDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 170, 60, 50));
 
         lblStreak.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lblStreak.setForeground(new java.awt.Color(255, 102, 102));
         lblStreak.setText("YOUR STREAK :");
-        pnlBackground.add(lblStreak, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, 200, 50));
+        pnlBackground.add(lblStreak, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 170, 130, 50));
 
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_flashy_1.png"))); // NOI18N
         lblTitle.setText("jLabel2");
@@ -195,7 +198,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
 
         imgStreak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rsz_1calendar5662.jpg"))); // NOI18N
         imgStreak.setText("jLabel4");
-        pnlBackground.add(imgStreak, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 250, 50, 70));
+        pnlBackground.add(imgStreak, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 160, 50, 70));
 
         getContentPane().add(pnlBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 1280, 690));
 
