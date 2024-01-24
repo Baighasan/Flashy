@@ -3,7 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.flashy;
-
+import javax.swing.JPanel;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import javax.swing.JFrame;
 import javax.swing.JFrame;
 
 /**
@@ -18,15 +26,32 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     /**
      * Creates new form Flashy_HomeGUI
      */
-    public Flashy_HomeGUI() {
+    public Flashy_HomeGUI(String chartTitle) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //Create the timer frame on initialization so timer is able to run in background and progress is saved
          timerFrame = new TimerGUI(); 
          
+         JFreeChart lineChart = ChartFactory.createLineChart(
+         chartTitle,
+         "Day","Number of Pomodoro Sessions",
+         createDataset(),
+         PlotOrientation.VERTICAL,
+         true,true,false);
          
         initComponents();
+        chartPanel.add(new ChartPanel( lineChart));
     }
-
+    private DefaultCategoryDataset createDataset( ) {
+      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+      dataset.addValue( 1 , "Pomodoro Sessions" , "Mon" );
+      dataset.addValue( 5 , "Pomodoro Sessions" , "Tues" );
+      dataset.addValue( 5 , "Pomodoro Sessions" ,  "Wed" );
+      dataset.addValue( 8 , "Pomodoro Sessions" , "Thur" );
+      dataset.addValue( 9 , "Pomodoro Sessions" , "Fri" );
+      dataset.addValue( 12 , "Pomodoro Sessions" , "Sat" );
+      dataset.addValue( 15 , "Pomodoro Sessions" , "Sun" );
+      return dataset;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +73,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         btnTimer = new javax.swing.JButton();
         btnFlashcardsView = new javax.swing.JButton();
         btnFlashcardsAdd1 = new javax.swing.JButton();
-        pnlChart = new javax.swing.JPanel();
+        chartPanel = new javax.swing.JPanel();
         lblStreakDisplay = new javax.swing.JLabel();
         lblStreak = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
@@ -147,8 +172,8 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
 
         pnlBackground.add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 190, 690));
 
-        pnlChart.setLayout(new java.awt.BorderLayout());
-        pnlBackground.add(pnlChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 500, 350));
+        chartPanel.setLayout(new java.awt.BorderLayout());
+        pnlBackground.add(chartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 500, 350));
 
         lblStreakDisplay.setBackground(new java.awt.Color(255, 204, 204));
         lblStreakDisplay.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -237,7 +262,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Flashy_HomeGUI().setVisible(true);
+                new Flashy_HomeGUI(null).setVisible(true);
             }
         });
     }
@@ -248,6 +273,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnFlashcardsView;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnTimer;
+    private javax.swing.JPanel chartPanel;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgStreak;
     private javax.swing.JLabel lblMonitorProgress;
@@ -257,7 +283,6 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblUserGreeting;
     private javax.swing.JLabel lblUserMessage;
     private javax.swing.JPanel pnlBackground;
-    private javax.swing.JPanel pnlChart;
     private javax.swing.JPanel pnlHome;
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlTopBar;
