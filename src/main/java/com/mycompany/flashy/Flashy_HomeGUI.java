@@ -3,6 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.flashy;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -13,10 +21,30 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     /**
      * Creates new form Flashy_HomeGUI
      */
-    public Flashy_HomeGUI() {
+    public Flashy_HomeGUI(String chartTitle ) {
+        JFreeChart lineChart = ChartFactory.createLineChart(
+         chartTitle,
+         "Years","Number of Schools",
+         createDataset(),
+         PlotOrientation.VERTICAL,
+         true,true,false);
+        
+        
         initComponents();
+        chartPanel.add(new ChartPanel( lineChart));
+        
     }
-
+    private DefaultCategoryDataset createDataset( ) {
+      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+      dataset.addValue( 15 , "schools" , "1970" );
+      dataset.addValue( 30 , "schools" , "1980" );
+      dataset.addValue( 60 , "schools" ,  "1990" );
+      dataset.addValue( 120 , "schools" , "2000" );
+      dataset.addValue( 240 , "schools" , "2010" );
+      dataset.addValue( 300 , "schools" , "2014" );
+      return dataset;
+   }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +71,7 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        chartPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -169,8 +197,8 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 190, 690));
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel9.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 500, 350));
+        chartPanel.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(chartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 500, 350));
 
         jLabel11.setBackground(new java.awt.Color(255, 204, 204));
         jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -237,12 +265,13 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Flashy_HomeGUI().setVisible(true);
+                new Flashy_HomeGUI(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel chartPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -266,7 +295,6 @@ public class Flashy_HomeGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables

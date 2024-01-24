@@ -3,6 +3,13 @@ package com.mycompany.flashy;
 import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import org.json.*;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class PomodoroTimer {
 
@@ -94,6 +101,10 @@ public class PomodoroTimer {
                 } else {
                     updateLabel(remainingTimeInSeconds);
                     remainingTimeInSeconds--;
+                    
+                    if (isStudySession && remainingTimeInSeconds % 60 == 0) {
+            updateStudyTimeLog(1); // Update the study time log every minute
+        }
 
                     // Calculate the progress and update the progress bar here
                     updateProgressBar();
@@ -276,6 +287,36 @@ public class PomodoroTimer {
 
         // Always prompt the next action after skipping, regardless of paused state
         promptNextAction();
+    }
+} private void updateStudyTimeLog(int minutesStudied) {
+    String filePath = "studyTimeLog.json";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String today = sdf.format(new Date());
+
+    try {
+        File file = new File(filePath);
+        JSONObject jsonObject;
+
+        if (file.exists()) {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
+            jsonObject = new JSONObject(content);
+        } else {
+            jsonObject = new JSONObject();
+        }
+
+        int totalMinutes = minutesStudied;
+        if (jsonObject.has(today)) {
+            totalMinutes += jsonObject.getInt(today);
+        }
+
+        jsonObject.put(today, totalMinutes);
+
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            fileWriter.write(jsonObject.toString(4)); // Indented with 4 spaces
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
 }
