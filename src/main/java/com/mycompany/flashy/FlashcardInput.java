@@ -49,7 +49,6 @@ public class FlashcardInput extends javax.swing.JFrame {
     private void initComponents() {
 
         lblQuestion = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
         lblTopic = new javax.swing.JLabel();
         btnAddCategory = new javax.swing.JButton();
         btnRemoveCategory = new javax.swing.JButton();
@@ -67,6 +66,8 @@ public class FlashcardInput extends javax.swing.JFrame {
         pnlInputBackground = new javax.swing.JPanel();
         lblAnswer = new javax.swing.JLabel();
         lblFlashcardConfirmation = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -75,16 +76,6 @@ public class FlashcardInput extends javax.swing.JFrame {
         lblQuestion.setForeground(new java.awt.Color(102, 102, 102));
         lblQuestion.setText("Front (Question)");
         getContentPane().add(lblQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 109, 140, 30));
-
-        btnAdd.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 51, 51));
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, 87, 33));
 
         lblTopic.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lblTopic.setForeground(new java.awt.Color(102, 102, 102));
@@ -202,28 +193,55 @@ public class FlashcardInput extends javax.swing.JFrame {
         lblFlashcardConfirmation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblFlashcardConfirmation.setForeground(new java.awt.Color(102, 102, 102));
 
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 51, 51));
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlInputBackgroundLayout = new javax.swing.GroupLayout(pnlInputBackground);
         pnlInputBackground.setLayout(pnlInputBackgroundLayout);
         pnlInputBackgroundLayout.setHorizontalGroup(
             pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
-                        .addGap(247, 247, 247)
-                        .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(lblAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                        .addComponent(btnBack)
+                        .addGap(157, 157, 157)
+                        .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnlInputBackgroundLayout.setVerticalGroup(
             pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInputBackgroundLayout.createSequentialGroup()
                 .addContainerGap(203, Short.MAX_VALUE)
                 .addComponent(lblAnswer)
-                .addGap(101, 101, 101)
-                .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInputBackgroundLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBack)
+                        .addContainerGap())
+                    .addGroup(pnlInputBackgroundLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(pnlInputBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFlashcardConfirmation, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20))))
         );
 
         getContentPane().add(pnlInputBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 750, 370));
@@ -428,16 +446,21 @@ public class FlashcardInput extends javax.swing.JFrame {
                     .sorted(Comparator.reverseOrder())
                     .map(Path::toFile)
                     .forEach(File::delete);
-            System.out.println("Topic folder deleted successfully.");
+            lblFlashcardConfirmation.setText("Topic folder deleted successfully.");
         } else {
-            System.out.println("Directory does not exist, nothing to delete.");
+            lblFlashcardConfirmation.setText("Directory does not exist, nothing to delete.");
         }
     } catch (IOException e) {
         // Print the stack trace if an IOException occurs during the deletion process.
         e.printStackTrace();
-        System.out.println("An error occurred while deleting the topic folder.");
+        lblFlashcardConfirmation.setText("An error occurred while deleting the topic folder.");
     }
     }//GEN-LAST:event_btnRemoveTopicActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -530,13 +553,13 @@ public class FlashcardInput extends javax.swing.JFrame {
                     .map(Path::toFile)
                     .forEach(File::delete);
 
-            System.out.println("Category folder deleted successfully.");
+            lblFlashcardConfirmation.setText("Category folder deleted successfully.");
         } else {
-            System.out.println("Directory does not exist, nothing to delete.");
+            lblFlashcardConfirmation.setText("Directory does not exist, nothing to delete.");
         }
     } catch (IOException e) {
         e.printStackTrace();
-        System.out.println("An error occurred while deleting the category folder.");
+        lblFlashcardConfirmation.setText("An error occurred while deleting the category folder.");
     }
     }
     // This method updates the category combo box with existing category folders
@@ -587,6 +610,7 @@ private void updateTopicComboBox(String selectedCategory) {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddCategory;
     private javax.swing.JButton btnAddTopic;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRemoveCategory;
     private javax.swing.JButton btnRemoveTopic;
     private javax.swing.JComboBox<String> cboxCategory;

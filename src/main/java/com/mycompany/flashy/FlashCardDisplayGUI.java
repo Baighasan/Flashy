@@ -5,12 +5,12 @@
 package com.mycompany.flashy;
 import java.awt.Component;
 import java.awt.Font;
-import java.util.ArrayList; 
 import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -48,6 +48,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         tblFlashcardDisplay = new javax.swing.JTable();
         pnlBackground = new javax.swing.JPanel();
         pnlFlashcardOverview = new javax.swing.JPanel();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,11 +83,21 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             .addGap(0, 425, Short.MAX_VALUE)
         );
 
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 626, Short.MAX_VALUE)
+            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(btnBack)
+                .addContainerGap(523, Short.MAX_VALUE))
             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
                     .addContainerGap(29, Short.MAX_VALUE)
@@ -95,7 +106,10 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                .addContainerGap(457, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addContainerGap())
             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
                     .addContainerGap(26, Short.MAX_VALUE)
@@ -107,6 +121,11 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,6 +161,9 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
     }
 });
     } private void populateTable() {
+        bubbleSortCategories(categories);
+        
+        // Existing code to create and populate the table model
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Category / Topic");
         tableModel.addColumn("Card Counts");
@@ -161,6 +183,18 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
         tblFlashcardDisplay.getColumn("Category / Topic").setCellRenderer(new IndentedCellRenderer());
         tblFlashcardDisplay.getColumn("").setCellRenderer(new ButtonRenderer());
         tblFlashcardDisplay.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+    } private void bubbleSortCategories(List<FlashcardCategory> categories) {
+        int n = categories.size();
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-i-1; j++) {
+                if (categories.get(j).getFlashcardCategory().compareTo(categories.get(j+1).getFlashcardCategory()) > 0) {
+                    // Swap categories.get(j+1) and categories.get(j)
+                    FlashcardCategory temp = categories.get(j);
+                    categories.set(j, categories.get(j+1));
+                    categories.set(j+1, temp);
+                }
+            }
+        }
     }
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -185,7 +219,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             button = new JButton();
             button.setOpaque(true);
             button.addActionListener(e -> {
-    System.out.println("Button clicked");
+
     fireEditingStopped();
 });
         }
@@ -244,8 +278,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
 
         if (selectedCategory != null && selectedTopic != null) {
             // Logic for when a topic row is clicked
-            System.out.println("Category: " + selectedCategory.getFlashcardCategory());
-            System.out.println("Topic: " + selectedTopic.getTopicName());
+           
             FlashcardReviewInterface reviewInterface = new FlashcardReviewInterface(selectedTopic);
             reviewInterface.setVisible(true);
 
@@ -253,7 +286,7 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             FlashCardDisplayGUI.this.dispose();
         } else if (selectedCategory != null) {
             // Logic for when a category row is clicked, if needed
-            System.out.println("Category row clicked: " + selectedCategory.getFlashcardCategory());
+           
         }
     }
     isPushed = false;
@@ -295,9 +328,10 @@ public class FlashCardDisplayGUI extends javax.swing.JFrame {
             return c;
         }
     
-    }
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlFlashcardOverview;
     private javax.swing.JScrollPane sbar1;

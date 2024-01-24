@@ -85,6 +85,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         lblTopic = new javax.swing.JLabel();
         lblCategory = new javax.swing.JLabel();
         pnlFlashcardEditBottom = new javax.swing.JPanel();
+        btnBack = new javax.swing.JButton();
         pnlFlashcardEditMiddle = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -170,15 +171,29 @@ public class FlashcardEditing extends javax.swing.JFrame {
         pnlFlashcardEditBottom.setBackground(new java.awt.Color(255, 153, 153));
         pnlFlashcardEditBottom.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 0)));
 
+        btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFlashcardEditBottomLayout = new javax.swing.GroupLayout(pnlFlashcardEditBottom);
         pnlFlashcardEditBottom.setLayout(pnlFlashcardEditBottomLayout);
         pnlFlashcardEditBottomLayout.setHorizontalGroup(
             pnlFlashcardEditBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 628, Short.MAX_VALUE)
+            .addGroup(pnlFlashcardEditBottomLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(btnBack)
+                .addContainerGap(494, Short.MAX_VALUE))
         );
         pnlFlashcardEditBottomLayout.setVerticalGroup(
             pnlFlashcardEditBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFlashcardEditBottomLayout.createSequentialGroup()
+                .addContainerGap(207, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(24, 24, 24))
         );
 
         getContentPane().add(pnlFlashcardEditBottom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 630, 260));
@@ -244,6 +259,11 @@ public class FlashcardEditing extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No topic found or no flashcards available for the selected topic.");
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,29 +351,7 @@ public class FlashcardEditing extends javax.swing.JFrame {
         return null;
     }
 
-    // Method to print out the flashcards of a specific topic.
-    private void printFlashcards(FlashcardTopic topic) {
-        // Retrieve the list of flashcards for the provided topic.
-        ArrayList<Flashcard> flashcards = topic.getFlashcardList();
-
-        // Check if the flashcard list is empty.
-        if (flashcards.isEmpty()) {
-            // Print a message indicating there are no flashcards for the topic.
-            System.out.println("No flashcards available for the topic: " + topic.getTopicName());
-            return;
-        }
-
-        // Loop through each flashcard in the flashcard list.
-        for (Flashcard flashcard : flashcards) {
-            // Print the question of the flashcard.
-            System.out.println("Question: " + flashcard.getQuestion());
-            // Print the answer of the flashcard.
-            System.out.println("Answer: " + flashcard.getAnswer());
-            // Print a separator line.
-            System.out.println("---");
-        }
-    }
-
+    
     // Method to update the flashcard table with the flashcards of a specific topic.
     private void updateFlashcardTable(FlashcardCategory category, FlashcardTopic topic) {
         // Retrieve the list of flashcards for the provided topic.
@@ -543,6 +541,7 @@ class ButtonEditor extends DefaultCellEditor {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cboxCategorySelection;
     private javax.swing.JComboBox<String> cboxTopicSelection;
