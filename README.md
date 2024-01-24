@@ -1,6 +1,6 @@
 # Flashy
 
-A Java with Maven program that combines the flashcard study technique with a pomodoro timer.
+A Java with Maven program that combines the flashcard study technique with a pomodoro timer. Run "Flashy-HomeGUI.java" to start.
 
 
 ## Flashcards
